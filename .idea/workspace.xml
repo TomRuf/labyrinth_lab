@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3673f53d-4749-45a7-888f-8414755c5d3f" name="Default Changelist" comment="" />
+    <list default="true" id="3673f53d-4749-45a7-888f-8414755c5d3f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Start/start.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Start/start.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Start/start.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/router.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/AbstractView.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/Creator.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/Selection.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/Simulation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/Start.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/labyrinthLab" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1vcvb83ok7u0TYsPhwTPJqSlTSP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -17,22 +42,43 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/views" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="JavaScript Debug.labyrinth.html">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\views" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.selection.html">
+    <configuration name="labyrinth.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/labyrinth.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="labyrinth.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/project/labyrinth.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
-    <configuration name="labyrinth.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/labyrinth.js" working-dir="$PROJECT_DIR$">
+    <configuration name="selection.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Selection/selection.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="start.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Start/start.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="test.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Selection/test.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.selection.html" />
+        <item itemvalue="JavaScript Debug.test.html" />
+        <item itemvalue="JavaScript Debug.labyrinth.html (1)" />
+        <item itemvalue="JavaScript Debug.start.html" />
         <item itemvalue="JavaScript Debug.labyrinth.html" />
-        <item itemvalue="Node.js.labyrinth.js" />
       </list>
     </recent_temporary>
   </component>
@@ -49,6 +95,17 @@
       <workItem from="1627387378351" duration="1433000" />
       <workItem from="1627394712922" duration="397000" />
       <workItem from="1627397980416" duration="54000" />
+      <workItem from="1627456715667" duration="19577000" />
+      <workItem from="1627492450070" duration="7594000" />
+      <workItem from="1627538248831" duration="36136000" />
+      <workItem from="1627714354034" duration="7619000" />
+      <workItem from="1627899574195" duration="20854000" />
+      <workItem from="1627969391133" duration="24921000" />
+      <workItem from="1628055979187" duration="20205000" />
+      <workItem from="1628141615273" duration="11613000" />
+      <workItem from="1628183056992" duration="5259000" />
+      <workItem from="1628231448142" duration="3184000" />
+      <workItem from="1628237003736" duration="6659000" />
     </task>
     <servers />
   </component>
@@ -65,5 +122,6 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

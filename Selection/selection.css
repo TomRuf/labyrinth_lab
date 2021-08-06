@@ -1,0 +1,321 @@
+:root {
+    --text: #181818;
+    --primary: #00467f;
+    --secondary: #1F9AFF;
+    --white: #ffffff;
+    --greyLight-1: #e4ebf5;
+    --greyLight-2: #c8d0e7;
+    --shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
+    --inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem var(--white);
+    --darkGrey: #808080;
+    --lightGrey: #D3D3D3;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: var(--greyLight-1);
+}
+
+.text {
+    color: var(--text);
+}
+
+.title {
+    margin: 7px;
+}
+
+.content {
+    text-align: center;
+    padding: 80px;
+    max-width: 1920px;
+    margin: auto;
+}
+
+.table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 800px));
+    justify-content: center;
+}
+
+.table-item {
+    margin: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+}
+
+.grid-item {
+    border-radius: 0.317rem;
+    margin: 10px;
+    height: 200px;
+    width: 200px;
+    background: var(--greyLight-1);
+    box-shadow: var(--inner-shadow);
+}
+
+.button-div {
+    margin: 10px;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+}
+
+.grid-item:hover {
+    opacity: 0.85;
+    cursor: pointer;
+}
+
+.robot-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    justify-content: center;
+}
+
+.robot-item {
+    width: 150px;
+    height: 500px;
+    background: var(--greyLight-1);
+    border-radius: 0.317rem;
+    margin: 10px;
+    justify-content: space-between;
+    flex-direction: column;
+    display: table;
+    position: relative;
+    box-shadow: var(--inner-shadow);
+}
+
+.robot-item:hover {
+    opacity: 0.85;
+    cursor: pointer;
+}
+
+.start-button {
+    margin-top: 30px;
+    width: 60%;
+    padding: 0.75rem 1rem;
+    border: 0;
+    border-radius: 0.317rem;
+    background-color: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.button {
+    width: 90%;
+    padding: 0.75rem 1rem;
+    border: 0;
+    border-radius: 0.317rem;
+    background-color: var(--primary);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+}
+
+.button:hover {
+    opacity: 0.85;
+}
+
+.button:active {
+    box-shadow: inset 0 3px 4px hsla(0, 0%, 0%, 0.2);
+}
+
+.button:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.add-button {
+    width: 30%;
+    height: 30%;
+    margin: auto;
+    border: 0;
+    color: #fff;
+    background-color: var(--primary);
+    text-decoration: none;
+    font-size: 1.5rem;
+    cursor:pointer;
+    border-radius: 50%;
+}
+
+.add-button:hover {
+    opacity: 0.85;
+}
+
+.add-button:active {
+    box-shadow: inset 0 3px 4px hsla(0, 0%, 0%, 0.2);
+}
+
+.add-button:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.details-button {
+    bottom: 2%;
+    left: 5%;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.3);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 0 auto;
+    padding: 20px;
+    width: 40%;
+    border-radius: 0.317rem;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.input {
+    width: 500px;
+    height: 100px;
+    border: none;
+    border-radius: 1rem;
+    outline: none;
+    font-size: 50px;
+    font-weight: bold;
+    padding: 0 4vmin;
+    box-shadow: var(--inner-shadow);
+    background: var(--greyLight-1);
+    color: var(--primary);
+    caret-color: var(--primary);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.canvas {
+    border: 5px solid rgba(255,255,255,0.1);
+}
+
+/*----------------------------------------------------*/
+/*                      MODAL                         */
+/*----------------------------------------------------*/
+
+.modal-content {
+    background: var(--greyLight-1);
+    min-width: 800px;
+    max-width: 1000px;
+}
+
+.selection-map {
+    background: darkgrey;
+    width: 800px;
+    height: 800px;
+    margin: 0 auto;
+}
+
+.drag-buttons-box {
+    height: 50px;
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.draggable-start {
+    height: 50px;
+    width: 50px;
+    border: 0;
+    color: black;
+    background-color: yellow;
+    text-decoration: none;
+    cursor:pointer;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-size: 30px;
+}
+
+.draggable-finish {
+    width: 50px;
+    height: 50px;
+    border: 0;
+    color: black;
+    font-size: 30px;
+    background-color: green;
+    text-decoration: none;
+    cursor:pointer;
+    border-radius: 50%;
+}
+
+.lab-button {
+    background-color: var(--darkGrey);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 3%;
+    cursor: pointer;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.left {float: left;}
+
+.right {float: right;}
+
+.navigation-button-box {
+    width: 100%;
+    height: 50px;
+    padding-top: 20px;
+}
+
+.navigation-button {
+    width: 100px;
+    position: unset;
+}
+
+.creator-input {
+    width: 250px;
+    height: 50px;
+    font-size: 25px;
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+
+input:focus::-webkit-input-placeholder
+{
+    color: transparent;
+}

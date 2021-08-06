@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="selection.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Labyrinth Lab</title>
+</head>
+<body>
+<div class="content">
+
+    <input class="input" type="text" id="experiment-name" placeholder="EXPERIMENT XY"/>
+
+    <div id="table" class="table">
+        <div class="table-item">
+            <h2 class="text">SELECT LABYRINTH</h2>
+            <div id="map-grid" class="grid-container"></div>
+        </div>
+        <div class="table-item">
+            <h2 class="text">SELECT ROBOT</h2>
+            <div id="robot-grid" class="robot-grid">
+                <div id="robot-item-1" class="robot-item">
+                    <p>ROB 1</p>
+                    <p style="font-size: xx-large">&#129302;</p>
+                    <button id="detailsBtn1" class="button details-button">details</button>
+                </div>
+                <div id="robot-item-2" class="robot-item">
+                    <p>ROB 2</p>
+                    <p style="font-size: xx-large">&#129302;</p>
+                    <button id="detailsBtn2" class="button details-button">details</button>
+                </div>
+                <div id="robot-item-3" class="robot-item">
+                    <p>ROB 3</p>
+                    <p style="font-size: xx-large">&#129302;</p>
+                    <button id="detailsBtn3" class="button details-button">details</button>
+                </div>
+                <div id="robot-item-4" class="robot-item">
+                    <p>ROB 4</p>
+                    <p style="font-size: xx-large">&#129302;</p>
+                    <button id="detailsBtn4" class="button details-button">details</button>
+                </div>
+                <div id="robot-item-5" class="robot-item">
+                    <p>ROB 5</p>
+                    <p style="font-size: xx-large">&#129302;</p>
+                    <button id="detailsBtn5" class="button details-button">details</button>
+                </div>
+            </div>
+            <button id="start-button" class="start-button">Start</button>
+        </div>
+    </div>
+</div>
+
+<div id="robot-modal" class="modal">
+    <div class="modal-content">
+        <span id="close-robot-modal" class="close">&#10006;</span>
+        <p id="modalTitle"></p>
+    </div>
+</div>
+
+<div id="creator-modal" class="modal">
+    <div class="modal-content">
+        <span id="close-creator-modal" class="close">&#10006;</span>
+
+            <input class="input creator-input" type="text" id="map-name" placeholder="Labyrinth title"/>
+            <div id="drag-buttons-box" class="drag-buttons-box">
+                <button class="draggable-start left" id="draggable-start" draggable="true" ondragstart="drag(event)">S</button>
+                <button class="draggable-finish left" id="draggable-finish" draggable="true" ondragstart="drag(event)">F</button>
+                <button class="right" onclick="toggleLineCompleter()">line-completer</button>
+                <input id="size-slider" class="right" type="range" min="8" max="24" value="11">
+            </div>
+            <div class="selection-map" id="selection-map"></div>
+
+            <div class="navigation-button-box">
+                <button class="button navigation-button right" onclick="saveMap()">save</button>
+            </div>
+
+        <script src="creator.js" type="text/javascript"></script>
+    </div>
+</div>
+
+<script src="./selection.js" type="text/javascript"></script>
+
+</body>
+</html>
