@@ -14,23 +14,12 @@
 }
 
 body {
-    font-family: "Helvetica Neue", Arial, sans-serif;
     background: var(--greyLight-1);
 }
 
-.title {
-    font-size: xxx-large;
-    color: var(--text);
-}
-
-.title2 {
-    margin-top: 200px;
-    color: var(--text);
-}
-
-.content {
-    text-align: center;
-    padding: 200px;
+.simulation {
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow);
 }
 
 .grid-container {
@@ -39,33 +28,33 @@ body {
     justify-content: center;
 }
 
-.grid-item {
-    margin: 10px;
-    height: 150px;
-    width: 150px;
-    background: darkgrey;
-    border-radius: 0.317rem;
+.output-screen {
+    width: 300px;
+    height: 200px;
+    background: black;
+    margin: 20px;
+    overflow: auto;
 }
 
-canvas.game {
-    border: 5px solid rgba(0,0,0,0.1);
+.output-text {
+    color: white;
+    display: block;
+    margin-left: 5px;
 }
 
 .button {
-    display: inline-block;
-    margin: 0;
-    padding: 0.75rem 1rem;
-    border: 0;
-    border-radius: 0.317rem;
     background-color: var(--primary);
+    border: none;
     color: white;
+    padding: 15px 32px;
+    text-align: center;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: 16px;
+    width: 300px;
+    margin: 20px;
+    display: block;
     cursor: pointer;
-    -webkit-appearance: none;
-    -webkit-font-smoothing: antialiased;
+    border-radius: 0.317rem;
 }
 
 .button:hover {

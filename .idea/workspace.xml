@@ -2,21 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3673f53d-4749-45a7-888f-8414755c5d3f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Start/start.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Start/start.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Start/start.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/router.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/AbstractView.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/Creator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/Selection.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/Simulation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/Start.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Simulation/simulation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Simulation/simulation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/robot-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/robot-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/robot-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/robot-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/robot-5.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/creator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/selection.css" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/selection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Start/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth.css" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth.js" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,24 +48,29 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/views" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/img" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\img" />
       <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\views" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\img" />
+    </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.selection.html">
+  <component name="RunManager" selected="JavaScript Debug.start.html">
     <configuration name="labyrinth.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/labyrinth.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
-    <configuration name="labyrinth.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/project/labyrinth.html" useBuiltInWebServerPort="true">
+    <configuration name="selection.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Selection/selection.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
-    <configuration name="selection.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Selection/selection.html" useBuiltInWebServerPort="true">
+    <configuration name="simulation.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Simulation/simulation.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <configuration name="start.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Start/start.html" useBuiltInWebServerPort="true">
@@ -74,11 +81,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.selection.html" />
-        <item itemvalue="JavaScript Debug.test.html" />
-        <item itemvalue="JavaScript Debug.labyrinth.html (1)" />
         <item itemvalue="JavaScript Debug.start.html" />
-        <item itemvalue="JavaScript Debug.labyrinth.html" />
+        <item itemvalue="JavaScript Debug.selection.html" />
+        <item itemvalue="JavaScript Debug.labyrinth.html (1)" />
+        <item itemvalue="JavaScript Debug.simulation.html" />
+        <item itemvalue="JavaScript Debug.test.html" />
       </list>
     </recent_temporary>
   </component>
@@ -105,7 +112,17 @@
       <workItem from="1628141615273" duration="11613000" />
       <workItem from="1628183056992" duration="5259000" />
       <workItem from="1628231448142" duration="3184000" />
-      <workItem from="1628237003736" duration="6659000" />
+      <workItem from="1628237003736" duration="6963000" />
+      <workItem from="1628512960781" duration="705000" />
+      <workItem from="1628518561551" duration="4102000" />
+      <workItem from="1628576304119" duration="13675000" />
+      <workItem from="1628599790924" duration="3946000" />
+      <workItem from="1628659069382" duration="12578000" />
+      <workItem from="1628684282327" duration="2632000" />
+      <workItem from="1628748838480" duration="14879000" />
+      <workItem from="1628776410414" duration="6909000" />
+      <workItem from="1628843204752" duration="10959000" />
+      <workItem from="1629100371475" duration="14306000" />
     </task>
     <servers />
   </component>
@@ -123,5 +140,10 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/labyrinthLab" />
+    </ignored-roots>
   </component>
 </project>

@@ -295,7 +295,6 @@ function wallFollowerAlgorithm() {
             }
             break;
     }
-
 }
 
 window.requestAnimFrame = (function(){

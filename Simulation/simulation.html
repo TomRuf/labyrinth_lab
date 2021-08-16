@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="simulation.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Labyrinth Lab</title>
+</head>
+<body>
+
+<div class="grid-container">
+    <div class="grid-item">
+        <canvas id="simulation" class="simulation"></canvas>
+    </div>
+    <div class="grid-item">
+        <div id="output-screen" class="output-screen"></div>
+        <button class="button" onclick="moveOneStep()">step</button>
+        <button class="button" onclick="autoMove()">auto move</button>
+    </div>
+</div>
+
+<script src="./simulation.js" type="text/javascript"></script>
+
+</body>
+</html>

@@ -20,27 +20,27 @@
             <div id="robot-grid" class="robot-grid">
                 <div id="robot-item-1" class="robot-item">
                     <p>ROB 1</p>
-                    <p style="font-size: xx-large">&#129302;</p>
+                    <img class="robot-img-sm" src="../img/robot-1.png">
                     <button id="detailsBtn1" class="button details-button">details</button>
                 </div>
                 <div id="robot-item-2" class="robot-item">
                     <p>ROB 2</p>
-                    <p style="font-size: xx-large">&#129302;</p>
+                    <img class="robot-img-sm" src="../img/robot-2.png">
                     <button id="detailsBtn2" class="button details-button">details</button>
                 </div>
                 <div id="robot-item-3" class="robot-item">
                     <p>ROB 3</p>
-                    <p style="font-size: xx-large">&#129302;</p>
+                    <img class="robot-img-sm" src="../img/robot-3.png">
                     <button id="detailsBtn3" class="button details-button">details</button>
                 </div>
                 <div id="robot-item-4" class="robot-item">
                     <p>ROB 4</p>
-                    <p style="font-size: xx-large">&#129302;</p>
+                    <img class="robot-img-sm" src="../img/robot-4.png">
                     <button id="detailsBtn4" class="button details-button">details</button>
                 </div>
                 <div id="robot-item-5" class="robot-item">
                     <p>ROB 5</p>
-                    <p style="font-size: xx-large">&#129302;</p>
+                    <img class="robot-img-sm" src="../img/robot-5.png">
                     <button id="detailsBtn5" class="button details-button">details</button>
                 </div>
             </div>
@@ -50,9 +50,19 @@
 </div>
 
 <div id="robot-modal" class="modal">
-    <div class="modal-content">
-        <span id="close-robot-modal" class="close">&#10006;</span>
+    <span id="close-robot-modal" class="close">&#10006;</span>
+    <div class="robot-modal-content">
+
         <p id="modalTitle"></p>
+
+        <div id="modal-table" class="modal-table">
+            <div id="modal-table-item-left" class="modal-table-item-left">
+                <img id="modal-robot-img" class="robot-img-lg">
+            </div>
+            <div class="modal-table-item-right">
+                <div id="algorithm-text" class="algorithm"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -63,7 +73,7 @@
             <input class="input creator-input" type="text" id="map-name" placeholder="Labyrinth title"/>
             <div id="drag-buttons-box" class="drag-buttons-box">
                 <button class="draggable-start left" id="draggable-start" draggable="true" ondragstart="drag(event)">S</button>
-                <button class="draggable-finish left" id="draggable-finish" draggable="true" ondragstart="drag(event)">F</button>
+                <button class="draggable-finish left" id="draggable-finish" draggable="true" ondragstart="drag(event)"></button>
                 <button class="right" onclick="toggleLineCompleter()">line-completer</button>
                 <input id="size-slider" class="right" type="range" min="8" max="24" value="11">
             </div>

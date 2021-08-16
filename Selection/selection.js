@@ -3,6 +3,8 @@ const robotModal = document.getElementById("robot-modal"),
     modalTitle = document.getElementById("modalTitle"),
     closeRobot = document.getElementById("close-robot-modal"),
     closeCreator = document.getElementById("close-creator-modal"),
+    algorithmText = document.getElementById("algorithm-text"),
+    robotModalLeftTable = document.getElementById("modal-table-item-left"),
     startButton = document.getElementById("start-button");
 
 const wrapper = document.getElementById("robot-grid"),
@@ -31,6 +33,40 @@ const map1 = [[0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
                 [0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0],
                 [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
 
+const map2 = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [3, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0],
+                [0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0],
+                [0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0],
+                [0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+                [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
+                [0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0],
+                [0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0],
+                [0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0],
+                [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
+                [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0]];
+
+const map3 = [[0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 0],
+                [0, 1, 0, 0, 0, 0, 1, 0],
+                [0, 1, 0, 0, 3, 1, 1, 0],
+                [0, 1, 0, 0, 0, 0, 1, 0],
+                [0, 1, 0, 0, 0, 0, 1, 0],
+                [0, 1, 1, 1, 1, 1, 1, 0],
+                [0, 0, 0, 2, 0, 0, 0, 0]];
+
+const map4 = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 3],
+                [0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0],
+                [0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0],
+                [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+                [0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0],
+                [0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0],
+                [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0],
+                [0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0],
+                [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
+                [0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0],
+                [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0]];
+
 const mapSize = 150;
 
 init();
@@ -39,9 +75,11 @@ init();
  * initializes the site
  */
 function init() {
-    //createRandomMaps(16, 6);
     createAddBtn();
     addMap(map1, "default");
+    addMap(map2, "default2");
+    addMap(map3, "default3");
+    addMap(map4, "default4");
 }
 
 // todo: maybe delete later
@@ -90,13 +128,6 @@ function addMap(map, mapTitle) {
     newMap.appendChild(canvas)
     mapGrid.insertBefore(newMap, mapGrid.children[counter]);
 
-    /*
-    canvas.width = mapSize;
-    canvas.height = mapSize;
-    let ctx = canvas.getContext('2d');
-    drawMap(ctx, canvas, newMap);
-    */
-
     drawCanvas(map, counter);
 
     maps.push(map);
@@ -118,8 +149,6 @@ function createAddBtn() {
     button.innerHTML = '<div class="button-div"><button id="addBtn" class="add-button">&#43;</button></div>';
     mapGrid.appendChild(button);
 
-    console.log("add-button should be created!")
-
     addBtn = document.getElementById("addBtn");
     addBtn.addEventListener('click', (event) => {
         showCreatorModal();
@@ -133,10 +162,10 @@ function createAddBtn() {
  * @param map
  */
 function drawMap(ctx, canvas, map) {
-    const h = canvas.height / map.length; // todo: change this
+    const h = canvas.height / map.length;
     for (let y = 0; y < map.length; y++) {
         let row = map[y];
-        let w = canvas.width / row.length; // todo: and this
+        let w = canvas.width / row.length;
         for (let x = 0; x < row.length; x++) {
             let c = row[x];
             ctx.beginPath();
@@ -281,18 +310,91 @@ function selectRobot(id) {
 function showRobotModal(id) {
     robotModal.style.display = "block";
 
-    let text;
+    let title;
+    let inner;
 
     switch (id) {
         case '1':
-            text = 'ROB1';
+            title = 'ROB1';
+
+            // set algorithm
+            inner = `<pre><code>
+Solange Ziel nicht erreicht
+    Falls Weg rechts 
+        gehe rechts 
+    Falls Weg geradeaus
+        gehe geradeaus
+    Falls Weg links 
+        gehe links 
+    Sonst 
+        drehe dich um
+    </code></pre>`;
+
             break;
         case '2':
-            text = 'ROB2';
+            title = 'ROB2';
+            inner = 'Tremaux Algorithm';
+
+            inner = `<pre><code>
+Solange Ziel nicht erreicht
+    markiere momentanen Pfad
+    folge Pfad bis Ende
+        Falls Sackgasse
+            kehre um
+        sonst
+            markiere momentanen pfad
+            falls Kreuzung hat unbekannte Wege
+                Wähle einen unbekannten Weg
+            falls Kreuzung hat Wege mit nur einer Markierung
+                Wähle Weg mit nur einer Markierung
+            Sonst
+                Kehre um
+    </code></pre>`;
+
+            break;
+        case '3':
+            title = 'ROB3';
+            inner = `<pre><code>
+Solange Ziel nicht erreicht
+    falls Sackgasse oder Ariadnefaden quert Kreuzung
+        drehe dich um und gehe Gang zurück (und wickle auf)
+    sonst
+        gehe 1. Gang von links (falls Ariadnefaden im Gang, dann
+        aufwickeln sonst abspulen)
+    </code></pre>`;
+            break;
+        case '4':
+            title = 'ROB4';
+            inner = `<pre><code>
+Setze Drehzähler auf 0
+
+Wiederhole bis Ausgang erreicht
+    Wiederhole bis Wand berührt wird
+        Gehe gerade aus
+    Drehung nach links
+    Wiederhole bis Drehzähler auf 0 steht
+        Folge der Wand
+        Falls Drehung
+            Adaptiere Drehzähler
+    </code></pre>`;
+            break;
+        case '5':
+            title = 'ROB5';
+            inner = `<pre><code>
+Wiederhole bis Ausgang erreicht
+    in welche Richtung kann gegangen werden?
+    wähle eine mögliche Richtung zufällig aus 
+    und gehe in diese Richtung
+    </code></pre>`;
             break;
     }
 
-    modalTitle.innerHTML = '<h1>'+text+'</h1>';
+    // set robot image
+    let robotImg = document.getElementById("modal-robot-img");
+    robotImg.setAttribute("src", "../img/robot-" + id + ".png");
+
+    modalTitle.innerHTML = '<h1>'+title+'</h1>';
+    algorithmText.innerHTML = inner;
 }
 
 function showCreatorModal() {
@@ -331,13 +433,29 @@ window.onclick = function(event) {
 }
 
 startButton.onclick = function() {
-    console.log("-----START-----");
-    console.log("Name:   " + experimentName.value);
-    console.log("Map:    " + selectedMap);
-    console.log("Robots: ")
-    for(let i = 0; i < selectedRobots.length; i++) {
-        console.log(selectedRobots[i]);
+
+    if(selectedRobots.length === 0 || selectedMap === null) {
+        alert("Don't forget to select a map and the robots!");
+        return;
     }
+
+    // todo: add map-array to URL?
+    /*
+    let tempMap = maps[selectedMap];
+    let temp = encodeURIComponent(JSON.stringify(tempMap));
+     */
+
+    let url = "../Simulation/simulation.html?map=" + selectedMap + "&robots=";
+
+    // add robots
+    for (let i = 0; i < selectedRobots.length; i++) {
+        url += selectedRobots[i] + "_";
+    }
+
+    // delete last _
+    url = url.slice(0, -1);
+
+    location.href = url;
 }
 
 

@@ -25,10 +25,12 @@ function initCreator() {
 }
 
 slider.oninput = function() {
+
     size = parseInt(slider.value);
     resetDragButtons();
     startPos = null;
     finishPos = null;
+    lastClickedButton = null;
 
     createMap(size);
 }
@@ -59,6 +61,8 @@ function resetCreator() {
 
     document.getElementById("map-name").value = "";
     document.getElementById("size-slider").value = 10;
+
+    mapTitle = "New Labyrinth";
 
     resetDragButtons();
     createMap(size);
@@ -118,7 +122,6 @@ function saveMap() {
         let y = Math.floor(buttonNumber / size);
         let x = buttonNumber % size;
 
-        console.log("set [" + y + "," + x + "] to 1");
         // set path
         tempMap[y][x] = 1;
     }
@@ -214,15 +217,11 @@ function completeLine(current) {
 
         let amount = current - lastClickedButton;
 
-        console.log(amount);
-
         // positive
         if (amount > 0) {
 
             for (let i = 0; i < amount; i += size) {
-                console.log(i);
                 let index = current - i;
-                console.log(index);
                 let temp = document.getElementById("" + index);
                 temp.style.background = lightGrey;
                 temp.setAttribute("ondragover", "allowDrop(event)");
@@ -247,7 +246,6 @@ function completeLine(current) {
         }
 
     } else if(Math.floor(lastClickedButton/size) === Math.floor(current/size)) {    // same line
-        console.log("same line");
 
         let amount = current - lastClickedButton;
 
@@ -289,7 +287,7 @@ function drop(event) {
     event.target.appendChild(document.getElementById(data));
 
     // save position of start & finish
-    if (data === "start") {
+    if (data === "draggable-start") {
         startPos = event.target.id;
     }   else {
         finishPos = event.target.id;
