@@ -5,8 +5,6 @@ const Direction = {
     right: 'right'
 };
 
-const maps = [];
-
 let canvas = null,
     ctx = null,
     canvasSize = null,
@@ -22,10 +20,11 @@ const darkGrey = "#808080",
     lightGrey = "#D3D3D3",
     lightRed = "#FFAE9D",
     lightGreen = "#B8FF9D",
-    robotColors = ["", "yellow", "green", "blue", "red", "grey"];
+    robotColors = ["","#f3dd7e","#88c56e","#6eb4c5","#c56e6e","#999999"];
 
-const path = [],
-    start = {},
+const path = [];
+
+let start = {},
     finish = {};
 
 function init() {
@@ -36,63 +35,20 @@ function init() {
     canvas.height = canvasSize;
     ctx = canvas.getContext('2d');
 
-    maps.push([[0,0,0,0,0,3,0,0,0,0,0],
-                [0,1,0,1,0,1,1,1,1,1,0],
-                [0,1,1,1,0,0,0,1,0,1,0],
-                [0,1,0,1,0,1,1,1,0,1,0],
-                [0,1,0,1,1,1,0,0,0,1,0],
-                [0,1,0,0,0,1,0,0,1,1,0],
-                [0,1,0,1,1,1,1,0,0,0,0],
-                [0,0,0,1,0,0,1,0,1,0,0],
-                [0,0,0,1,0,0,1,1,1,0,0],
-                [0,1,1,1,0,1,1,0,1,1,0],
-                [0,2,0,0,0,0,0,0,0,0,0]]);
-
-maps.push([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [3, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0],
-            [0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0],
-            [0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0],
-            [0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-            [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
-            [0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0],
-            [0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0],
-            [0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0],
-            [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
-            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0]]);
-
-maps.push([[0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 1, 1, 0],
-        [0, 1, 0, 0, 0, 0, 1, 0],
-        [0, 1, 0, 0, 3, 1, 1, 0],
-        [0, 1, 0, 0, 0, 0, 1, 0],
-        [0, 1, 0, 0, 0, 0, 1, 0],
-        [0, 1, 1, 1, 1, 1, 1, 0],
-        [0, 0, 0, 2, 0, 0, 0, 0]]);
-
-maps.push([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 3],
-        [0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0],
-        [0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-        [0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0],
-        [0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0],
-        [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0],
-        [0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0],
-        [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
-        [0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0]]);
-
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
     // get map
-    let mapId = parseInt(urlParams.get("map"));
-    simulation.map = maps[mapId];
+    simulation.map = JSON.parse(urlParams.get("map"));
 
     radius = (canvasSize / simulation.map.length) / 4;
     step = canvasSize / simulation.map.length;
 
-    initStartAndFinish();
+    // get start and finish position
+    let startPos = parseInt(urlParams.get("start"));
+    let finishPos = parseInt(urlParams.get("finish"));
+    start = initStartOrFinish(startPos);
+    finish = initStartOrFinish(finishPos);
 
     // get robots
     let temp = urlParams.get("robots");
@@ -101,28 +57,15 @@ maps.push([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     loop();
 }
 
-function initStartAndFinish() {
-    let length = simulation.map.length;
+function initStartOrFinish(position) {
 
-    for (let y = 0; y < length; y++) {
-        for ( let x = 0; x < length; x++) {
-            if (simulation.map[y][x] > 1) {
-                if (simulation.map[y][x] === 2) {   // start
-                    start.y = y;
-                    start.x = x;
-                } else {    // finish
-                    finish.y = y;
-                    finish.x = x;
-                }
-            }
-        }
-    }
+    let tempX = position % simulation.map.length;
+    let tempY = Math.floor(position / simulation.map.length);
+
+    return {x: tempX, y: tempY};
 }
 
 function initRobots(robotIds) {
-
-    let tempX = (step * start.x) + step/2;
-    let tempY = (step * start.y) + step/2;
 
     for (let i = 0; i < robotIds.length; i++) {
         robots.push({id: robotIds[i], color: robotColors[robotIds[i]], posX: start.x, posY: start.y,
@@ -154,12 +97,12 @@ function draw() {
  * draws the map
  */
 function drawMap() {
-    var h = canvasSize / simulation.map.length;
-    for (var y = 0; y < simulation.map.length; y++) {
-        var row = simulation.map[y];
-        var w = canvasSize / row.length;
-        for (var x = 0; x < row.length; x++) {
-            var c = row[x];
+    const h = canvasSize / simulation.map.length;
+    for (let y = 0; y < simulation.map.length; y++) {
+        let row = simulation.map[y];
+        let w = canvasSize / row.length;
+        for (let x = 0; x < row.length; x++) {
+            let c = row[x];
             ctx.beginPath();
 
             if (c === 0) {
@@ -426,7 +369,7 @@ function wallFollower(robot) {
     }
 
     // check if finish
-    if (simulation.map[robot.posY][robot.posX] === 3) {
+    if (robot.posY === finish.y && robot.posX === finish.x) {
         addOutput("FINISHED!");
         robot.finished = true;
     }

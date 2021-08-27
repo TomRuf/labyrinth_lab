@@ -2,23 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3673f53d-4749-45a7-888f-8414755c5d3f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Simulation/simulation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Simulation/simulation.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/robot-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/robot-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/robot-3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/robot-4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img/robot-5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/creator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.css" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Start/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labyrinth.css" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/labyrinth.js" beforeDir="false" afterPath="$PROJECT_DIR$/labyrinth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulation/simulation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +52,7 @@
       <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\img" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.start.html">
+  <component name="RunManager" selected="JavaScript Debug.selection.html">
     <configuration name="labyrinth.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/labyrinth.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -81,8 +70,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.start.html" />
         <item itemvalue="JavaScript Debug.selection.html" />
+        <item itemvalue="JavaScript Debug.start.html" />
         <item itemvalue="JavaScript Debug.labyrinth.html (1)" />
         <item itemvalue="JavaScript Debug.simulation.html" />
         <item itemvalue="JavaScript Debug.test.html" />
@@ -122,7 +111,13 @@
       <workItem from="1628748838480" duration="14879000" />
       <workItem from="1628776410414" duration="6909000" />
       <workItem from="1628843204752" duration="10959000" />
-      <workItem from="1629100371475" duration="14306000" />
+      <workItem from="1629100371475" duration="15349000" />
+      <workItem from="1629202014490" duration="904000" />
+      <workItem from="1629809808816" duration="21600000" />
+      <workItem from="1629869940636" duration="23610000" />
+      <workItem from="1629987234905" duration="694000" />
+      <workItem from="1630004482562" duration="3986000" />
+      <workItem from="1630072726892" duration="20883000" />
     </task>
     <servers />
   </component>

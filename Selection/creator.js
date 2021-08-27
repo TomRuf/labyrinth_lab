@@ -4,6 +4,7 @@ let size = 11;
 let lastClickedButton = null;
 let clicked = [];
 let lineCompleter = false;
+let edit = false;
 
 const startField = document.getElementById("draggable-start");
 const finishField = document.getElementById("draggable-finish");
@@ -17,6 +18,7 @@ const darkGrey = "#808080",
 let mapTitle = "New Labyrinth";
 let startPos = null;
 let finishPos = null;
+let editMapId = null;
 
 initCreator();
 
@@ -35,10 +37,52 @@ slider.oninput = function() {
     createMap(size);
 }
 
+function loadMapToEdit(mapId, mapObj) {
+
+    size = mapObj.map.length;
+    startPos = mapObj.startPos;
+    finishPos = mapObj.finishPos;
+    edit = true;
+    editMapId = mapId;
+    mapTitle = mapObj.mapTitle;
+
+    createMap(size);
+
+    let id = 0;
+    for(let y = 0; y < mapObj.map.length; y++) {
+        for(let x = 0; x < mapObj.map.length; x++) {
+            if(mapObj.map[y][x] === 1) {
+                clicked.push(id);
+                // set the color of the clicked field
+                let clickedButton = document.getElementById(""+id);
+                clickedButton.style.background = lightGrey;
+                clickedButton.setAttribute("ondragover", "allowDrop(event)");
+            }
+            id++;
+        }
+    }
+
+    // set start
+    let startButton = document.getElementById(startPos);
+    startField.style.width = "100%";
+    startField.style.height = "100%";
+    startButton.appendChild(startField);
+
+    // set finish
+    let finishButton = document.getElementById(finishPos);
+    finishField.style.width = "100%";
+    finishField.style.height = "100%";
+    finishButton.appendChild(finishField);
+}
+
 /**
  * resets the draggable start and finish field
  */
 function resetDragButtons() {
+
+    startPos = null;
+    finishPos = null;
+
     startField.style.height = "50px";
     startField.style.width = "50px";
     finishField.style.height = "50px";
@@ -52,12 +96,12 @@ function resetDragButtons() {
  * resets the creator
  */
 function resetCreator() {
-    size = 10;
-    startPos = null;
-    finishPos = null;
+    size = 11;
     clicked = [];
     lineCompleter = false;
     lastClickedButton = null;
+    mapId = null;
+    edit = false;
 
     document.getElementById("map-name").value = "";
     document.getElementById("size-slider").value = 10;
@@ -98,9 +142,7 @@ function createMap(size) {
  */
 function saveMap() {
 
-    // create new 2d array filled with 0
-    //let tempMap = new Array(size).fill().map(function(){ return new Array(size).fill(0);});
-
+    // check if startPos and finishPos are set
     if (startPos === null || finishPos === null) {
         alert("Don't forget to set start and finish!");
         return;
@@ -108,6 +150,7 @@ function saveMap() {
 
     let tempMap = [];
 
+    // create new 2d array filled with false
     for (let y = 0; y < size; y++) {
         tempMap[y] = [];
         for (let x = 0; x < size; x++) {
@@ -117,29 +160,13 @@ function saveMap() {
 
     // add the path segments
     for(let i = 0; i < clicked.length; i++) {
-        let buttonNumber = parseFloat(clicked[i]);
+        let buttonNumber = parseInt(clicked[i]);
 
-        let y = Math.floor(buttonNumber / size);
         let x = buttonNumber % size;
+        let y = Math.floor(buttonNumber / size);
 
         // set path
         tempMap[y][x] = 1;
-    }
-
-    // set the start
-    if(startPos !== null) {
-        let y = Math.floor(startPos / size);
-        let x = startPos % size;
-
-        tempMap[y][x] = 2;
-    }
-
-    // set the finish
-    if(finishPos !== null) {
-        let y = Math.floor(finishPos / size);
-        let x = finishPos % size;
-
-        tempMap[y][x] = 3;
     }
 
     // set the name if changed
@@ -148,8 +175,111 @@ function saveMap() {
         mapTitle = temp;
     }
 
-    addMap(tempMap, mapTitle);
+    if(edit) {
+        updateMap(editMapId, tempMap, mapTitle, startPos, finishPos);
+        edit = false;
+    } else {
+        addMap(tempMap, mapTitle, startPos, finishPos);
+    }
+
     closeCreatorModal();
+}
+
+/**
+ * creates a random map
+ */
+function createRandomMap() {
+
+    clicked = [];
+    resetDragButtons();
+
+    selectionMap.innerHTML = "";
+    const buttonSize = 100 / size;
+
+    let map = [];
+
+    // create outer wall boundary
+    for (let y = 0; y < size; y++) {
+        map[y] = [];
+        for (let x = 0; x < size; x++) {
+            if (x === 0 || x === size - 1 || y === 0 || y === size - 1) {
+                map[y][x] = 0;
+            } else {
+                map[y][x] = 1;
+            }
+        }
+    }
+
+    // PRIM'S ALGORITHM          --> source: https://codepen.io/PChambino/pen/gqjtD
+    let cell = {
+        x: 1,
+        y: 1
+    };
+
+    map[cell.y][cell.x] = "#";
+
+    let walls = [
+        {x: cell.x - 1, y: cell.y},
+        {x: cell.x + 1, y: cell.y},
+        {x: cell.x, y: cell.y - 1},
+        {x: cell.x, y: cell.y + 1}
+    ];
+
+    while (walls.length > 0) {
+        let wall = walls.splice(Math.floor(Math.random() * walls.length), 1)[0];
+
+        if (map[wall.y - 1] && map[wall.y + 1] &&
+            map[wall.y - 1][wall.x] === "#" && map[wall.y + 1][wall.x] === 1) {
+            map[wall.y + 1][wall.x] = map[wall.y][wall.x] = "#";
+            walls.push({x: wall.x - 1, y: wall.y + 1});
+            walls.push({x: wall.x + 1, y: wall.y + 1});
+            walls.push({x: wall.x, y: wall.y + 2});
+
+        } else if (map[wall.y - 1] && map[wall.y + 1] &&
+            map[wall.y + 1][wall.x] === "#" && map[wall.y - 1][wall.x] === 1) {
+            map[wall.y - 1][wall.x] = map[wall.y][wall.x] = "#";
+            walls.push({x: wall.x - 1, y: wall.y - 1});
+            walls.push({x: wall.x + 1, y: wall.y - 1});
+            walls.push({x: wall.x, y: wall.y - 2});
+
+        } else if (map[wall.y] && map[wall.y] &&
+            map[wall.y][wall.x - 1] === "#" && map[wall.y][wall.x + 1] === 1) {
+            map[wall.y][wall.x + 1] = map[wall.y][wall.x] = "#";
+            walls.push({x: wall.x + 1, y: wall.y - 1});
+            walls.push({x: wall.x + 1, y: wall.y + 1});
+            walls.push({x: wall.x + 2, y: wall.y});
+
+        } else if (map[wall.y] && map[wall.y] &&
+            map[wall.y][wall.x + 1] === "#" && map[wall.y][wall.x - 1] === 1) {
+            map[wall.y][wall.x - 1] = map[wall.y][wall.x] = "#";
+            walls.push({x: wall.x - 1, y: wall.y - 1});
+            walls.push({x: wall.x - 1, y: wall.y + 1});
+            walls.push({x: wall.x - 2, y: wall.y});
+        }
+    }
+
+    let id = 0;
+    for (let y = 0; y < size; y++) {
+        for (let x = 0; x < size; x++) {
+
+            let newButton = document.createElement("button");
+            newButton.setAttribute("id", "" + id);
+            newButton.setAttribute("class", "lab-button");
+            newButton.setAttribute("ondrop", "drop(event)");
+            newButton.setAttribute("style", "width:" + buttonSize + "%; height:" + buttonSize + "%;");
+            newButton.setAttribute("data-button", "data-button");
+
+            selectionMap.appendChild(newButton);
+
+            if (map[y][x] === "#") {
+                map[y][x] = 1;
+                addClicked(id);
+            } else {
+                map[y][x] = 0;
+            }
+            id++;
+        }
+    }
 }
 
 selectionMap.addEventListener('click', (event) => {
@@ -177,6 +307,9 @@ selectionMap.addEventListener('click', (event) => {
  * @returns {boolean} true if added, false if already in array and removes it
  */
 function addClicked(id) {
+
+    id = parseInt(id);
+
     // delete
     if(clicked.includes(id)) {
         let index = clicked.indexOf(id);
@@ -206,7 +339,6 @@ function toggleLineCompleter() {
     lineCompleter = !lineCompleter;
 }
 
-// todo: shorten code
 /**
  * fills the line between two clicked fields if they are vertically or horizontally aligned
  * @param current the currently clicked field

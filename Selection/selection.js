@@ -4,11 +4,15 @@ const robotModal = document.getElementById("robot-modal"),
     closeRobot = document.getElementById("close-robot-modal"),
     closeCreator = document.getElementById("close-creator-modal"),
     algorithmText = document.getElementById("algorithm-text"),
+    robotGrid = document.getElementById("robot-grid"),
+    extraInformation = document.getElementById("extra-information"),
     robotModalLeftTable = document.getElementById("modal-table-item-left"),
     startButton = document.getElementById("start-button");
 
 const wrapper = document.getElementById("robot-grid"),
     wrapper2 = document.getElementById("map-grid");
+
+let idCounter = 0;
 
 let addBtn = null;
 
@@ -19,53 +23,33 @@ const experimentName = document.getElementById("experiment-name");
 
 const mapGrid = document.getElementById("map-grid");
 
-const maps = [];
+const maps = [],
+    robotColors = ["","#f3dd7e","#88c56e","#6eb4c5","#c56e6e","#999999"],
+    robotNames = ["","rob1","rob2","rob3","rob4","rob5"];
 
-const map1 = [[0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
-                [0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0],
-                [0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0],
-                [0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
-                [0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0],
-                [0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 0],
-                [0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-                [0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0],
-                [0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0],
-                [0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0],
-                [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+/*const map1 = [[false,false,false,false,false,true,false,false,false,false,false],
+                [false,true,false,true,false,true,true,true,true,true,false],
+                [false,true,true,true,false,false,false,true,false,true,false],
+                [false,true,false,true,false,true,true,true,false,true,false],
+                [false,true,false,true,true,true,false,false,false,true,false],
+                [false,true,false,false,false,true,false,false,true,true,false],
+                [false,true,false,true,true,true,true,false,false,false,false],
+                [false,false,false,true,false,false,true,false,true,false,false],
+                [false,false,false,true,false,false,true,true,true,false,false],
+                [false,true,true,true,false,true,true,false,true,true,false],
+                [false,true,false,false,false,false,false,false,false,false,false]];*/
 
-const map2 = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [3, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0],
-                [0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0],
-                [0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0],
-                [0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
-                [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
-                [0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0],
-                [0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0],
-                [0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0],
-                [0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 0],
-                [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0]];
-
-const map3 = [[0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 1, 1, 1, 1, 1, 1, 0],
-                [0, 1, 0, 0, 0, 0, 1, 0],
-                [0, 1, 0, 0, 3, 1, 1, 0],
-                [0, 1, 0, 0, 0, 0, 1, 0],
-                [0, 1, 0, 0, 0, 0, 1, 0],
-                [0, 1, 1, 1, 1, 1, 1, 0],
-                [0, 0, 0, 2, 0, 0, 0, 0]];
-
-const map4 = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 3],
-                [0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0],
-                [0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0],
-                [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-                [0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0],
-                [0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0],
-                [0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0],
-                [0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 0],
-                [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],
-                [0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0],
-                [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0]];
+const map1 =[[0,0,0,0,0,1,0,0,0,0,0],
+            [0,1,0,1,0,1,1,1,1,1,0],
+            [0,1,1,1,0,0,0,1,0,1,0],
+            [0,1,0,1,0,1,1,1,0,1,0],
+            [0,1,0,1,1,1,0,0,0,1,0],
+            [0,1,0,0,0,1,0,0,1,1,0],
+            [0,1,0,1,1,1,1,0,0,0,0],
+            [0,0,0,1,0,0,1,0,1,0,0],
+            [0,0,0,1,0,0,1,1,1,0,0],
+            [0,1,1,1,0,1,1,0,1,1,0],
+            [0,1,0,0,0,0,0,0,0,0,0]];
 
 const mapSize = 150;
 
@@ -76,24 +60,63 @@ init();
  */
 function init() {
     createAddBtn();
-    addMap(map1, "default");
-    addMap(map2, "default2");
-    addMap(map3, "default3");
-    addMap(map4, "default4");
+    createRobotItems();
+    addMap(map1, "default", 111, 5);
 }
 
-// todo: maybe delete later
-function createRandomMaps(size, amount) {
-    for (let i = 0; i < amount; i++) {
-        let temp = [];
-        for (let y = 0; y < size; y++) {
-            let temp2 = [];
-            for (let x = 0; x < size; x++) {
-                temp2.push(Math.round(Math.random()));
-            }
-            temp.push(temp2);
-        }
-        maps.push(temp);
+/**
+ * creates all selectable robot items
+ */
+function createRobotItems() {
+
+    // create all 5 robot items
+    for (let i = 1; i <= 5; i++) {
+
+        // robot item
+        let newRobotItem = document.createElement("div");
+        newRobotItem.setAttribute("id", "robot-item-" + i);
+        newRobotItem.setAttribute("class", "robot-item");
+        newRobotItem.setAttribute("data-clickable", "data-clickable");
+        robotGrid.appendChild(newRobotItem);
+
+        // robot name
+        let robotName = document.createElement("p");
+        robotName.innerText = robotNames[i];
+        robotName.setAttribute("id", "robot-name-" + i);
+        robotName.setAttribute("data-clickable", "data-clickable");
+        newRobotItem.appendChild(robotName);
+
+        // robot image
+        let robotImage = document.createElement("img");
+        robotImage.setAttribute("class", "robot-img-sm");
+        robotImage.setAttribute("id", "robot-img-" + i);
+        robotImage.setAttribute("src", "../img/robot-" + i + ".png");
+        robotImage.setAttribute("data-clickable", "data-clickable");
+        newRobotItem.appendChild(robotImage);
+
+        // robot line
+        let robotLine = document.createElement("canvas");
+        robotLine.setAttribute("id", "line-" + i);
+        robotLine.setAttribute("class", "line-canvas");
+        robotLine.setAttribute("data-clickable", "data-clickable");
+        newRobotItem.appendChild(robotLine);
+
+        let ctx = robotLine.getContext("2d");
+
+        ctx.beginPath();
+        ctx.moveTo(150, 0);
+        ctx.lineTo(150, 250);
+        ctx.strokeStyle = robotColors[i];
+        ctx.setLineDash([10-i, 5-i]); // todo: maybe change this
+        ctx.lineWidth = 30;
+        ctx.stroke();
+
+        // details button
+        let detailsButton = document.createElement("button");
+        detailsButton.setAttribute("id", "detailsBtn" + i);
+        detailsButton.setAttribute("class", "button details-button");
+        detailsButton.innerText = "details";
+        newRobotItem.appendChild(detailsButton);
     }
 }
 
@@ -101,36 +124,86 @@ function createRandomMaps(size, amount) {
  * adds a map
  * @param map the map which gets added
  * @param mapTitle the title of the map
+ * @param startPos the position of the start
+ * @param finishPos the position of the finish
  */
-function addMap(map, mapTitle) {
-
-    let counter = maps.length;
+function addMap(map, mapTitle, startPos, finishPos) {
 
     let newMap = document.createElement("div");
-    newMap.setAttribute("id", "map-" + counter);
+    newMap.setAttribute("id", "map-" + idCounter);
     newMap.setAttribute("class", "grid-item");
     newMap.setAttribute("data-clickable", "data-clickable");
+    if(selectedMap !== null) {
+        newMap.style.opacity = "0.4";
+    }
+
+    //-------------------------------------------------------------------------------
+
+    let editButton = document.createElement("button");
+    editButton.setAttribute("class", "edit-button");
+    editButton.setAttribute("id", "edit-button-" + idCounter);
+    editButton.setAttribute("data-edit", "data-edit");
+    editButton.innerText = "\u270E";
+
+    newMap.appendChild(editButton);
+
+    let deleteButton = document.createElement("button");
+    deleteButton.setAttribute("class", "delete-button");
+    deleteButton.setAttribute("id", "delete-button-" + idCounter);
+    deleteButton.setAttribute("data-delete", "data-delete");
+    deleteButton.innerText = "\u2716";
+
+    newMap.appendChild(deleteButton);
+
+    //-------------------------------------------------------------------------------
 
     let title = document.createElement("p");
     title.setAttribute("class", "title");
-    title.setAttribute("id", "title-" + counter);
+    title.setAttribute("id", "title-" + idCounter);
     title.setAttribute("data-clickable", "data-clickable");
     title.textContent = mapTitle;
 
+    newMap.appendChild(title);
+
+    //-------------------------------------------------------------------------------
+
     let canvas = document.createElement("canvas");
-    canvas.setAttribute("id", "canvas-" + counter);
+    canvas.setAttribute("id", "canvas-" + idCounter);
     canvas.setAttribute("class", "canvas");
     canvas.setAttribute("data-clickable", "data-clickable");
     canvas.setAttribute("width", "" + mapSize);
     canvas.setAttribute("height", "" + mapSize);
 
-    newMap.appendChild(title);
-    newMap.appendChild(canvas)
-    mapGrid.insertBefore(newMap, mapGrid.children[counter]);
+    newMap.appendChild(canvas);
+    mapGrid.insertBefore(newMap, mapGrid.children[maps.length]);
 
-    drawCanvas(map, counter);
+    drawCanvas(map, idCounter);
 
-    maps.push(map);
+    maps.push({id: idCounter,map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos});
+
+    idCounter++;
+
+}
+
+/**
+ * updates the html and array of a certain map
+ * @param id
+ * @param map
+ * @param mapTitle
+ * @param startPos
+ * @param finishPos
+ */
+function updateMap(id, map, mapTitle, startPos, finishPos) {
+
+    // 1. update html
+    let newTitle = document.getElementById("title-" + id);
+    newTitle.textContent = mapTitle;
+    drawCanvas(map, id);
+
+    // 2. change maps array
+    let index = getIndexOf(id);
+    maps[index] = {id: id, map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
+
 }
 
 function drawCanvas(map, id) {
@@ -162,6 +235,8 @@ function createAddBtn() {
  * @param map
  */
 function drawMap(ctx, canvas, map) {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     const h = canvas.height / map.length;
     for (let y = 0; y < map.length; y++) {
         let row = map[y];
@@ -170,10 +245,10 @@ function drawMap(ctx, canvas, map) {
             let c = row[x];
             ctx.beginPath();
 
-            if (c === 0) {
-                ctx.fillStyle = '#808080';
-            } else {
+            if (c === 1) {
                 ctx.fillStyle = '#D3D3D3';
+            } else {
+                ctx.fillStyle = '#808080';
             }
 
             ctx.rect(w * x, h * y, w-0.2, h-0.2);
@@ -182,24 +257,26 @@ function drawMap(ctx, canvas, map) {
     }
 }
 
-
 /**
  * listens to click events in the robot grid
  */
 wrapper.addEventListener('click', (event) => {
 
-    const nodeName = event.target.nodeName;
     const id = event.target.id;
 
-    // todo: improve this --> see wrapper2
+    if (event.target.matches("[data-clickable]")) {
 
-    if(nodeName === "BUTTON") {
+        let index = id.lastIndexOf('-');
+        selectRobot(id.substring(index+1));
+
+    } else if(id !== "robot-grid") {
         showRobotModal(id.slice(-1));
-    } else  if(nodeName === "DIV" && id !== "robot-grid") {
-        selectRobot(id.slice(-1));
     }
 });
 
+/**
+ * listens to click events in the map grid
+ */
 wrapper2.addEventListener('click', (event) => {
 
     // only detect clicks on items
@@ -207,10 +284,58 @@ wrapper2.addEventListener('click', (event) => {
 
         const id = event.target.id;
         let index = id.indexOf('-');
+        selectMap(parseInt(id.substring(index+1)));
 
-        selectMap(id.substring(index+1));
+    } else if(event.target.matches("[data-edit]")) {
+
+        const id = event.target.id;
+        let index = id.lastIndexOf('-');
+        editMap(parseInt(id.substring(index+1)));
+
+    } else if(event.target.matches("[data-delete]")) {
+
+        const id = event.target.id;
+        let index = id.lastIndexOf('-');
+        deleteMap(parseInt(id.substring(index+1)));
     }
 });
+
+/**
+ * opens the creator with the map to edit
+ * @param id
+ */
+function editMap(id) {
+
+    showCreatorModal();
+
+    let index = getIndexOf(id);
+    loadMapToEdit(id, maps[index]);
+}
+
+/**
+ * deletes a map
+ * @param id
+ */
+function deleteMap(id) {
+
+    // delete in maps list
+    let index = getIndexOf(id);
+    maps.splice(index, 1);
+
+    // todo: delete from local storage
+
+    // delete div
+    let mapItem = document.getElementById("map-" + id);
+    mapItem.remove();
+
+    // reset selected
+    selectedMap = null;
+
+    const elements = document.getElementsByClassName("grid-item");
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].style.opacity = "1";
+    }
+}
 
 /**
  * listens to click events on the add button
@@ -230,8 +355,12 @@ function selectMap(id) {
     // change old one
     if(selectedMap !== null) {
         item = document.getElementById("map-" + selectedMap);
-        //item.style.background = "#0087F5";
         item.style.boxShadow = "inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem #ffffff";
+
+        let editButton = document.getElementById("edit-button-" + selectedMap);
+        let deleteButton = document.getElementById("delete-button-" + selectedMap);
+        editButton.style.display = "none";
+        deleteButton.style.display = "none";
 
         // deselect map when it's clicked twice
         if(selectedMap === id) {
@@ -249,8 +378,14 @@ function selectMap(id) {
     selectedMap = id;
 
     item = document.getElementById("map-" + id);
-    //item.style.background = "#0087F5";
     item.style.boxShadow = "0.8rem 0.8rem 0.8rem #c8d0e7, -0.4rem -0.4rem 0.9rem #ffffff";
+
+    // show edit and delete button
+    let editButton = document.getElementById("edit-button-" + id);
+    let deleteButton = document.getElementById("delete-button-" + id);
+
+    editButton.style.display = "block";
+    deleteButton.style.display = "block";
 
     const elements = document.getElementsByClassName("grid-item");
     for (let i = 0; i < elements.length; i++) {
@@ -288,6 +423,12 @@ function selectRobot(id) {
         }
 
     } else {
+
+        // limit number of robots to 3
+        if (selectedRobots.length >= 3) {
+            return;
+        }
+
         selectedRobots.push(id);
         item.style.boxShadow = "0.8rem 0.8rem 0.8rem #c8d0e7, -0.4rem -0.4rem 0.9rem #ffffff";
 
@@ -312,12 +453,12 @@ function showRobotModal(id) {
 
     let title;
     let inner;
+    let extraInfo;
 
     switch (id) {
         case '1':
             title = 'ROB1';
-
-            // set algorithm
+            extraInfo = "Geht immer der rechten Wand entlang";
             inner = `<pre><code>
 Solange Ziel nicht erreicht
     Falls Weg rechts 
@@ -333,8 +474,7 @@ Solange Ziel nicht erreicht
             break;
         case '2':
             title = 'ROB2';
-            inner = 'Tremaux Algorithm';
-
+            extraInfo = "TBA";
             inner = `<pre><code>
 Solange Ziel nicht erreicht
     markiere momentanen Pfad
@@ -350,10 +490,11 @@ Solange Ziel nicht erreicht
             Sonst
                 Kehre um
     </code></pre>`;
-
             break;
+
         case '3':
             title = 'ROB3';
+            extraInfo = "TBA";
             inner = `<pre><code>
 Solange Ziel nicht erreicht
     falls Sackgasse oder Ariadnefaden quert Kreuzung
@@ -362,9 +503,12 @@ Solange Ziel nicht erreicht
         gehe 1. Gang von links (falls Ariadnefaden im Gang, dann
         aufwickeln sonst abspulen)
     </code></pre>`;
+
             break;
+
         case '4':
             title = 'ROB4';
+            extraInfo = "TBA";
             inner = `<pre><code>
 Setze Drehzähler auf 0
 
@@ -378,8 +522,10 @@ Wiederhole bis Ausgang erreicht
             Adaptiere Drehzähler
     </code></pre>`;
             break;
+
         case '5':
             title = 'ROB5';
+            extraInfo = "TBA";
             inner = `<pre><code>
 Wiederhole bis Ausgang erreicht
     in welche Richtung kann gegangen werden?
@@ -394,9 +540,13 @@ Wiederhole bis Ausgang erreicht
     robotImg.setAttribute("src", "../img/robot-" + id + ".png");
 
     modalTitle.innerHTML = '<h1>'+title+'</h1>';
+    extraInformation.innerText = extraInfo;
     algorithmText.innerHTML = inner;
 }
 
+/**
+ * opens the creator-modal
+ */
 function showCreatorModal() {
     creatorModal.style.display = "block";
 }
@@ -415,6 +565,9 @@ closeCreator.onclick = function() {
     closeCreatorModal();
 }
 
+/**
+ * closes the creator modal
+ */
 function closeCreatorModal() {
     creatorModal.style.display = "none";
     resetCreator();
@@ -439,23 +592,40 @@ startButton.onclick = function() {
         return;
     }
 
-    // todo: add map-array to URL?
-    /*
-    let tempMap = maps[selectedMap];
-    let temp = encodeURIComponent(JSON.stringify(tempMap));
-     */
+    let sMap = maps[getIndexOf(selectedMap)];
 
-    let url = "../Simulation/simulation.html?map=" + selectedMap + "&robots=";
+    let tempMap = sMap.map;
+    let temp = encodeURIComponent(JSON.stringify(tempMap));
+
+    let url = "../Simulation/simulation.html?map=" + temp + "&robots=";
 
     // add robots
     for (let i = 0; i < selectedRobots.length; i++) {
         url += selectedRobots[i] + "_";
     }
-
     // delete last _
     url = url.slice(0, -1);
 
+    // add finish and start position
+    url += "&start=" + sMap.startPos;
+    url += "&finish=" + sMap.finishPos;
+
     location.href = url;
+}
+
+/**
+ * returns the index of a map-object by its id
+ * @param id
+ * @returns {number}
+ */
+function getIndexOf(id) {
+    let index = 0;
+    for (let i = 0; i < maps.length; i++) {
+        if(maps[i].id === id) {
+            return index;
+        }
+        index++;
+    }
 }
 
 

@@ -17,36 +17,10 @@
         </div>
         <div class="table-item">
             <h2 class="text">SELECT ROBOT</h2>
-            <div id="robot-grid" class="robot-grid">
-                <div id="robot-item-1" class="robot-item">
-                    <p>ROB 1</p>
-                    <img class="robot-img-sm" src="../img/robot-1.png">
-                    <button id="detailsBtn1" class="button details-button">details</button>
-                </div>
-                <div id="robot-item-2" class="robot-item">
-                    <p>ROB 2</p>
-                    <img class="robot-img-sm" src="../img/robot-2.png">
-                    <button id="detailsBtn2" class="button details-button">details</button>
-                </div>
-                <div id="robot-item-3" class="robot-item">
-                    <p>ROB 3</p>
-                    <img class="robot-img-sm" src="../img/robot-3.png">
-                    <button id="detailsBtn3" class="button details-button">details</button>
-                </div>
-                <div id="robot-item-4" class="robot-item">
-                    <p>ROB 4</p>
-                    <img class="robot-img-sm" src="../img/robot-4.png">
-                    <button id="detailsBtn4" class="button details-button">details</button>
-                </div>
-                <div id="robot-item-5" class="robot-item">
-                    <p>ROB 5</p>
-                    <img class="robot-img-sm" src="../img/robot-5.png">
-                    <button id="detailsBtn5" class="button details-button">details</button>
-                </div>
-            </div>
-            <button id="start-button" class="start-button">Start</button>
+            <div id="robot-grid" class="robot-grid"></div>
         </div>
     </div>
+    <button id="start-button" class="button start-button">Start</button>
 </div>
 
 <div id="robot-modal" class="modal">
@@ -60,6 +34,7 @@
                 <img id="modal-robot-img" class="robot-img-lg">
             </div>
             <div class="modal-table-item-right">
+                <div id="extra-information" class="robot-extra-information"></div>
                 <div id="algorithm-text" class="algorithm"></div>
             </div>
         </div>
@@ -74,8 +49,8 @@
             <div id="drag-buttons-box" class="drag-buttons-box">
                 <button class="draggable-start left" id="draggable-start" draggable="true" ondragstart="drag(event)">S</button>
                 <button class="draggable-finish left" id="draggable-finish" draggable="true" ondragstart="drag(event)"></button>
-                <button class="right" onclick="toggleLineCompleter()">line-completer</button>
-                <input id="size-slider" class="right" type="range" min="8" max="24" value="11">
+                <button class="button randomize-button right" onclick="createRandomMap()">random</button>
+                <input id="size-slider" class="size-slider right" type="range" min="9" step="2" max="25" value="11">
             </div>
             <div class="selection-map" id="selection-map"></div>
 
