@@ -6,6 +6,10 @@
     <title>Labyrinth Lab</title>
 </head>
 <body>
+
+<button class="button" onclick="showLocalStorage()">show local storage</button>
+<button class="button" onclick="deleteLocalStorage()">delete local storage</button>
+
 <div class="content">
 
     <input class="input" type="text" id="experiment-name" placeholder="EXPERIMENT XY"/>
@@ -45,12 +49,12 @@
     <div class="modal-content">
         <span id="close-creator-modal" class="close">&#10006;</span>
 
-            <input class="input creator-input" type="text" id="map-name" placeholder="Labyrinth title"/>
+            <input class="input creator-input" type="text" id="map-name" maxlength="16" placeholder="Labyrinth title"/>
             <div id="drag-buttons-box" class="drag-buttons-box">
                 <button class="draggable-start left" id="draggable-start" draggable="true" ondragstart="drag(event)">S</button>
                 <button class="draggable-finish left" id="draggable-finish" draggable="true" ondragstart="drag(event)"></button>
                 <button class="button randomize-button right" onclick="createRandomMap()">random</button>
-                <input id="size-slider" class="size-slider right" type="range" min="9" step="2" max="25" value="11">
+                <input id="size-slider" class="right" type="range" min="9" step="2" max="25" value="11">
             </div>
             <div class="selection-map" id="selection-map"></div>
 

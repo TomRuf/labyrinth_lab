@@ -27,18 +27,6 @@ const maps = [],
     robotColors = ["","#f3dd7e","#88c56e","#6eb4c5","#c56e6e","#999999"],
     robotNames = ["","rob1","rob2","rob3","rob4","rob5"];
 
-/*const map1 = [[false,false,false,false,false,true,false,false,false,false,false],
-                [false,true,false,true,false,true,true,true,true,true,false],
-                [false,true,true,true,false,false,false,true,false,true,false],
-                [false,true,false,true,false,true,true,true,false,true,false],
-                [false,true,false,true,true,true,false,false,false,true,false],
-                [false,true,false,false,false,true,false,false,true,true,false],
-                [false,true,false,true,true,true,true,false,false,false,false],
-                [false,false,false,true,false,false,true,false,true,false,false],
-                [false,false,false,true,false,false,true,true,true,false,false],
-                [false,true,true,true,false,true,true,false,true,true,false],
-                [false,true,false,false,false,false,false,false,false,false,false]];*/
-
 const map1 =[[0,0,0,0,0,1,0,0,0,0,0],
             [0,1,0,1,0,1,1,1,1,1,0],
             [0,1,1,1,0,0,0,1,0,1,0],
@@ -61,7 +49,72 @@ init();
 function init() {
     createAddBtn();
     createRobotItems();
-    addMap(map1, "default", 111, 5);
+    //addMap(map1, "default", 111, 5);
+    loadDefaultMap(map1, "default", 111, 5);
+    loadSavedMaps();
+}
+
+function showLocalStorage() {
+    for (let i=0; i < localStorage.length; i++) {
+        let storageKey = localStorage.key(i);
+        let mapObject = JSON.parse(localStorage.getItem(storageKey));
+        console.log(mapObject);
+    }
+
+    console.log("------------");
+    console.log(maps);
+}
+
+function deleteLocalStorage() {
+    localStorage.clear();
+}
+
+function loadDefaultMap(map, mapTitle, startPos, finishPos) {
+
+    let newMap = document.createElement("div");
+    newMap.setAttribute("id", "map-" + idCounter);
+    newMap.setAttribute("class", "grid-item");
+    newMap.setAttribute("data-clickable", "data-clickable");
+    if(selectedMap !== null) {
+        newMap.style.opacity = "0.4";
+    }
+
+    //-------------------------------------------------------------------------------
+
+    let title = document.createElement("p");
+    title.setAttribute("class", "title");
+    title.setAttribute("id", "title-" + idCounter);
+    title.setAttribute("data-clickable", "data-clickable");
+    title.textContent = mapTitle;
+
+    newMap.appendChild(title);
+
+    //-------------------------------------------------------------------------------
+
+    let canvas = document.createElement("canvas");
+    canvas.setAttribute("id", "canvas-" + idCounter);
+    canvas.setAttribute("class", "canvas");
+    canvas.setAttribute("data-clickable", "data-clickable");
+    canvas.setAttribute("width", "" + mapSize);
+    canvas.setAttribute("height", "" + mapSize);
+
+    newMap.appendChild(canvas);
+    mapGrid.insertBefore(newMap, mapGrid.children[maps.length]);
+
+    drawCanvas(map, idCounter);
+
+    let mapObject = {id: idCounter, map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
+    maps.push(mapObject);
+
+    idCounter++;
+}
+
+function loadSavedMaps() {
+    for (let i=0; i < localStorage.length; i++) {
+        let storageKey = localStorage.key(i);
+        let mapObject = JSON.parse(localStorage.getItem(storageKey));
+        addMap(mapObject.map, mapObject.mapTitle, mapObject.startPos, mapObject.finishPos);
+    }
 }
 
 /**
@@ -140,7 +193,7 @@ function addMap(map, mapTitle, startPos, finishPos) {
     //-------------------------------------------------------------------------------
 
     let editButton = document.createElement("button");
-    editButton.setAttribute("class", "edit-button");
+    editButton.setAttribute("class", "button edit-button");
     editButton.setAttribute("id", "edit-button-" + idCounter);
     editButton.setAttribute("data-edit", "data-edit");
     editButton.innerText = "\u270E";
@@ -148,7 +201,7 @@ function addMap(map, mapTitle, startPos, finishPos) {
     newMap.appendChild(editButton);
 
     let deleteButton = document.createElement("button");
-    deleteButton.setAttribute("class", "delete-button");
+    deleteButton.setAttribute("class", "button delete-button");
     deleteButton.setAttribute("id", "delete-button-" + idCounter);
     deleteButton.setAttribute("data-delete", "data-delete");
     deleteButton.innerText = "\u2716";
@@ -179,10 +232,13 @@ function addMap(map, mapTitle, startPos, finishPos) {
 
     drawCanvas(map, idCounter);
 
-    maps.push({id: idCounter,map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos});
+    let mapObject = {id: idCounter,map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
+    maps.push(mapObject);
+
+    // save in local storage
+    localStorage.setItem("map-" + idCounter, JSON.stringify(mapObject));
 
     idCounter++;
-
 }
 
 /**
@@ -202,8 +258,11 @@ function updateMap(id, map, mapTitle, startPos, finishPos) {
 
     // 2. change maps array
     let index = getIndexOf(id);
-    maps[index] = {id: id, map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
+    let newMap = {id: id, map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
+    maps[index] = newMap;
 
+    // 3. change in local storage
+    localStorage.setItem("map-" + id, JSON.stringify(newMap));
 }
 
 function drawCanvas(map, id) {
@@ -219,7 +278,7 @@ function drawCanvas(map, id) {
 function createAddBtn() {
 
     let button = document.createElement("div");
-    button.innerHTML = '<div class="button-div"><button id="addBtn" class="add-button">&#43;</button></div>';
+    button.innerHTML = '<div class="button-div"><button id="addBtn" class="button add-button">&#43;</button></div>';
     mapGrid.appendChild(button);
 
     addBtn = document.getElementById("addBtn");
@@ -322,7 +381,8 @@ function deleteMap(id) {
     let index = getIndexOf(id);
     maps.splice(index, 1);
 
-    // todo: delete from local storage
+    // delete from local storage
+    localStorage.removeItem("map-" + id);
 
     // delete div
     let mapItem = document.getElementById("map-" + id);
@@ -359,8 +419,10 @@ function selectMap(id) {
 
         let editButton = document.getElementById("edit-button-" + selectedMap);
         let deleteButton = document.getElementById("delete-button-" + selectedMap);
-        editButton.style.display = "none";
-        deleteButton.style.display = "none";
+        if(editButton !== null) {
+            editButton.style.display = "none";
+            deleteButton.style.display = "none";
+        }
 
         // deselect map when it's clicked twice
         if(selectedMap === id) {
@@ -383,9 +445,10 @@ function selectMap(id) {
     // show edit and delete button
     let editButton = document.getElementById("edit-button-" + id);
     let deleteButton = document.getElementById("delete-button-" + id);
-
-    editButton.style.display = "block";
-    deleteButton.style.display = "block";
+    if(editButton !== null) {
+        editButton.style.display = "block";
+        deleteButton.style.display = "block";
+    }
 
     const elements = document.getElementsByClassName("grid-item");
     for (let i = 0; i < elements.length; i++) {

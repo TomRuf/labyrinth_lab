@@ -1,5 +1,6 @@
 const selectionMap = document.getElementById("selection-map");
 const slider = document.getElementById("size-slider");
+const mapName = document.getElementById("map-name");
 let size = 11;
 let lastClickedButton = null;
 let clicked = [];
@@ -62,6 +63,9 @@ function loadMapToEdit(mapId, mapObj) {
         }
     }
 
+    // set title
+    mapName.setAttribute("placeholder", mapObj.mapTitle);
+
     // set start
     let startButton = document.getElementById(startPos);
     startField.style.width = "100%";
@@ -105,6 +109,7 @@ function resetCreator() {
 
     document.getElementById("map-name").value = "";
     document.getElementById("size-slider").value = 10;
+    mapName.setAttribute("placeholder", "New Labyrinth");
 
     mapTitle = "New Labyrinth";
 

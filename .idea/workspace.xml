@@ -7,7 +7,6 @@
       <change beforePath="$PROJECT_DIR$/Selection/selection.css" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulation/simulation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +117,8 @@
       <workItem from="1629987234905" duration="694000" />
       <workItem from="1630004482562" duration="3986000" />
       <workItem from="1630072726892" duration="20883000" />
+      <workItem from="1630133482299" duration="5500000" />
+      <workItem from="1630148423477" duration="4414000" />
     </task>
     <servers />
   </component>

@@ -5,13 +5,13 @@
     --white: #ffffff;
     --greyLight-1: #e4ebf5;
     --greyLight-2: #c8d0e7;
+    --darkGrey: #808080;
+    --lightGrey: #D3D3D3;
     --shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
     -0.2rem -0.2rem 0.5rem var(--white);
     --inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
     inset -0.2rem -0.2rem 0.5rem var(--white);
     --light-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    --darkGrey: #808080;
-    --lightGrey: #D3D3D3;
 }
 
 h2 {
@@ -35,8 +35,7 @@ body {
     text-align: center;
     padding: 30px;
     max-width: 1750px;
-    margin: auto;
-    margin-top: 50px;
+    margin: 50px auto auto;
 }
 
 .table {
@@ -75,32 +74,6 @@ body {
     position: relative;
 }
 
-.edit-button {
-    width: 30px;
-    height: 30px;
-    border-radius: 1rem;
-    background: var(--primary);
-    color: white;
-    border: 0;
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    display: none;
-}
-
-.delete-button {
-    width: 30px;
-    height: 30px;
-    border-radius: 1rem;
-    background: darkred;
-    color: white;
-    border: 0;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    display: none;
-}
-
 .button-div {
     margin: 10px;
     height: 200px;
@@ -136,13 +109,16 @@ body {
     cursor: pointer;
 }
 
+/*------------------------------------------------*/
+/*                   BUTTONS                      */
+/*------------------------------------------------*/
+
 .button {
-    width: 90%;
     padding: 0.75rem 1rem;
     border: 0;
     border-radius: 0.317rem;
     background-color: var(--primary);
-    color: #fff;
+    color: var(--white);
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
@@ -150,22 +126,6 @@ body {
     cursor: pointer;
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
-    position: absolute;
-}
-
-.size-slider {
-    color: var(--primary);
-}
-
-.randomize-button {
-    width: 100px;
-    position: unset;
-}
-
-.start-button {
-    margin-top: 50px;
-    width: 300px;
-    position: unset;
 }
 
 .button:hover {
@@ -180,35 +140,79 @@ body {
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
 }
 
+.randomize-button {
+    width: 100px;
+}
+
+.start-button {
+    margin-top: 50px;
+    width: 300px;
+}
+
 .add-button {
     width: 30%;
     height: 30%;
     margin: auto;
-    border: 0;
-    color: #fff;
-    background-color: var(--primary);
-    text-decoration: none;
-    font-size: 1.5rem;
-    cursor:pointer;
     border-radius: 50%;
 }
 
-.add-button:hover {
-    opacity: 0.85;
-}
-
-.add-button:active {
-    box-shadow: inset 0 3px 4px hsla(0, 0%, 0%, 0.2);
-}
-
-.add-button:focus {
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
-}
-
 .details-button {
+    position: absolute;
+    width: 90%;
     bottom: 2%;
     left: 5%;
 }
+
+.lab-button {
+    background-color: var(--darkGrey);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 3%;
+    cursor: pointer;
+    vertical-align: middle;
+    padding: 2px;
+}
+
+.lab-button:hover {
+    opacity: 0.85;
+}
+
+.navigation-button {
+    width: 100px;
+}
+
+.edit-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 1rem;
+    background: var(--primary);
+    color: var(--white);
+    border: 0;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    display: none;
+    font-weight: 100;
+    padding: 0;
+}
+
+.delete-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 1rem;
+    background: darkred;
+    color: var(--white);
+    border: 0;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: none;
+    font-weight: 100;
+    padding: 0;
+}
+
+/*------------------------------------------------*/
+/*                   MODAL                        */
+/*------------------------------------------------*/
 
 /* The Modal (background) */
 .modal {
@@ -226,7 +230,7 @@ body {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: var(--greyLight-1);
     margin: 0 auto;
     padding: 20px;
     width: 40%;
@@ -238,7 +242,7 @@ body {
 }
 
 .close {
-    color: #aaa;
+    color: var(--lightGrey);
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -246,7 +250,7 @@ body {
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: var(--text);
     text-decoration: none;
     cursor: pointer;
 }
@@ -302,38 +306,27 @@ body {
     height: 50px;
     width: 50px;
     border: 0;
-    color: black;
+    color: var(--text);
     background-color: darkorange;
     text-decoration: none;
     cursor:pointer;
-    border-radius: 50%;
+    border-radius: 0.317rem;
     margin-right: 10px;
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .draggable-finish {
     width: 50px;
     height: 50px;
     border: 0;
-    color: black;
-    font-size: 30px;
+    color: var(--text);
     text-decoration: none;
     cursor:pointer;
-    border-radius: 50%;
-    background-color: #ffffff;
-    opacity: 0.8;
-    background-image:  repeating-linear-gradient(45deg, #000000 25%, transparent 25%, transparent 75%, #000000 75%, #000000), repeating-linear-gradient(45deg, #000000 25%, #ffffff 25%, #ffffff 75%, #000000 75%, #000000);
+    border-radius: 0.317rem;
+    background-color: var(--white);
+    background-image:  repeating-linear-gradient(45deg, var(--text) 25%, transparent 25%, transparent 75%, var(--text) 75%, var(--text)), repeating-linear-gradient(45deg, #000000 25%, #ffffff 25%, #ffffff 75%, #000000 75%, #000000);
     background-position: 0 0, 10px 10px;
     background-size: 20px 20px;
-}
-
-.lab-button {
-    background-color: var(--darkGrey);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 3%;
-    cursor: pointer;
-    vertical-align: middle;
-    padding: 2px;
 }
 
 .left {float: left;}
@@ -344,11 +337,6 @@ body {
     width: 100%;
     height: 50px;
     padding-top: 20px;
-}
-
-.navigation-button {
-    width: 100px;
-    position: unset;
 }
 
 .creator-input {
@@ -444,17 +432,14 @@ input[type=range]::-webkit-slider-runnable-track {
     width: 50%;
     height: 11px;
     cursor: pointer;
-    background: #B6B6B6;
-    border-radius: 4px;
-    border: 1px solid #8A8A8A;
+    background: var(--lightGrey);
 }
 input[type=range]::-webkit-slider-thumb {
-    box-shadow: 1px 1px 1px #828282;
-    border: 1px solid #00467F;
+    box-shadow: 1px 1px 1px var(--darkGrey);
     height: 24px;
     width: 35px;
     border-radius: 6px;
-    background: #00467F;
+    background: var(--primary);
     cursor: pointer;
     -webkit-appearance: none;
     margin-top: -7.5px;
@@ -472,11 +457,11 @@ input[type=range]::-moz-range-track {
 }
 input[type=range]::-moz-range-thumb {
     box-shadow: 1px 1px 1px #828282;
-    border: 1px solid #00467F;
+    border: 1px solid var(--primary);
     height: 24px;
     width: 35px;
     border-radius: 6px;
-    background: #00467F;
+    background: var(--primary);
     cursor: pointer;
 }
 input[type=range]::-ms-track {
@@ -500,11 +485,11 @@ input[type=range]::-ms-fill-upper {
 input[type=range]::-ms-thumb {
     margin-top: 1px;
     box-shadow: 1px 1px 1px #828282;
-    border: 1px solid #00467F;
+    border: 1px solid var(--primary);
     height: 24px;
     width: 35px;
     border-radius: 6px;
-    background: #00467F;
+    background: var(--primary);
     cursor: pointer;
 }
 input[type=range]:focus::-ms-fill-lower {
