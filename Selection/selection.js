@@ -27,7 +27,8 @@ const maps = [],
     robotColors = ["","#f3dd7e","#88c56e","#6eb4c5","#c56e6e","#999999"],
     robotNames = ["","rob1","rob2","rob3","rob4","rob5"];
 
-const map1 =[[0,0,0,0,0,1,0,0,0,0,0],
+const defaultMaps = [
+    {map: [[0,0,0,0,0,1,0,0,0,0,0],
             [0,1,0,1,0,1,1,1,1,1,0],
             [0,1,1,1,0,0,0,1,0,1,0],
             [0,1,0,1,0,1,1,1,0,1,0],
@@ -37,7 +38,19 @@ const map1 =[[0,0,0,0,0,1,0,0,0,0,0],
             [0,0,0,1,0,0,1,0,1,0,0],
             [0,0,0,1,0,0,1,1,1,0,0],
             [0,1,1,1,0,1,1,0,1,1,0],
-            [0,1,0,0,0,0,0,0,0,0,0]];
+            [0,1,0,0,0,0,0,0,0,0,0]], title: "default-1", startPos: 0, finishPos: 0},
+
+    {map: [[0,0,0,0,0,0,0,0,0,0,0],
+            [0,1,0,1,0,1,1,1,0,1,0],
+            [0,1,1,1,1,1,0,1,1,1,1],
+            [0,0,0,1,0,1,1,1,0,1,0],
+            [0,1,1,1,1,1,0,1,0,1,0],
+            [0,1,0,0,0,1,0,0,0,1,0],
+            [0,1,0,1,1,1,1,0,1,1,0],
+            [0,0,0,1,0,0,1,0,0,0,0],
+            [0,0,0,1,0,0,1,1,1,0,0],
+            [0,1,1,1,0,1,1,0,1,1,0],
+            [0,0,0,0,0,1,0,0,0,0,0]], title: "default-2", startPos: 0, finishPos: 0}];
 
 const mapSize = 150;
 
@@ -47,11 +60,15 @@ init();
  * initializes the site
  */
 function init() {
+
     createAddBtn();
     createRobotItems();
-    //addMap(map1, "default", 111, 5);
-    loadDefaultMap(map1, "default", 111, 5);
-    loadSavedMaps();
+
+    // load default maps
+    loadDefaultMaps();
+
+    // load maps from local storage
+    loadSavedCustomMaps();
 }
 
 function showLocalStorage() {
@@ -69,51 +86,23 @@ function deleteLocalStorage() {
     localStorage.clear();
 }
 
-function loadDefaultMap(map, mapTitle, startPos, finishPos) {
-
-    let newMap = document.createElement("div");
-    newMap.setAttribute("id", "map-" + idCounter);
-    newMap.setAttribute("class", "grid-item");
-    newMap.setAttribute("data-clickable", "data-clickable");
-    if(selectedMap !== null) {
-        newMap.style.opacity = "0.4";
+function loadDefaultMaps() {
+    for(let i = 0; i < defaultMaps.length; i++) {
+        createMapItem(idCounter, defaultMaps[i].map, defaultMaps[i].title, defaultMaps[i].startPos, defaultMaps[i].finishPos, true);
+        idCounter++;
     }
-
-    //-------------------------------------------------------------------------------
-
-    let title = document.createElement("p");
-    title.setAttribute("class", "title");
-    title.setAttribute("id", "title-" + idCounter);
-    title.setAttribute("data-clickable", "data-clickable");
-    title.textContent = mapTitle;
-
-    newMap.appendChild(title);
-
-    //-------------------------------------------------------------------------------
-
-    let canvas = document.createElement("canvas");
-    canvas.setAttribute("id", "canvas-" + idCounter);
-    canvas.setAttribute("class", "canvas");
-    canvas.setAttribute("data-clickable", "data-clickable");
-    canvas.setAttribute("width", "" + mapSize);
-    canvas.setAttribute("height", "" + mapSize);
-
-    newMap.appendChild(canvas);
-    mapGrid.insertBefore(newMap, mapGrid.children[maps.length]);
-
-    drawCanvas(map, idCounter);
-
-    let mapObject = {id: idCounter, map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
-    maps.push(mapObject);
-
-    idCounter++;
 }
 
-function loadSavedMaps() {
+function loadSavedCustomMaps() {
     for (let i=0; i < localStorage.length; i++) {
         let storageKey = localStorage.key(i);
-        let mapObject = JSON.parse(localStorage.getItem(storageKey));
-        addMap(mapObject.map, mapObject.mapTitle, mapObject.startPos, mapObject.finishPos);
+
+        if(storageKey.startsWith("map")) {
+            let mapObject = JSON.parse(localStorage.getItem(storageKey));
+
+            createMapItem(mapObject.id, mapObject.map, mapObject.mapTitle, mapObject.startPos, mapObject.finishPos, false);
+            idCounter++;
+        }
     }
 }
 
@@ -182,8 +171,23 @@ function createRobotItems() {
  */
 function addMap(map, mapTitle, startPos, finishPos) {
 
+    // idCounter needs to check if id already exists
+    while(localStorage.getItem("map-" + idCounter) !== null) {
+        idCounter++;
+    }
+
+    createMapItem(idCounter, map, mapTitle, startPos, finishPos);
+
+    // save in local storage
+    localStorage.setItem("map-" + idCounter, JSON.stringify(maps[maps.length-1]));
+
+    idCounter++;
+}
+
+function createMapItem(id, map, mapTitle, startPos, finishPos, defaultMap) {
+
     let newMap = document.createElement("div");
-    newMap.setAttribute("id", "map-" + idCounter);
+    newMap.setAttribute("id", "map-" + id);
     newMap.setAttribute("class", "grid-item");
     newMap.setAttribute("data-clickable", "data-clickable");
     if(selectedMap !== null) {
@@ -192,27 +196,29 @@ function addMap(map, mapTitle, startPos, finishPos) {
 
     //-------------------------------------------------------------------------------
 
-    let editButton = document.createElement("button");
-    editButton.setAttribute("class", "button edit-button");
-    editButton.setAttribute("id", "edit-button-" + idCounter);
-    editButton.setAttribute("data-edit", "data-edit");
-    editButton.innerText = "\u270E";
+    if(!defaultMap) {
+        let editButton = document.createElement("button");
+        editButton.setAttribute("class", "button edit-button");
+        editButton.setAttribute("id", "edit-button-" + id);
+        editButton.setAttribute("data-edit", "data-edit");
+        editButton.innerText = "\u270E";
 
-    newMap.appendChild(editButton);
+        newMap.appendChild(editButton);
 
-    let deleteButton = document.createElement("button");
-    deleteButton.setAttribute("class", "button delete-button");
-    deleteButton.setAttribute("id", "delete-button-" + idCounter);
-    deleteButton.setAttribute("data-delete", "data-delete");
-    deleteButton.innerText = "\u2716";
+        let deleteButton = document.createElement("button");
+        deleteButton.setAttribute("class", "button delete-button");
+        deleteButton.setAttribute("id", "delete-button-" + id);
+        deleteButton.setAttribute("data-delete", "data-delete");
+        deleteButton.innerText = "\u2716";
 
-    newMap.appendChild(deleteButton);
+        newMap.appendChild(deleteButton);
+    }
 
     //-------------------------------------------------------------------------------
 
     let title = document.createElement("p");
     title.setAttribute("class", "title");
-    title.setAttribute("id", "title-" + idCounter);
+    title.setAttribute("id", "title-" + id);
     title.setAttribute("data-clickable", "data-clickable");
     title.textContent = mapTitle;
 
@@ -221,7 +227,7 @@ function addMap(map, mapTitle, startPos, finishPos) {
     //-------------------------------------------------------------------------------
 
     let canvas = document.createElement("canvas");
-    canvas.setAttribute("id", "canvas-" + idCounter);
+    canvas.setAttribute("id", "canvas-" + id);
     canvas.setAttribute("class", "canvas");
     canvas.setAttribute("data-clickable", "data-clickable");
     canvas.setAttribute("width", "" + mapSize);
@@ -230,15 +236,10 @@ function addMap(map, mapTitle, startPos, finishPos) {
     newMap.appendChild(canvas);
     mapGrid.insertBefore(newMap, mapGrid.children[maps.length]);
 
-    drawCanvas(map, idCounter);
+    drawCanvas(map, id);
 
-    let mapObject = {id: idCounter,map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
+    let mapObject = {id: id,map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
     maps.push(mapObject);
-
-    // save in local storage
-    localStorage.setItem("map-" + idCounter, JSON.stringify(mapObject));
-
-    idCounter++;
 }
 
 /**
@@ -650,8 +651,13 @@ window.onclick = function(event) {
 
 startButton.onclick = function() {
 
-    if(selectedRobots.length === 0 || selectedMap === null) {
+    if (selectedRobots.length === 0 || selectedMap === null) {
         alert("Don't forget to select a map and the robots!");
+        return;
+    }
+
+    if (experimentName.value.length === 0) {
+        alert("Don't forget to name your experiment!");
         return;
     }
 
@@ -672,6 +678,22 @@ startButton.onclick = function() {
     // add finish and start position
     url += "&start=" + sMap.startPos;
     url += "&finish=" + sMap.finishPos;
+
+    // -----------------------------------------------------------------
+    // save experiment in local storage
+    // -----------------------------------------------------------------
+
+    let expId = 0;
+    // detect free id
+    while(localStorage.getItem("exp-" + expId) !== null) {
+        expId++;
+    }
+
+    let experiment = {id: expId, expTitle: experimentName.value, mapId: sMap.id, robots: selectedRobots};
+
+    localStorage.setItem("exp-" + expId, JSON.stringify(experiment));
+
+    // -----------------------------------------------------------------
 
     location.href = url;
 }

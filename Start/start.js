@@ -7,25 +7,18 @@ var darkGrey = '#808080',
     lightGrey = '#D3D3D3';
 
 function init() {
+    /*
     canvas = document.getElementById('game');
     canvas.width = width;
     canvas.height = height;
     ctx = canvas.getContext('2d');
+     */
 
-    // todo: change this
-    game.map = [[0,0,0,0,0,1,0,0,0,0,0],
-                [0,1,0,1,0,1,1,1,1,1,0],
-                [0,1,1,1,0,0,0,1,0,1,0],
-                [0,1,0,1,0,1,1,1,0,1,0],
-                [0,1,0,1,1,1,0,0,0,1,0],
-                [0,1,0,0,0,1,0,0,1,1,0],
-                [0,1,0,1,1,1,1,0,0,0,0],
-                [0,0,0,1,0,0,1,0,1,0,0],
-                [0,0,0,1,0,0,1,1,1,0,0],
-                [0,1,1,1,0,1,1,0,1,1,0],
-                [0,1,0,0,0,0,0,0,0,0,0]];
+    //let tempMap = {id: 100, map: [[1,1,1], [1,0,1], [1,1,1]], mapTitle: "added-at-start", startPos: 0, finishPos: 0};
 
-    drawMap();
+    //localStorage.setItem("map-" + 100, JSON.stringify(tempMap));
+
+    //drawMap();
 }
 
 /**

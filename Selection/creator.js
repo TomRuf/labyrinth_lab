@@ -10,6 +10,9 @@ let edit = false;
 const startField = document.getElementById("draggable-start");
 const finishField = document.getElementById("draggable-finish");
 const dragButtonsBox = document.getElementById("drag-buttons-box");
+let draggedObjectId = null;
+let dragImgStart = null;
+let dragImgFinish = null;
 
 // colors
 const darkGrey = "#808080",
@@ -25,6 +28,16 @@ initCreator();
 
 function initCreator() {
     createMap(size);
+
+    dragImgStart = document.createElement("button");
+    dragImgStart.setAttribute("class", "draggable-start");
+    dragImgStart.style.width = "50px";
+    dragImgStart.style.height = "50px";
+
+    dragImgFinish = document.createElement("button");
+    dragImgFinish.setAttribute("class", "draggable-finish");
+    dragImgFinish.style.width = "30px";
+    dragImgFinish.style.height = "30px";
 }
 
 slider.oninput = function() {
@@ -415,26 +428,48 @@ function completeLine(current) {
     }
 }
 
+function drag(event) {
+    draggedObjectId = event.target.id;
+
+    event.dataTransfer.setDragImage(event.target, event.target.clientWidth/2, event.target.clientHeight/2);
+    event.dataTransfer.setData("text/plain", event.target.id);
+
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+    let dragObject = document.getElementById(draggedObjectId);
+
+    dragObject.style.width = "100%";
+    dragObject.style.height = "100%";
+    dragObject.style.opacity = "0.5";
+    if(event.target.matches("[data-button]")) {
+        event.target.appendChild(dragObject);
+    }
+}
+
 function drop(event) {
     event.preventDefault();
     const data = event.dataTransfer.getData("text/plain");
     let dragObject = document.getElementById(data);
     dragObject.style.width = "100%";
     dragObject.style.height = "100%";
-    event.target.appendChild(document.getElementById(data));
+    dragObject.style.opacity = "1";
+
+    // to prevent parent-child errors
+    let parentObject = null;
+    if(event.target.matches("[data-button]")) {
+        parentObject = event.target;
+    } else {
+        parentObject = event.target.parentElement;
+    }
+
+    parentObject.appendChild(document.getElementById(data));
 
     // save position of start & finish
     if (data === "draggable-start") {
-        startPos = event.target.id;
+        startPos = parentObject.id;
     }   else {
-        finishPos = event.target.id;
+        finishPos = parentObject.id;
     }
-}
-
-function drag(event) {
-    event.dataTransfer.setData("text/plain", event.target.id);
-}
-
-function allowDrop(event) {
-    event.preventDefault();
 }
