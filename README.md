@@ -5,7 +5,7 @@
 * built with: HTML, CSS, JS
 
 
-### Description: 
+### description: 
 labyrinths are wonderful little puzzles that can be used to show what algorithms are, how they work, 
 and what that different algorithms have different strenghts and weaknesses. in a current research and 
 design project, we are creating MOOC units for parts of the »ways of thinking in informatics course«. 
