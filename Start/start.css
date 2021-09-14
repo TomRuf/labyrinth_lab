@@ -5,12 +5,14 @@
     --white: #ffffff;
     --greyLight-1: #e4ebf5;
     --greyLight-2: #c8d0e7;
-    --shadow: 0.8rem 0.8rem 0.8rem var(--greyLight-2),
-    -0.8rem -0.8rem 0.8rem var(--white);
-    --inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
-    inset -0.2rem -0.2rem 0.5rem var(--white);
     --darkGrey: #808080;
     --lightGrey: #D3D3D3;
+    --red: #f15e5e;
+    --shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
+    -0.2rem -0.2rem 0.5rem var(--white);
+    --inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
+    inset -0.2rem -0.2rem 0.5rem var(--white);
+    --light-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 body {
@@ -24,8 +26,31 @@ body {
 }
 
 .title2 {
-    margin-top: 200px;
     color: var(--text);
+    font-size: large;
+}
+
+.confirm-modal-text {
+    color: var(--text);
+    font-size: xx-large;
+}
+
+.delete-warning {
+    font-size: 40px;
+    color: var(--red);
+    position: relative;
+    margin-top: 20px;
+}
+
+.delete-warning-circle {
+    font-size: 80px;
+    color: var(--red);
+    margin: -70px auto 0;
+}
+
+.text {
+    color: var(--text);
+    margin: 10px;
 }
 
 .content {
@@ -41,24 +66,52 @@ body {
 
 .grid-item {
     margin: 10px;
-    height: 150px;
-    width: 150px;
-    background: darkgrey;
+    height: 210px;
+    width: 210px;
     border-radius: 0.317rem;
+    background: var(--greyLight-1);
+    box-shadow: var(--inner-shadow);
+    position: relative;
+}
+
+.grid-item:hover {
+    opacity: 0.85 !important;
+    cursor: pointer;
 }
 
 canvas.game {
     border: 5px solid rgba(0,0,0,0.1);
 }
 
+.robot-img {
+    height: 90px;
+    width: 60px;
+    position: absolute;
+    bottom: 10px;
+}
+
+.right-0 {
+    right: 10px;
+}
+
+.right-1 {
+    right: 20px;
+}
+
+.right-2 {
+    right: 30px;
+}
+
+/*------------------------------------------------*/
+/*                   BUTTONS                      */
+/*------------------------------------------------*/
+
 .button {
-    display: inline-block;
-    margin: 0;
     padding: 0.75rem 1rem;
     border: 0;
     border-radius: 0.317rem;
     background-color: var(--primary);
-    color: white;
+    color: var(--white);
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
@@ -78,4 +131,92 @@ canvas.game {
 
 .button:focus {
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.delete-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 1rem;
+    background: var(--red);
+    color: var(--white);
+    border: 0;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: none;
+    font-weight: 100;
+    padding: 0;
+}
+
+.add-button {
+
+    /* boxy */
+    /*width: 210px;
+    height: 210px;
+    border-radius: 0.317rem;*/
+
+
+    /* round */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+
+    font-weight: 500;
+    font-size: x-large;
+    box-shadow: none;
+    margin: auto auto;
+}
+
+.button-div {
+    margin: 10px;
+    height: 210px;
+    width: 210px;
+    display: flex;
+    align-items: center;
+}
+
+.repeat-button {
+    display: none;
+    margin: 30px auto;
+}
+
+.confirm-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.5);
+}
+
+.confirm-modal-content {
+    background-color: var(--greyLight-1);
+    margin: 0 auto;
+    padding: 30px;
+    width: 400px;
+    border-radius: 0.317rem;
+    text-align: center;
+    position: relative;
+    top: 30%;
+    transform: translateY(-50%);
+}
+
+.confirm-buttons {
+    margin-top: 20px;
+    text-align: unset;
+    height: 50px;
+}
+
+.delete {
+    background: var(--red);
+    float: right;
+}
+
+.cancel {
+    float: left;
 }

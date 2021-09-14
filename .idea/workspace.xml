@@ -5,9 +5,24 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/creator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.css" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulation/simulation.css" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulation/simulation.html" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulation/simulation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Start/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/labyrinth.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/router.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/AbstractView.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Creator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Selection.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Simulation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/Start.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +33,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -52,7 +67,7 @@
       <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\img" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.selection.html">
+  <component name="RunManager" selected="JavaScript Debug.start.html">
     <configuration name="labyrinth.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/labyrinth.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -70,10 +85,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.selection.html" />
         <item itemvalue="JavaScript Debug.start.html" />
-        <item itemvalue="JavaScript Debug.labyrinth.html (1)" />
+        <item itemvalue="JavaScript Debug.selection.html" />
         <item itemvalue="JavaScript Debug.simulation.html" />
+        <item itemvalue="JavaScript Debug.labyrinth.html (1)" />
         <item itemvalue="JavaScript Debug.test.html" />
       </list>
     </recent_temporary>
@@ -122,6 +137,14 @@
       <workItem from="1630148423477" duration="4414000" />
       <workItem from="1630652866355" duration="23916000" />
       <workItem from="1630738796165" duration="10411000" />
+      <workItem from="1630918666081" duration="14739000" />
+      <workItem from="1630994999208" duration="8326000" />
+      <workItem from="1631082273194" duration="19814000" />
+      <workItem from="1631168865124" duration="18743000" />
+      <workItem from="1631519210567" duration="8261000" />
+      <workItem from="1631535617536" duration="76000" />
+      <workItem from="1631539599672" duration="11482000" />
+      <workItem from="1631604547777" duration="9944000" />
     </task>
     <servers />
   </component>

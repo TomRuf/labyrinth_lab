@@ -5,7 +5,7 @@ const robotModal = document.getElementById("robot-modal"),
     closeCreator = document.getElementById("close-creator-modal"),
     algorithmText = document.getElementById("algorithm-text"),
     robotGrid = document.getElementById("robot-grid"),
-    extraInformation = document.getElementById("extra-information"),
+    extraInformationText = document.getElementById("extra-information-text"),
     robotModalLeftTable = document.getElementById("modal-table-item-left"),
     startButton = document.getElementById("start-button");
 
@@ -15,6 +15,7 @@ const wrapper = document.getElementById("robot-grid"),
 let idCounter = 0;
 
 let addBtn = null;
+let mapToDelete = null;
 
 let selectedRobots = [],
     selectedMap = null;
@@ -25,10 +26,10 @@ const mapGrid = document.getElementById("map-grid");
 
 const maps = [],
     robotColors = ["","#f3dd7e","#88c56e","#6eb4c5","#c56e6e","#999999"],
-    robotNames = ["","rob1","rob2","rob3","rob4","rob5"];
+    robotNames = ["","Wall","Trem","Aria","Pledge","Rando"];
 
 const defaultMaps = [
-    {map: [[0,0,0,0,0,1,0,0,0,0,0],
+    {mapData: [[0,0,0,0,0,1,0,0,0,0,0],
             [0,1,0,1,0,1,1,1,1,1,0],
             [0,1,1,1,0,0,0,1,0,1,0],
             [0,1,0,1,0,1,1,1,0,1,0],
@@ -38,9 +39,9 @@ const defaultMaps = [
             [0,0,0,1,0,0,1,0,1,0,0],
             [0,0,0,1,0,0,1,1,1,0,0],
             [0,1,1,1,0,1,1,0,1,1,0],
-            [0,1,0,0,0,0,0,0,0,0,0]], title: "default-1", startPos: 0, finishPos: 0},
+            [0,1,0,0,0,0,0,0,0,0,0]], title: "default-1", startPos: 111, finishPos: 5},
 
-    {map: [[0,0,0,0,0,0,0,0,0,0,0],
+    {mapData: [[0,0,0,0,0,0,0,0,0,0,0],
             [0,1,0,1,0,1,1,1,0,1,0],
             [0,1,1,1,1,1,0,1,1,1,1],
             [0,0,0,1,0,1,1,1,0,1,0],
@@ -50,7 +51,7 @@ const defaultMaps = [
             [0,0,0,1,0,0,1,0,0,0,0],
             [0,0,0,1,0,0,1,1,1,0,0],
             [0,1,1,1,0,1,1,0,1,1,0],
-            [0,0,0,0,0,1,0,0,0,0,0]], title: "default-2", startPos: 0, finishPos: 0}];
+            [0,0,0,0,0,1,0,0,0,0,0]], title: "default-2", startPos: 115, finishPos: 32}];
 
 const mapSize = 150;
 
@@ -88,7 +89,7 @@ function deleteLocalStorage() {
 
 function loadDefaultMaps() {
     for(let i = 0; i < defaultMaps.length; i++) {
-        createMapItem(idCounter, defaultMaps[i].map, defaultMaps[i].title, defaultMaps[i].startPos, defaultMaps[i].finishPos, true);
+        createMapItem(idCounter, defaultMaps[i].mapData, defaultMaps[i].title, defaultMaps[i].startPos, defaultMaps[i].finishPos, true);
         idCounter++;
     }
 }
@@ -100,7 +101,7 @@ function loadSavedCustomMaps() {
         if(storageKey.startsWith("map")) {
             let mapObject = JSON.parse(localStorage.getItem(storageKey));
 
-            createMapItem(mapObject.id, mapObject.map, mapObject.mapTitle, mapObject.startPos, mapObject.finishPos, false);
+            createMapItem(mapObject.id, mapObject.mapData, mapObject.mapTitle, mapObject.startPos, mapObject.finishPos, false);
             idCounter++;
         }
     }
@@ -145,6 +146,7 @@ function createRobotItems() {
 
         let ctx = robotLine.getContext("2d");
 
+        // draw line
         ctx.beginPath();
         ctx.moveTo(150, 0);
         ctx.lineTo(150, 250);
@@ -164,27 +166,28 @@ function createRobotItems() {
 
 /**
  * adds a map
- * @param map the map which gets added
+ * @param mapData the map which gets added
  * @param mapTitle the title of the map
  * @param startPos the position of the start
  * @param finishPos the position of the finish
  */
-function addMap(map, mapTitle, startPos, finishPos) {
+function addMap(mapData, mapTitle, startPos, finishPos) {
 
     // idCounter needs to check if id already exists
     while(localStorage.getItem("map-" + idCounter) !== null) {
         idCounter++;
     }
 
-    createMapItem(idCounter, map, mapTitle, startPos, finishPos);
+    createMapItem(idCounter, mapData, mapTitle, startPos, finishPos);
 
     // save in local storage
     localStorage.setItem("map-" + idCounter, JSON.stringify(maps[maps.length-1]));
 
+    selectMap(idCounter);
     idCounter++;
 }
 
-function createMapItem(id, map, mapTitle, startPos, finishPos, defaultMap) {
+function createMapItem(id, mapData, mapTitle, startPos, finishPos, defaultMap) {
 
     let newMap = document.createElement("div");
     newMap.setAttribute("id", "map-" + id);
@@ -236,9 +239,9 @@ function createMapItem(id, map, mapTitle, startPos, finishPos, defaultMap) {
     newMap.appendChild(canvas);
     mapGrid.insertBefore(newMap, mapGrid.children[maps.length]);
 
-    drawCanvas(map, id);
+    drawCanvas(mapData, id);
 
-    let mapObject = {id: id,map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
+    let mapObject = {id: id, mapData: mapData, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
     maps.push(mapObject);
 }
 
@@ -250,33 +253,35 @@ function createMapItem(id, map, mapTitle, startPos, finishPos, defaultMap) {
  * @param startPos
  * @param finishPos
  */
-function updateMap(id, map, mapTitle, startPos, finishPos) {
+function updateMap(id, mapData, mapTitle, startPos, finishPos) {
 
     // 1. update html
     let newTitle = document.getElementById("title-" + id);
     newTitle.textContent = mapTitle;
-    drawCanvas(map, id);
+    drawCanvas(mapData, id);
 
     // 2. change maps array
     let index = getIndexOf(id);
-    let newMap = {id: id, map: map, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
+    let newMap = {id: id, mapData: mapData, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
     maps[index] = newMap;
 
     // 3. change in local storage
     localStorage.setItem("map-" + id, JSON.stringify(newMap));
 }
 
-function drawCanvas(map, id) {
+function drawCanvas(mapData, id) {
 
     let canvas = document.getElementById("canvas-" + id);
     let ctx = canvas.getContext("2d");
-    drawMap(ctx, canvas, map);
+    drawMap(ctx, canvas, mapData);
 }
 
 /**
  * creates the add-button and adds it to the html
  */
 function createAddBtn() {
+
+    // todo: delete innerHtml
 
     let button = document.createElement("div");
     button.innerHTML = '<div class="button-div"><button id="addBtn" class="button add-button">&#43;</button></div>';
@@ -294,12 +299,12 @@ function createAddBtn() {
  * @param canvas
  * @param map
  */
-function drawMap(ctx, canvas, map) {
+function drawMap(ctx, canvas, mapData) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const h = canvas.height / map.length;
-    for (let y = 0; y < map.length; y++) {
-        let row = map[y];
+    const h = canvas.height / mapData.length;
+    for (let y = 0; y < mapData.length; y++) {
+        let row = mapData[y];
         let w = canvas.width / row.length;
         for (let x = 0; x < row.length; x++) {
             let c = row[x];
@@ -356,8 +361,9 @@ wrapper2.addEventListener('click', (event) => {
 
         const id = event.target.id;
         let index = id.lastIndexOf('-');
-        deleteMap(parseInt(id.substring(index+1)));
+        confirmDeleteMap(parseInt(id.substring(index+1)));
     }
+
 });
 
 /**
@@ -372,21 +378,28 @@ function editMap(id) {
     loadMapToEdit(id, maps[index]);
 }
 
+function confirmDeleteMap(id) {
+    document.getElementById("confirm-modal").style.display = "block";
+    mapToDelete = id;
+
+    let title = maps[getIndexOf(id)].mapTitle;
+    document.getElementById("confirm-modal-text").innerHTML = "Do you really want to delete map: <b>" + title + "</b>? This process cannot be undone.";
+}
+
 /**
  * deletes a map
- * @param id
  */
-function deleteMap(id) {
+function deleteMap() {
 
     // delete in maps list
-    let index = getIndexOf(id);
+    let index = getIndexOf(mapToDelete);
     maps.splice(index, 1);
 
     // delete from local storage
-    localStorage.removeItem("map-" + id);
+    localStorage.removeItem("map-" + mapToDelete);
 
     // delete div
-    let mapItem = document.getElementById("map-" + id);
+    let mapItem = document.getElementById("map-" + mapToDelete);
     mapItem.remove();
 
     // reset selected
@@ -396,14 +409,9 @@ function deleteMap(id) {
     for (let i = 0; i < elements.length; i++) {
         elements[i].style.opacity = "1";
     }
-}
 
-/**
- * listens to click events on the add button
- */
-addBtn.addEventListener('click', (event) => {
-    showCreatorModal();
-});
+    closeConfirmModal();
+}
 
 /**
  * selects a map and saves it as selected
@@ -433,7 +441,6 @@ function selectMap(id) {
             for (let i = 0; i < elements.length; i++) {
                 elements[i].style.opacity = "1";
             }
-
             return;
         }
     }
@@ -521,80 +528,80 @@ function showRobotModal(id) {
 
     switch (id) {
         case '1':
-            title = 'ROB1';
+            title = robotNames[id];
             extraInfo = "Geht immer der rechten Wand entlang";
             inner = `<pre><code>
-Solange Ziel nicht erreicht
-    Falls Weg rechts 
-        gehe rechts 
-    Falls Weg geradeaus
-        gehe geradeaus
-    Falls Weg links 
-        gehe links 
-    Sonst 
-        drehe dich um
+1 Solange Ziel nicht erreicht
+2     Falls Weg rechts 
+3         gehe rechts 
+4     Falls Weg geradeaus
+5         gehe geradeaus
+6     Falls Weg links 
+7         gehe links 
+8     Sonst 
+9         drehe dich um
     </code></pre>`;
 
             break;
         case '2':
-            title = 'ROB2';
+            title = robotNames[id];
             extraInfo = "TBA";
             inner = `<pre><code>
-Solange Ziel nicht erreicht
-    markiere momentanen Pfad
-    folge Pfad bis Ende
-        Falls Sackgasse
-            kehre um
-        sonst
-            markiere momentanen pfad
-            falls Kreuzung hat unbekannte Wege
-                Wähle einen unbekannten Weg
-            falls Kreuzung hat Wege mit nur einer Markierung
-                Wähle Weg mit nur einer Markierung
-            Sonst
-                Kehre um
+1 Solange Ziel nicht erreicht
+2     markiere momentanen Pfad
+3     folge Pfad bis Ende
+4         Falls Sackgasse
+5             kehre um
+6         sonst
+7             markiere momentanen pfad
+8             falls Kreuzung hat unbekannte Wege
+9                 Wähle einen unbekannten Weg
+10            falls Kreuzung hat Wege mit nur einer Markierung
+11               Wähle Weg mit nur einer Markierung
+12            Sonst
+13                Kehre um
     </code></pre>`;
             break;
 
         case '3':
-            title = 'ROB3';
+            title = robotNames[id];
             extraInfo = "TBA";
             inner = `<pre><code>
-Solange Ziel nicht erreicht
-    falls Sackgasse oder Ariadnefaden quert Kreuzung
-        drehe dich um und gehe Gang zurück (und wickle auf)
-    sonst
-        gehe 1. Gang von links (falls Ariadnefaden im Gang, dann
-        aufwickeln sonst abspulen)
+1 Solange Ziel nicht erreicht
+2     falls Sackgasse oder Ariadnefaden quert Kreuzung
+3         drehe dich um und gehe Gang zurück (und wickle auf)
+4     sonst
+5         gehe 1. Gang von links (falls Ariadnefaden im Gang, dann
+6         aufwickeln sonst abspulen)
     </code></pre>`;
 
             break;
 
         case '4':
-            title = 'ROB4';
+            title = robotNames[id];
             extraInfo = "TBA";
             inner = `<pre><code>
-Setze Drehzähler auf 0
-
-Wiederhole bis Ausgang erreicht
-    Wiederhole bis Wand berührt wird
-        Gehe gerade aus
-    Drehung nach links
-    Wiederhole bis Drehzähler auf 0 steht
-        Folge der Wand
-        Falls Drehung
-            Adaptiere Drehzähler
+1 Setze Drehzähler auf 0
+2 
+3 Wiederhole bis Ausgang erreicht
+4     Wiederhole bis Wand berührt wird
+5         Gehe gerade aus
+6     Drehung nach links
+7     Wiederhole bis Drehzähler auf 0 steht
+8         Folge der Wand
+9         Falls Drehung
+10            Adaptiere Drehzähler
     </code></pre>`;
             break;
 
         case '5':
-            title = 'ROB5';
-            extraInfo = "TBA";
+            title = robotNames[id];
+            extraInfo = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
             inner = `<pre><code>
-Wiederhole bis Ausgang erreicht
-    in welche Richtung kann gegangen werden?
-    wähle eine mögliche Richtung zufällig aus 
-    und gehe in diese Richtung
+1 Wiederhole bis Ausgang erreicht
+2     in welche Richtung kann gegangen werden?
+3     wähle eine mögliche Richtung zufällig aus 
+4     gehe in diese Richtung
     </code></pre>`;
             break;
     }
@@ -603,8 +610,8 @@ Wiederhole bis Ausgang erreicht
     let robotImg = document.getElementById("modal-robot-img");
     robotImg.setAttribute("src", "../img/robot-" + id + ".png");
 
-    modalTitle.innerHTML = '<h1>'+title+'</h1>';
-    extraInformation.innerText = extraInfo;
+    modalTitle.innerText = title;
+    extraInformationText.innerText = extraInfo;
     algorithmText.innerHTML = inner;
 }
 
@@ -637,6 +644,10 @@ function closeCreatorModal() {
     resetCreator();
 }
 
+function closeConfirmModal() {
+    document.getElementById("confirm-modal").style.display = "none";
+}
+
 /**
  * closes the modal if clicked anywhere outside
  * @param event
@@ -663,7 +674,7 @@ startButton.onclick = function() {
 
     let sMap = maps[getIndexOf(selectedMap)];
 
-    let tempMap = sMap.map;
+    let tempMap = sMap.mapData;
     let temp = encodeURIComponent(JSON.stringify(tempMap));
 
     let url = "../Simulation/simulation.html?map=" + temp + "&robots=";
@@ -689,7 +700,7 @@ startButton.onclick = function() {
         expId++;
     }
 
-    let experiment = {id: expId, expTitle: experimentName.value, mapId: sMap.id, robots: selectedRobots};
+    let experiment = {id: expId, expTitle: experimentName.value, map: sMap, robots: selectedRobots};
 
     localStorage.setItem("exp-" + expId, JSON.stringify(experiment));
 

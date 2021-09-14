@@ -9,6 +9,7 @@
     -0.8rem -0.8rem 0.8rem var(--white);
     --inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
     inset -0.2rem -0.2rem 0.5rem var(--white);
+    --light-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     --darkGrey: #808080;
     --lightGrey: #D3D3D3;
 }
@@ -23,16 +24,29 @@ body {
 }
 
 .grid-container {
+    margin-top: 50px;
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto;
     justify-content: center;
+}
+
+.grid-item {
+    padding: 10px;
+}
+
+.screen-wrapper {
+    padding: 20px;
+    background: var(--darkGrey);
+    border-radius: 0.317rem;
+    margin-top: -230px;
+    position: absolute;
 }
 
 .output-screen {
     width: 300px;
     height: 200px;
     background: black;
-    margin: 20px;
+    margin: 0 auto;
     overflow: auto;
 }
 
@@ -43,18 +57,18 @@ body {
 }
 
 .button {
-    background-color: var(--primary);
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    width: 300px;
-    margin: 20px;
-    display: block;
-    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border: 0;
     border-radius: 0.317rem;
+    background-color: var(--primary);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
 }
 
 .button:hover {
@@ -67,4 +81,56 @@ body {
 
 .button:focus {
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.navigation-button {
+    margin-top: 30px;
+    width: 110px;
+}
+
+.img-small {
+    height: 90px;
+    width: 60px;
+    opacity: 0.5;
+}
+
+.robot-grid {
+    display: grid;
+    height: 340px;
+    width: 340px;
+}
+
+.robot-grid-item {
+    background: var(--lightGrey);
+    width: 100%;
+    opacity: 0.7;
+    text-align: center;
+    padding-top: 10px;
+    margin-top: 20px;
+    border-top-left-radius: 0.317rem;
+    border-top-right-radius: 0.317rem;
+}
+
+.robot-grid-item:hover {
+    margin-top: 0 !important;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    text-align: center;
+}
+
+.button-grid-item {
+
+}
+
+.robot-grid-item:hover {
+    opacity: 0.85 !important;
+    cursor: pointer;
+}
+
+.robot-output {
+    display: none;
+    color: white;
 }

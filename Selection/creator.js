@@ -53,7 +53,7 @@ slider.oninput = function() {
 
 function loadMapToEdit(mapId, mapObj) {
 
-    size = mapObj.map.length;
+    size = mapObj.mapData.length;
     startPos = mapObj.startPos;
     finishPos = mapObj.finishPos;
     edit = true;
@@ -63,9 +63,9 @@ function loadMapToEdit(mapId, mapObj) {
     createMap(size);
 
     let id = 0;
-    for(let y = 0; y < mapObj.map.length; y++) {
-        for(let x = 0; x < mapObj.map.length; x++) {
-            if(mapObj.map[y][x] === 1) {
+    for(let y = 0; y < size; y++) {
+        for(let x = 0; x < size; x++) {
+            if(mapObj.mapData[y][x] === 1) {
                 clicked.push(id);
                 // set the color of the clicked field
                 let clickedButton = document.getElementById(""+id);
@@ -214,16 +214,16 @@ function createRandomMap() {
     selectionMap.innerHTML = "";
     const buttonSize = 100 / size;
 
-    let map = [];
+    let mapData = [];
 
     // create outer wall boundary
     for (let y = 0; y < size; y++) {
-        map[y] = [];
+        mapData[y] = [];
         for (let x = 0; x < size; x++) {
             if (x === 0 || x === size - 1 || y === 0 || y === size - 1) {
-                map[y][x] = 0;
+                mapData[y][x] = 0;
             } else {
-                map[y][x] = 1;
+                mapData[y][x] = 1;
             }
         }
     }
@@ -234,7 +234,7 @@ function createRandomMap() {
         y: 1
     };
 
-    map[cell.y][cell.x] = "#";
+    mapData[cell.y][cell.x] = "#";
 
     let walls = [
         {x: cell.x - 1, y: cell.y},
@@ -246,30 +246,30 @@ function createRandomMap() {
     while (walls.length > 0) {
         let wall = walls.splice(Math.floor(Math.random() * walls.length), 1)[0];
 
-        if (map[wall.y - 1] && map[wall.y + 1] &&
-            map[wall.y - 1][wall.x] === "#" && map[wall.y + 1][wall.x] === 1) {
-            map[wall.y + 1][wall.x] = map[wall.y][wall.x] = "#";
+        if (mapData[wall.y - 1] && mapData[wall.y + 1] &&
+            mapData[wall.y - 1][wall.x] === "#" && mapData[wall.y + 1][wall.x] === 1) {
+            mapData[wall.y + 1][wall.x] = mapData[wall.y][wall.x] = "#";
             walls.push({x: wall.x - 1, y: wall.y + 1});
             walls.push({x: wall.x + 1, y: wall.y + 1});
             walls.push({x: wall.x, y: wall.y + 2});
 
-        } else if (map[wall.y - 1] && map[wall.y + 1] &&
-            map[wall.y + 1][wall.x] === "#" && map[wall.y - 1][wall.x] === 1) {
-            map[wall.y - 1][wall.x] = map[wall.y][wall.x] = "#";
+        } else if (mapData[wall.y - 1] && mapData[wall.y + 1] &&
+            mapData[wall.y + 1][wall.x] === "#" && mapData[wall.y - 1][wall.x] === 1) {
+            mapData[wall.y - 1][wall.x] = mapData[wall.y][wall.x] = "#";
             walls.push({x: wall.x - 1, y: wall.y - 1});
             walls.push({x: wall.x + 1, y: wall.y - 1});
             walls.push({x: wall.x, y: wall.y - 2});
 
-        } else if (map[wall.y] && map[wall.y] &&
-            map[wall.y][wall.x - 1] === "#" && map[wall.y][wall.x + 1] === 1) {
-            map[wall.y][wall.x + 1] = map[wall.y][wall.x] = "#";
+        } else if (mapData[wall.y] && mapData[wall.y] &&
+            mapData[wall.y][wall.x - 1] === "#" && mapData[wall.y][wall.x + 1] === 1) {
+            mapData[wall.y][wall.x + 1] = mapData[wall.y][wall.x] = "#";
             walls.push({x: wall.x + 1, y: wall.y - 1});
             walls.push({x: wall.x + 1, y: wall.y + 1});
             walls.push({x: wall.x + 2, y: wall.y});
 
-        } else if (map[wall.y] && map[wall.y] &&
-            map[wall.y][wall.x + 1] === "#" && map[wall.y][wall.x - 1] === 1) {
-            map[wall.y][wall.x - 1] = map[wall.y][wall.x] = "#";
+        } else if (mapData[wall.y] && mapData[wall.y] &&
+            mapData[wall.y][wall.x + 1] === "#" && mapData[wall.y][wall.x - 1] === 1) {
+            mapData[wall.y][wall.x - 1] = mapData[wall.y][wall.x] = "#";
             walls.push({x: wall.x - 1, y: wall.y - 1});
             walls.push({x: wall.x - 1, y: wall.y + 1});
             walls.push({x: wall.x - 2, y: wall.y});
@@ -289,11 +289,11 @@ function createRandomMap() {
 
             selectionMap.appendChild(newButton);
 
-            if (map[y][x] === "#") {
-                map[y][x] = 1;
+            if (mapData[y][x] === "#") {
+                mapData[y][x] = 1;
                 addClicked(id);
             } else {
-                map[y][x] = 0;
+                mapData[y][x] = 0;
             }
             id++;
         }
@@ -445,6 +445,12 @@ function allowDrop(event) {
     dragObject.style.opacity = "0.5";
     if(event.target.matches("[data-button]")) {
         event.target.appendChild(dragObject);
+
+        if (draggedObjectId === "draggable-start") {
+            startPos = event.target.id;
+        } else {
+            finishPos = event.target.id;
+        }
     }
 }
 
@@ -454,7 +460,6 @@ function drop(event) {
     let dragObject = document.getElementById(data);
     dragObject.style.width = "100%";
     dragObject.style.height = "100%";
-    dragObject.style.opacity = "1";
 
     // to prevent parent-child errors
     let parentObject = null;
@@ -472,4 +477,11 @@ function drop(event) {
     }   else {
         finishPos = parentObject.id;
     }
+}
+
+function finishedDrag() {
+
+    finishField.style.opacity = "1";
+    startField.style.opacity = "1";
+
 }

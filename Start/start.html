@@ -8,26 +8,29 @@
 <body>
     <div class="content">
         <h1 class="title">Labyrinth Lab</h1>
-        <button id="startButton" class="button">start new experiment</button>
-        <script type="text/javascript">
-            document.getElementById("startButton").onclick = function () {
-                location.href = "../Selection/selection.html";
-            };
-        </script>
         <h2 class="title2">past experiments:</h2>
         <div id="grid-container" class="grid-container">
-            <script>
+            <div class="button-div">
+                <button id="createNewExperiment" class="grid-item button add-button" onclick="startNewExperiment()">
+                    &#43;
+                </button>
+            </div>
+        </div>
+        <button id="repeat-button" class="button repeat-button" onclick="repeatExperiment()">repeat experiment</button>
+    </div>
 
-                const item = document.getElementById("grid-container");
-                var inner = '';
-
-                for (var i = 1; i < 12; i++) {
-                    inner += '<div class="grid-item"><p>EXP.'+ i +'</p></div>';
-                }
-
-                item.innerHTML = inner;
-
-            </script>
+    <div id="confirm-modal" class="confirm-modal">
+        <div id="confirm-modal-content" class="confirm-modal-content">
+            <div class="delete-warning">
+                &#10006;
+                <div class="delete-warning-circle">&#9711;</div>
+            </div>
+            <p class="confirm-modal-text"> Are you sure?</p>
+            <p id="confirm-modal-text" class="text"></p>
+            <div class="confirm-buttons">
+                <button class="button cancel" onclick="closeConfirmModal()">cancel</button>
+                <button class="button delete" onclick="deleteExp()">delete</button>
+            </div>
         </div>
     </div>
 

@@ -11,10 +11,27 @@
     <div class="grid-item">
         <canvas id="simulation" class="simulation"></canvas>
     </div>
-    <div class="grid-item">
-        <div id="output-screen" class="output-screen"></div>
-        <button class="button" onclick="moveOneStep()">step</button>
-        <button class="button" onclick="autoMove()">auto move</button>
+    <div id="grid-item-info" class="grid-item">
+
+        <div id="robot-grid" class="robot-grid"></div>
+
+        <div class="screen-wrapper">
+            <div id="output-screen" class="output-screen"></div>
+        </div>
+
+        <div class="button-grid">
+            <div class="button-grid-item">
+                <button class="button navigation-button" onclick="">&#8250;</button>
+            </div>
+            <div class="button-grid-item">
+                <button class="button navigation-button" onclick="moveOneStep()">&#187;</button>
+            </div>
+            <div class="button-grid-item">
+                <button id="auto-move-button" class="button navigation-button" onclick="autoMove()">auto</button>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
