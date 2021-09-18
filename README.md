@@ -7,7 +7,7 @@
 
 ### description: 
 labyrinths are wonderful little puzzles that can be used to show what algorithms are, how they work, 
-and what that different algorithms have different strenghts and weaknesses. in a current research and 
+and that different algorithms have different strenghts and weaknesses. in a current research and 
 design project, we are creating MOOC units for parts of the »ways of thinking in informatics course«. 
 for computational thinking, this bachelorproject designs and implements a »labyrinth lab«, where students 
 can experiment with algorithms in labyrinths. eg. it should be possible to see how different algorithms 
