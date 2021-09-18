@@ -58,10 +58,16 @@ function loadExperiments() {
 
 function createExperimentItem(exp, defaultExperiment) {
 
+    let expWrapper = document.createElement("div");
+    expWrapper.setAttribute("id", "exp-wrapper-" + exp.id);
+    expWrapper.setAttribute("class", "grid-item-wrapper");
+
     let newExp = document.createElement("div");
     newExp.setAttribute("id", "exp-" + exp.id);
     newExp.setAttribute("class", "grid-item");
     newExp.setAttribute("data-clickable", "data-clickable");
+
+    expWrapper.appendChild(newExp);
 
     //-------------------------------------------------------------------------------
 
@@ -112,7 +118,7 @@ function createExperimentItem(exp, defaultExperiment) {
 
     //-------------------------------------------------------------------------------
 
-    experimentGrid.insertBefore(newExp, experimentGrid.children[experiments.length]);
+    experimentGrid.insertBefore(expWrapper, experimentGrid.children[experiments.length]);
 
     drawCanvas(exp.map.mapData, exp.id);
 
@@ -139,7 +145,7 @@ function deleteExp() {
     localStorage.removeItem("exp-" + experimentToDelete);
 
     // delete div
-    let expItem = document.getElementById("exp-" + experimentToDelete);
+    let expItem = document.getElementById("exp-wrapper-" + experimentToDelete);
     expItem.remove();
 
     // reset selected
@@ -204,6 +210,10 @@ function selectExp(id) {
     }
 
     item.style.opacity = "1";
+
+    // show repeatButton under selected experiment
+    let wrapper = document.getElementById("exp-wrapper-" + id);
+    wrapper.appendChild(repeatButton);
     repeatButton.style.display = "block";
 }
 

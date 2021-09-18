@@ -91,6 +91,7 @@ body {
     background: var(--greyLight-1);
     box-shadow: var(--inner-shadow);
     position: relative;
+    user-select: None;
 }
 
 .button-div {
@@ -121,6 +122,7 @@ body {
     display: block;
     position: relative;
     box-shadow: var(--inner-shadow);
+    user-select: None;
 }
 
 .robot-item:hover {

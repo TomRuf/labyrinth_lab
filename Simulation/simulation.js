@@ -26,8 +26,8 @@ const darkGrey = "#808080",
 const robotGrid = document.getElementById("robot-grid");
 
 let selectedRobot = null;
-
-const path = [];
+let robOutputCounter = []; // the number of outputs for every robot
+let positionToShow = {x: null, y: null};
 
 let start = {},
     finish = {};
@@ -64,7 +64,6 @@ function init() {
     generateRobotTabs();
 
     draw();
-    //loop();
 }
 
 function generateRobotTabs() {
@@ -106,8 +105,6 @@ function generateRobotTabs() {
         output.setAttribute("class", "robot-output");
         outputScreen.appendChild(output);
 
-        addOutput("robot " + robotId + " ready", true, robotId);
-
         if (i === 1) {  // select the first robot
             selectedRobot = robots[i-1].id;
             gridItem.style.backgroundColor = "var(--darkGrey)";
@@ -134,29 +131,42 @@ function initRobots(robotIds) {
             id: robotIds[i], color: robotColors[robotIds[i]], posX: start.x, posY: start.y,
             currentDirection: Direction.up, path: [], finished: false
         });
+        robOutputCounter[robotIds[i]] = 0;
     }
 }
 
-function loop() {
-    draw();
-    requestAnimFrame(loop);
-}
-
-function draw() {
+/**
+ * draws the map, paths and robots
+ * @param showPosition true if canvas is drawn to show a past position
+ */
+function draw(showPosition) {
 
     ctx.clearRect(0, 0, canvasSize, canvasSize);
 
     drawMap();
 
-    // separated because otherwise robots would be overdrawn
-    for (let i = 0; i < robots.length; i++) {
-        computePath(robots[i], i);
-        drawPath(robots[i]);
-    }
+    let selected = null;
 
     for (let i = 0; i < robots.length; i++) {
-        drawRobot(robots[i], i);
+        // skip selected robot
+        if (parseInt(robots[i].id) !== parseInt(selectedRobot)) {
+            computePath(robots[i], i, showPosition);
+            drawPath(robots[i]);
+        } else {
+            selected = i;
+        }
     }
+
+    // draw selected as last to be on top
+    computePath(robots[selected], selected, showPosition);
+    drawPath(robots[selected]);
+
+    for (let i = 0; i < robots.length; i++) {
+        if (i !== selected) {
+            drawRobot(robots[i], i);
+        }
+    }
+    drawRobot(robots[selected], selected);
 }
 
 /**
@@ -177,7 +187,15 @@ function drawMap() {
                 ctx.fillStyle = lightGrey;
             }
 
-            if (x === finish.x && y === finish.y) { // draw checkerboard-pattern if current position = finish position
+            // draw position from output-mouseover
+            if (positionToShow.x === x && positionToShow.y === y) {
+                ctx.fillStyle = lightGreen;
+                positionToShow.x = null;
+                positionToShow.y = null;
+            }
+
+            // draw checkerboard-pattern if current position = finish position
+            if (x === finish.x && y === finish.y) {
 
                 let squareSize = w/5;
                 ctx.rect(w * x, h * y, w - 0.2, h - 0.2);
@@ -199,24 +217,50 @@ function drawMap() {
     }
 }
 
-function computePath(robot, number) {
+function computePath(robot, number, showPosition) {
 
     // add offset to the path to prevent overlapping
-    let offsetX = 0;
-    let offsetY = 0;
+    let offset = 0;
 
     if (number === 1) {
-        offsetX = pathWidth;
-        offsetY = pathWidth;
+        offset = pathWidth;
     } else if (number === 2) {
-        offsetX = -pathWidth;
-        offsetY = -pathWidth;
+        offset = -pathWidth;
     }
 
-    let posX = (robot.posX * step) + step / 2 + offsetX;
-    let posY = (robot.posY * step) + step / 2 + offsetY;
+    let posX = (robot.posX * step) + step / 2 + offset;
+    let posY = (robot.posY * step) + step / 2 + offset;
 
-    robot.path.push({x: posX, y: posY});
+    /* // todo: possible fix for ugly offset on turns
+    if (robot.path.length > 3 && !showPosition) {
+        adjustOffset(robot, posX, posY, offset);
+    }*/
+
+    if (!showPosition) { // don't push the path if canvas is redrawn to show past position
+        robot.path.push({x: posX, y: posY});
+    }
+}
+
+/**
+ * determins if an offset adjustment is needed
+ */
+function adjustOffset(robot, posX, posY, offset) {
+
+    let oldPosition = robot.path[robot.path.length-2];
+
+    if (oldPosition.x === posX && oldPosition.y === posY) {
+        // todo implement for all robots
+    } else if (posX === robot.path[robot.path.length-3].x && posY === robot.path[robot.path.length-3].y) { // for rob1 --> because of turn
+
+        if (robot.currentDirection === Direction.up || robot.currentDirection === Direction.down) {
+            robot.path[robot.path.length-2].y -= offset;
+        } else {
+            robot.path[robot.path.length-2].x -= offset;
+        }
+        robot.path[robot.path.length-1] = robot.path[robot.path.length-2];
+
+    }
+
 }
 
 /**
@@ -234,10 +278,30 @@ function drawPath(robot) {
         }
     }
 
-    ctx.strokeStyle = robot.color;
+    // if the robot is not selected --> path with opacity
+    if(parseInt(selectedRobot) === parseInt(robot.id)) {
+        ctx.strokeStyle = robot.color;
+    } else {
+        let rgb = robot.color.convertToRGB();
+        ctx.strokeStyle = "rgba(" + rgb[0] + "," + rgb[1] + "," + rgb[2] + ", 0.6)";
+    }
 
     ctx.lineWidth = pathWidth;
     ctx.stroke();
+}
+
+String.prototype.convertToRGB = function(){
+
+    // delete #
+    let color = this.substring(1);
+
+    const aRgbHex = color.match(/.{1,2}/g);
+    const aRgb = [
+        parseInt(aRgbHex[0], 16),
+        parseInt(aRgbHex[1], 16),
+        parseInt(aRgbHex[2], 16)
+    ];
+    return aRgb;
 }
 
 /**
@@ -276,23 +340,6 @@ function drawRobot(robot) {
             break;
     }
 
-
-    //canvas_arrow(posX, posY - radius/2, posX, posY + radius/2);
-}
-
-function canvas_arrow(fromX, fromY, toX, toY) {
-    ctx.beginPath();
-    ctx.strokeStyle = "#181818";
-    ctx.lineWidth = radius/4;
-    ctx.lineCap = 'round';
-    let headLen = radius; // length of head in pixels
-    let dx = toX - fromX;
-    let dy = toY - fromY;
-    let angle = Math.atan2(dy, dx);
-    ctx.moveTo(toX - headLen * Math.cos(angle + Math.PI / 6), toY - headLen * Math.sin(angle + Math.PI / 6));
-    ctx.lineTo(toX, toY);
-    ctx.lineTo(toX - headLen * Math.cos(angle - Math.PI / 6), toY - headLen * Math.sin(angle - Math.PI / 6));
-    ctx.stroke();
 }
 
 /**
@@ -362,19 +409,44 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function addOutput(text, successful, robotId) {
-    let output = document.createElement("code");
-    output.setAttribute("class", "output-text");
+function showPosition(robotId, position) {
 
-    if (successful) {
-        //output.setAttribute("style", "color: green;");
-        output.innerText = " \u2713 "; // check mark
-    } else {
-        //output.setAttribute("style", "color: white;");
-        output.innerText = " \u2717 "; // x mark
+    position = parseInt(position);
+    robotId = parseInt(robotId);
+    let robot = null;
+
+    for (let i = 0; i < robots.length; i++) {
+        if (parseInt(robots[i].id) === robotId) {
+            robot = robots[i];
+        }
     }
 
-    output.innerText += text;
+    let coordinatePosition = robot.path[position];
+
+    positionToShow.x = Math.floor(coordinatePosition.x / step);
+    positionToShow.y = Math.floor(coordinatePosition.y / step);
+
+    draw(true);
+
+}
+
+function addOutput(text, successful, robotId) {
+
+    let output = document.createElement("code");
+    output.setAttribute("class", "output-text");
+    output.setAttribute("onmouseover", "showPosition(" + robotId + ", " + robOutputCounter[robotId] + ")");
+
+    output.innerText = text;
+
+    if (successful) {
+        output.setAttribute("style", "color: lightGreen; margin-bottom: 20px;");
+        output.innerText += " \u2713 "; // check mark
+        robOutputCounter[robotId]++;
+    } else {
+        output.setAttribute("style", "color: white;");
+        output.innerText += " \u2717 "; // x mark
+    }
+
     let outputDiv = document.getElementById("output-robot-" + robotId);
     outputDiv.appendChild(output);
 
@@ -409,6 +481,7 @@ robotGrid.addEventListener('click', (event) => {
     outputScreen.scrollTop = outputScreen.scrollHeight;
 
     selectedRobot = robotId;
+    draw(true);
 });
 
 /**-------------------------------------

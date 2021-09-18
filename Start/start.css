@@ -68,10 +68,12 @@ body {
     margin: 10px;
     height: 210px;
     width: 210px;
+    padding: 5px;
     border-radius: 0.317rem;
     background: var(--greyLight-1);
     box-shadow: var(--inner-shadow);
     position: relative;
+    user-select: None;
 }
 
 .grid-item:hover {
@@ -178,7 +180,7 @@ canvas.game {
 
 .repeat-button {
     display: none;
-    margin: 30px auto;
+    margin: 20px auto;
 }
 
 .confirm-modal {

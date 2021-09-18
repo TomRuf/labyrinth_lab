@@ -3,26 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3673f53d-4749-45a7-888f-8414755c5d3f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Selection/creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/creator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.css" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Selection/selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Selection/selection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulation/simulation.css" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulation/simulation.html" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulation/simulation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Start/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labyrinth.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labyrinth.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/labyrinth.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/router.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/AbstractView.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Creator.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Selection.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Simulation.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/Start.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,6 +130,10 @@
       <workItem from="1631535617536" duration="76000" />
       <workItem from="1631539599672" duration="11482000" />
       <workItem from="1631604547777" duration="9944000" />
+      <workItem from="1631783806881" duration="8401000" />
+      <workItem from="1631859542208" duration="13387000" />
+      <workItem from="1631895403299" duration="808000" />
+      <workItem from="1631946974490" duration="9052000" />
     </task>
     <servers />
   </component>
