@@ -169,6 +169,8 @@ function draw(showPosition) {
     drawRobot(robots[selected], selected);
 }
 
+
+
 /**
  * draws the map
  */
@@ -361,6 +363,7 @@ function moveOneStep() {
                     break;
                 case '4':
                     console.log("Pledge not implemented yet");
+                    //pledge(robots[i]);
                     break;
                 case '5':
                     randomFollower(robots[i]);
@@ -488,10 +491,42 @@ robotGrid.addEventListener('click', (event) => {
  *              Algorithms
  -------------------------------------*/
 
+
+let followerDecisions = [{x:1, y:0}, {x:0, y:-1}, {x:-1, y:0}, {x:0, y:1}]; // abhängig von Startpunkt: rechts - oben - links
+let followerDirections = [Direction.right, Direction.up, Direction.left, Direction.down];
+
+/**
+ * Wall-Follower V2
+ * @param robot
+ */
+function wallFollower(robot) {
+
+    let direction = computeDirectionNumber(robot); // starting direction
+
+    for (let i = 0; i < 3; i++) {
+        // check if position is on map
+        if (robot.posX + followerDecisions[(direction + i) % 4].x < simulation.map.length
+            && robot.posX + followerDecisions[(direction + i) % 4].x >= 0
+            && robot.posY + followerDecisions[(direction + i) % 4].y < simulation.map.length
+            && robot.posY + followerDecisions[(direction + i) % 4].y >= 0) {
+            // check for path
+            if (simulation.map[robot.posY + followerDecisions[(direction + i) % 4].y][robot.posX + followerDecisions[(direction + i) % 4].x] >= 1) {
+                robot.posX += followerDecisions[(direction + i) % 4].x;
+                robot.posY += followerDecisions[(direction + i) % 4].y;
+                robot.currentDirection = followerDirections[(direction + i) % 4];
+                wallFollowerDecisions(i + 1, robot.id);
+                finishCheck(robot);
+                return;
+            }
+        }
+    }
+    wallFollowerDecisions(4, robot.id);
+    robot.currentDirection = followerDirections[(direction + 3) % 4] // turn around
+}
 /**
  * wall-follower V2
  */
-function wallFollower(robot) {
+function oldWallFollower(robot) {
 
     switch (robot.currentDirection) {
         case Direction.up:
@@ -619,6 +654,63 @@ function wallFollower(robot) {
     finishCheck(robot);
 }
 
+let turnCounter = 0;
+let directions = [Direction.up, Direction.left, Direction.down, Direction.right];
+
+function pledge(robot) {
+
+    /*
+    Wiederhole bis Wand berührt wird
+        Gehe gerade aus
+    Drehung nach links
+    Wiederhole bis Drehzähler auf 0 steht
+        Folge der Wand
+        Falls Drehung
+            Adaptiere Drehzähler
+    */
+
+    // wiederhole bis Wand berührt wird
+    //      gehe gerade aus
+    switch (robot.currentDirection) {
+        case Direction.up:
+            if (simulation.map[robot.posY-1][robot.posX] === 1) {
+                robot.posY -= 1;
+                return;
+            }
+            break;
+        case Direction.right:
+            if (simulation.map[robot.posY][robot.posX+1] === 1) {
+                robot.posX += 1;
+                return;
+            }
+            break;
+        case Direction.down:
+            if (simulation.map[robot.posY+1][robot.posX] === 1) {
+                robot.posY += 1;
+                return;
+            }
+            break;
+        case Direction.left:
+            if (simulation.map[robot.posY][robot.posX-1] === 1) {
+                robot.posX -= 1;
+                return;
+            }
+            break;
+        default:
+            break;
+    }
+
+    // Drehung nach links
+    turnCounter++;
+    robot.currentDirection = directions[turnCounter % 4];
+
+    console.log("turned left, new direction: " + robot.currentDirection);
+
+
+
+
+}
+
 /**
  * random direction decision
  * @param robot
@@ -705,6 +797,20 @@ function wallFollowerDecisions(number, robotId) {
             break;
         default:
             break;
+    }
+}
+
+function computeDirectionNumber(robot) {
+
+    switch (robot.currentDirection) {
+        case Direction.up:
+            return 0;
+        case Direction.left:
+            return 1;
+        case Direction.down:
+            return 2;
+        case Direction.right:
+            return 3;
     }
 }
 
