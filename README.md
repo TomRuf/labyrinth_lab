@@ -13,3 +13,10 @@ for computational thinking, this bachelorproject designs and implements a »laby
 can experiment with algorithms in labyrinths. eg. it should be possible to see how different algorithms 
 solve different labyrinths, follow the execution of the algorithm debugger-style through the labyrinth, 
 and maybe even construct individual labyrinths for the algorithms to solve. 
+
+### setup-manual:
+1. download zip-file
+2. unzip folder
+3. navigate to labyrinth_lab-main/Start/start.html
+4. double-click start.html 
+5. start experimenting  
