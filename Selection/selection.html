@@ -7,12 +7,11 @@
 </head>
 <body>
 
-<button class="button" onclick="showLocalStorage()">show local storage</button>
-<button class="button" onclick="deleteLocalStorage()">delete local storage</button>
+<button class="button back-button" onclick="goToPreviousPage()">&#8592; back</button>
 
 <div class="content">
 
-    <input class="input" type="text" id="experiment-name" placeholder="EXPERIMENT XY"/>
+    <input class="input" type="text" id="experiment-name" maxlength="12" placeholder="EXPERIMENT XY"/>
 
     <div id="table" class="table">
         <div class="table-item">
@@ -57,10 +56,12 @@
 
             <input class="input creator-input" type="text" id="map-name" maxlength="16" placeholder="Labyrinth title"/>
             <div id="drag-buttons-box" class="drag-buttons-box">
-                <button class="draggable-start left" id="draggable-start" draggable="true" ondragstart="drag(event)" ondragend="finishedDrag()">S</button>
-                <button class="draggable-finish left" id="draggable-finish" draggable="true" ondragstart="drag(event)" ondragend="finishedDrag()"></button>
+                <div class="draggable-start left" id="draggable-start" draggable="true" ondragstart="drag(event)" ondragend="finishedDrag()">S</div>
+                <div class="draggable-finish left" id="draggable-finish" draggable="true" ondragstart="drag(event)" ondragend="finishedDrag()"></div>
                 <button class="button randomize-button right" onclick="createRandomMap()">random</button>
-                <input id="size-slider" class="right" type="range" min="9" step="2" max="25" value="11">
+                <div class="slider-container right">
+                    <input id="size-slider" class="slider" type="range" min="9" step="2" max="25" value="11">
+                </div>
             </div>
             <div class="selection-map" id="selection-map"></div>
 

@@ -3,7 +3,17 @@
   <component name="ChangeListManager">
     <list default="true" id="3673f53d-4749-45a7-888f-8414755c5d3f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/creator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/selection.css" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/selection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/test.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/test.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulation/simulation.css" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulation/simulation.html" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulation/simulation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Start/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Start/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,8 +24,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -33,7 +43,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../face_detector_V2" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
@@ -132,7 +142,46 @@
       <workItem from="1631946974490" duration="10856000" />
       <workItem from="1631970890887" duration="4969000" />
       <workItem from="1632031769267" duration="4563000" />
-      <workItem from="1632036380161" duration="993000" />
+      <workItem from="1632036380161" duration="3348000" />
+      <workItem from="1632059487699" duration="6926000" />
+      <workItem from="1632117893240" duration="42000" />
+      <workItem from="1632118435359" duration="3394000" />
+      <workItem from="1632124228506" duration="2050000" />
+      <workItem from="1632208304000" duration="17797000" />
+      <workItem from="1632291315667" duration="58000" />
+      <workItem from="1632381507975" duration="15727000" />
+      <workItem from="1632421809403" duration="5768000" />
+      <workItem from="1632468141868" duration="11560000" />
+      <workItem from="1632559374359" duration="733000" />
+      <workItem from="1632732890387" duration="3069000" />
+      <workItem from="1632739425280" duration="3673000" />
+      <workItem from="1632755624320" duration="1627000" />
+      <workItem from="1632757272748" duration="1495000" />
+      <workItem from="1632808984560" duration="18307000" />
+      <workItem from="1632848204756" duration="6229000" />
+      <workItem from="1632895352907" duration="10239000" />
+      <workItem from="1633006986987" duration="10819000" />
+      <workItem from="1633076404699" duration="20704000" />
+      <workItem from="1633332022973" duration="27216000" />
+      <workItem from="1633377016598" duration="2408000" />
+      <workItem from="1633423316230" duration="14105000" />
+      <workItem from="1633498495239" duration="6684000" />
+      <workItem from="1633535090601" duration="1334000" />
+      <workItem from="1633587256943" duration="8617000" />
+      <workItem from="1633613901620" duration="917000" />
+      <workItem from="1633621369054" duration="906000" />
+      <workItem from="1633672940291" duration="20840000" />
+      <workItem from="1633873881361" duration="10197000" />
+      <workItem from="1633962797543" duration="5389000" />
+      <workItem from="1634018394988" duration="17280000" />
+      <workItem from="1634104433154" duration="17768000" />
+      <workItem from="1634128966212" duration="618000" />
+      <workItem from="1634146739981" duration="5334000" />
+      <workItem from="1634194976633" duration="4003000" />
+      <workItem from="1634376013384" duration="8209000" />
+      <workItem from="1634460900016" duration="18042000" />
+      <workItem from="1634549281799" duration="746000" />
+      <workItem from="1634566563099" duration="1764000" />
     </task>
     <servers />
   </component>

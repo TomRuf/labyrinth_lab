@@ -7,9 +7,13 @@
 </head>
 <body>
 
+<button class="button back-button" onclick="goToPreviousPage()">&#8592; back</button>
+
 <div class="grid-container">
     <div class="grid-item">
-        <canvas id="simulation" class="simulation"></canvas>
+        <div class="canvas-wrapper">
+            <canvas id="simulation"></canvas>
+        </div>
     </div>
     <div id="grid-item-info" class="grid-item">
 
@@ -19,10 +23,7 @@
             <div id="output-screen" class="output-screen"></div>
         </div>
 
-        <div class="button-grid">
-            <div class="button-grid-item">
-                <button class="button navigation-button" onclick="">&#8250;</button>
-            </div>
+        <div id="button-grid" class="button-grid">
             <div class="button-grid-item">
                 <button class="button navigation-button" onclick="moveOneStep()">&#187;</button>
             </div>
@@ -30,8 +31,30 @@
                 <button id="auto-move-button" class="button navigation-button" onclick="autoMove()">auto</button>
             </div>
         </div>
+    </div>
+</div>
 
+<div id="robot-modal" class="modal">
+    <span id="close-robot-modal" class="close">&#10006;</span>
+    <div class="robot-modal-content">
 
+        <p id="modalTitle" class="modal-title"></p>
+
+        <div id="modal-table" class="modal-table">
+            <div id="modal-table-item-left" class="modal-table-item-left">
+                <img id="modal-robot-img" class="robot-img-lg">
+            </div>
+            <div class="modal-table-item-right">
+                <div class="robot-extra-information">
+                    <div class="text"><b>Description:</b></div>
+                    <div id="extra-information-text" class="extra-information-text"></div>
+                </div>
+                <div class="robot-algorithm">
+                    <div class="text"><b>Algorithm:</b></div>
+                    <div id="algorithm-text" class="algorithm"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

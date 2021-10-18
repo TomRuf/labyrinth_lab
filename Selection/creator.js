@@ -121,7 +121,7 @@ function resetCreator() {
     edit = false;
 
     document.getElementById("map-name").value = "";
-    document.getElementById("size-slider").value = 10;
+    document.getElementById("size-slider").value = 11;
     mapName.setAttribute("placeholder", "New Labyrinth");
 
     mapTitle = "New Labyrinth";
@@ -431,7 +431,7 @@ function completeLine(current) {
 function drag(event) {
     draggedObjectId = event.target.id;
 
-    event.dataTransfer.setDragImage(event.target, event.target.clientWidth/2, event.target.clientHeight/2);
+    //event.dataTransfer.setDragImage(event.target, event.target.clientWidth/2, event.target.clientHeight/2);
     event.dataTransfer.setData("text/plain", event.target.id);
 
 }

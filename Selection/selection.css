@@ -2,6 +2,7 @@
     --text: #181818;
     --primary: #00467f;
     --secondary: #1F9AFF;
+    --orange: darkOrange;
     --white: #ffffff;
     --red: #f15e5e;
     --greyLight-1: #e4ebf5;
@@ -17,6 +18,7 @@
 
 h2 {
     margin-top: 0;
+    font-size: 20px;
 }
 
 body {
@@ -28,9 +30,12 @@ body {
     color: var(--text);
 }
 
-.title {
-    margin: 7px;
+
+.title-sm {
+    color: var(--text);
+    margin: 10px 5px 5px;
 }
+
 
 .confirm-modal-text {
     color: var(--text);
@@ -53,13 +58,13 @@ body {
 .content {
     text-align: center;
     padding: 30px;
-    max-width: 1750px;
-    margin: 50px auto auto;
+    max-width: 1500px;
+    margin: 0px auto auto;
 }
 
 .table {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 830px));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 720px));
     justify-content: center;
     border-radius: 0.317rem;
     padding: 20px;
@@ -67,12 +72,12 @@ body {
 }
 
 .table-item {
-    margin: 10px;
+    margin: 20px;
 }
 
 .line-canvas {
     width: 50px;
-    height: 250px;
+    height: 210px;
     display: block;
     margin: 10px auto;
 }
@@ -86,8 +91,11 @@ body {
 .grid-item {
     border-radius: 0.317rem;
     margin: 10px;
-    height: 210px;
-    width: 210px;
+    /*height: 210px;
+    width: 210px;*/
+    height: 190px;
+    width: 190px;
+    padding: 5px;
     background: var(--greyLight-1);
     box-shadow: var(--inner-shadow);
     position: relative;
@@ -96,6 +104,8 @@ body {
 
 .button-div {
     margin: 10px;
+    /*height: 200px;
+    width: 200px;*/
     height: 200px;
     width: 200px;
     display: flex;
@@ -114,8 +124,8 @@ body {
 }
 
 .robot-item {
-    width: 150px;
-    height: 500px;
+    width: 110px;
+    height: 420px;
     background: var(--greyLight-1);
     border-radius: 0.317rem;
     margin: 10px;
@@ -166,7 +176,7 @@ body {
 }
 
 .start-button {
-    margin-top: 50px;
+    margin-top: 30px;
     width: 300px;
 }
 
@@ -234,11 +244,16 @@ body {
     padding: 0;
 }
 
+.back-button {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
 /*------------------------------------------------*/
 /*                   MODAL                        */
 /*------------------------------------------------*/
 
-/* The Modal (background) */
 .modal {
     display: none;
     position: fixed;
@@ -257,12 +272,13 @@ body {
     background-color: var(--greyLight-1);
     margin: 0 auto;
     padding: 20px;
-    width: 40%;
+    width: 720px;
     border-radius: 0.317rem;
     text-align: center;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+    background: var(--greyLight-1);
 }
 
 .confirm-modal {
@@ -309,6 +325,7 @@ body {
     float: right;
     font-size: 28px;
     font-weight: bold;
+    padding-right: 10px;
 }
 
 .close:hover,
@@ -319,12 +336,12 @@ body {
 }
 
 .input {
-    width: 500px;
-    height: 100px;
+    width: 350px;
+    height: 80px;
     border: none;
     border-radius: 1rem;
     outline: none;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     padding: 0 4vmin;
     box-shadow: var(--inner-shadow);
@@ -332,17 +349,11 @@ body {
     color: var(--primary);
     caret-color: var(--primary);
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .canvas {
     border: 5px solid rgba(255,255,255,0.1);
-}
-
-.modal-content {
-    background: var(--greyLight-1);
-    min-width: 800px;
-    max-width: 1000px;
 }
 
 .modal-title {
@@ -354,8 +365,8 @@ body {
 
 .selection-map {
     background: var(--greyLight-1);
-    width: 800px;
-    height: 800px;
+    width: 600px;
+    height: 600px;
     margin: 0 auto;
     border: 5px solid rgba(255,255,255,0.1);
     box-shadow: var(--light-shadow);
@@ -363,9 +374,11 @@ body {
 
 .drag-buttons-box {
     height: 50px;
-    width: 800px;
+    width: 100%;
     margin: 0 auto;
-    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    -moz-user-select: none;
 }
 
 .draggable-start {
@@ -373,16 +386,15 @@ body {
     width: 50px;
     border: 0;
     color: var(--text);
-    background-color: darkorange;
+    background-color: var(--orange);
     text-decoration: none;
     cursor:move;
     border-radius: 0.317rem;
     margin-right: 10px;
     font-size: 20px;
-}
-
-.draggable-start:active {
-    cursor: move;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .draggable-finish {
@@ -399,10 +411,6 @@ body {
     background-size: 20px 20px;
 }
 
-.draggable-finish {
-    cursor: move;
-}
-
 .left {float: left;}
 
 .right {float: right;}
@@ -410,15 +418,15 @@ body {
 .navigation-button-box {
     width: 100%;
     height: 50px;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .creator-input {
     width: 250px;
     height: 50px;
     font-size: 25px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 0;
+    /*margin-top: 10px;*/
 }
 
 .robot-img-sm {
@@ -492,94 +500,46 @@ code {
     font-family: monospace;
 }
 
-input:focus::-webkit-input-placeholder
-{
-    color: transparent;
+.slider-container {
+    width: 40%;
+    margin-right: 130px;
+    margin-top: 10px;
 }
 
-input[type=range]::-webkit-slider-thumb {
-    background: var(--primary);
-}
-
-input[type=range] {
-    height: 32px;
+.slider {
     -webkit-appearance: none;
-    background: var(--greyLight-1);
-    margin-right: 110px;
-    width: 50%;
-}
-input[type=range]:focus {
-    outline: none;
-}
-input[type=range]::-webkit-slider-runnable-track {
-    width: 50%;
-    height: 11px;
-    cursor: pointer;
+    appearance: none;
+    width: 100%;
+    height: 25px;
     background: var(--lightGrey);
+    outline: none;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border-radius: 0.317rem;
 }
-input[type=range]::-webkit-slider-thumb {
-    box-shadow: 1px 1px 1px var(--darkGrey);
-    height: 24px;
-    width: 35px;
-    border-radius: 6px;
-    background: var(--primary);
-    cursor: pointer;
+
+.slider:hover {
+    opacity: 0.7;
+}
+
+.slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    margin-top: -7.5px;
-}
-input[type=range]:focus::-webkit-slider-runnable-track {
-    background: #B6B6B6;
-}
-input[type=range]::-moz-range-track {
-    width: 50%;
-    height: 11px;
-    cursor: pointer;
-    background: #B6B6B6;
-    border-radius: 4px;
-    border: 1px solid #8A8A8A;
-}
-input[type=range]::-moz-range-thumb {
-    box-shadow: 1px 1px 1px #828282;
-    border: 1px solid var(--primary);
-    height: 24px;
-    width: 35px;
-    border-radius: 6px;
+    appearance: none;
+    width: 25px;
+    height: 25px;
     background: var(--primary);
     cursor: pointer;
+    border-radius: 0.317rem;
 }
-input[type=range]::-ms-track {
-    width: 50%;
-    height: 11px;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-}
-input[type=range]::-ms-fill-lower {
-    background: #B6B6B6;
-    border: 1px solid #8A8A8A;
-    border-radius: 8px;
-}
-input[type=range]::-ms-fill-upper {
-    background: #B6B6B6;
-    border: 1px solid #8A8A8A;
-    border-radius: 8px;
-}
-input[type=range]::-ms-thumb {
-    margin-top: 1px;
-    box-shadow: 1px 1px 1px #828282;
-    border: 1px solid var(--primary);
-    height: 24px;
-    width: 35px;
-    border-radius: 6px;
+
+/*Firefox*/
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
     background: var(--primary);
     cursor: pointer;
+    border-radius: 0.317rem;
 }
-input[type=range]:focus::-ms-fill-lower {
-    background: #B6B6B6;
-}
-input[type=range]:focus::-ms-fill-upper {
-    background: #B6B6B6;
-}
+
 
 

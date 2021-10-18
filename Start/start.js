@@ -1,7 +1,7 @@
 const experimentGrid = document.getElementById("grid-container");
 const repeatButton = document.getElementById("repeat-button");
 
-const mapSize = 150;
+const mapSize = 140;
 
 const darkGrey = '#808080',
     lightGrey = '#D3D3D3';
@@ -16,7 +16,7 @@ function init() {
 }
 
 function startNewExperiment() {
-    location.href = "../Selection/selection.html";
+    document.location.href = "../Selection/selection.html";
 }
 
 function repeatExperiment() {
@@ -40,7 +40,7 @@ function repeatExperiment() {
     url += "&start=" + sExp.map.startPos;
     url += "&finish=" + sExp.map.finishPos;
 
-    location.href = url;
+    document.location.href = url;
 }
 
 function loadExperiments() {
@@ -84,7 +84,7 @@ function createExperimentItem(exp, defaultExperiment) {
     //-------------------------------------------------------------------------------
 
     let title = document.createElement("p");
-    title.setAttribute("class", "text");
+    title.setAttribute("class", "title-sm");
     title.setAttribute("id", "title-" + exp.id);
     title.setAttribute("data-clickable", "data-clickable");
     title.textContent = exp.expTitle;
@@ -107,7 +107,6 @@ function createExperimentItem(exp, defaultExperiment) {
     for (let i = 0; i < exp.robots.length; i++) {
 
         let robotImg = document.createElement("img");
-        robotImg.style.right = "" + (10 + 10 * i);
         robotImg.setAttribute("src", "../img/robot-" + exp.robots[i] + ".png");
         robotImg.setAttribute("id", "exp-" + exp.id + "-robot-" + exp.robots[i]);
         robotImg.setAttribute("class", "robot-img right-" + i);

@@ -1,3 +1,4 @@
+document.getElementById("modal-table-item-left");
 const robotModal = document.getElementById("robot-modal"),
     creatorModal = document.getElementById("creator-modal"),
     modalTitle = document.getElementById("modalTitle"),
@@ -6,7 +7,6 @@ const robotModal = document.getElementById("robot-modal"),
     algorithmText = document.getElementById("algorithm-text"),
     robotGrid = document.getElementById("robot-grid"),
     extraInformationText = document.getElementById("extra-information-text"),
-    robotModalLeftTable = document.getElementById("modal-table-item-left"),
     startButton = document.getElementById("start-button");
 
 const wrapper = document.getElementById("robot-grid"),
@@ -53,7 +53,7 @@ const defaultMaps = [
             [0,1,1,1,0,1,1,0,1,1,0],
             [0,0,0,0,0,1,0,0,0,0,0]], title: "default-2", startPos: 115, finishPos: 32}];
 
-const mapSize = 150;
+const mapSize = 140;
 
 init();
 
@@ -70,21 +70,6 @@ function init() {
 
     // load maps from local storage
     loadSavedCustomMaps();
-}
-
-function showLocalStorage() {
-    for (let i=0; i < localStorage.length; i++) {
-        let storageKey = localStorage.key(i);
-        let mapObject = JSON.parse(localStorage.getItem(storageKey));
-        console.log(mapObject);
-    }
-
-    console.log("------------");
-    console.log(maps);
-}
-
-function deleteLocalStorage() {
-    localStorage.clear();
 }
 
 function loadDefaultMaps() {
@@ -151,7 +136,7 @@ function createRobotItems() {
         ctx.moveTo(150, 0);
         ctx.lineTo(150, 250);
         ctx.strokeStyle = robotColors[i];
-        ctx.setLineDash([10-i, 5-i]); // todo: maybe change this
+        //ctx.setLineDash([10-i, 5-i]);     // --> line dash could be implemented but leads to messy visual representation in the simulation
         ctx.lineWidth = 30;
         ctx.stroke();
 
@@ -220,7 +205,7 @@ function createMapItem(id, mapData, mapTitle, startPos, finishPos, defaultMap) {
     //-------------------------------------------------------------------------------
 
     let title = document.createElement("p");
-    title.setAttribute("class", "title");
+    title.setAttribute("class", "title-sm");
     title.setAttribute("id", "title-" + id);
     title.setAttribute("data-clickable", "data-clickable");
     title.textContent = mapTitle;
@@ -239,7 +224,7 @@ function createMapItem(id, mapData, mapTitle, startPos, finishPos, defaultMap) {
     newMap.appendChild(canvas);
     mapGrid.insertBefore(newMap, mapGrid.children[maps.length]);
 
-    drawCanvas(mapData, id);
+    drawCanvas(mapData, startPos, finishPos, id);
 
     let mapObject = {id: id, mapData: mapData, mapTitle: mapTitle, startPos: startPos, finishPos: finishPos};
     maps.push(mapObject);
@@ -248,7 +233,7 @@ function createMapItem(id, mapData, mapTitle, startPos, finishPos, defaultMap) {
 /**
  * updates the html and array of a certain map
  * @param id
- * @param map
+ * @param mapData
  * @param mapTitle
  * @param startPos
  * @param finishPos
@@ -258,7 +243,7 @@ function updateMap(id, mapData, mapTitle, startPos, finishPos) {
     // 1. update html
     let newTitle = document.getElementById("title-" + id);
     newTitle.textContent = mapTitle;
-    drawCanvas(mapData, id);
+    drawCanvas(mapData, startPos, finishPos, id);
 
     // 2. change maps array
     let index = getIndexOf(id);
@@ -269,11 +254,11 @@ function updateMap(id, mapData, mapTitle, startPos, finishPos) {
     localStorage.setItem("map-" + id, JSON.stringify(newMap));
 }
 
-function drawCanvas(mapData, id) {
+function drawCanvas(mapData, startPos, finishPos, id) {
 
     let canvas = document.getElementById("canvas-" + id);
     let ctx = canvas.getContext("2d");
-    drawMap(ctx, canvas, mapData);
+    drawMap(ctx, canvas, mapData, startPos, finishPos);
 }
 
 /**
@@ -281,25 +266,27 @@ function drawCanvas(mapData, id) {
  */
 function createAddBtn() {
 
-    // todo: delete innerHtml
+    let buttonDiv = document.createElement("div");
+    buttonDiv.setAttribute("class", "button-div");
+    mapGrid.appendChild(buttonDiv);
 
-    let button = document.createElement("div");
-    button.innerHTML = '<div class="button-div"><button id="addBtn" class="button add-button">&#43;</button></div>';
-    mapGrid.appendChild(button);
+    let button = document.createElement("button");
+    button.setAttribute("id", "addBtn");
+    button.setAttribute("class", "button add-button");
+    button.innerText = "\u002B";
 
-    addBtn = document.getElementById("addBtn");
-    addBtn.addEventListener('click', (event) => {
-        showCreatorModal();
-    });
+    button.addEventListener('click', () => {showCreatorModal();});
+
+    buttonDiv.appendChild(button);
 }
 
 /**
  * draws any map
  * @param ctx
  * @param canvas
- * @param map
+ * @param mapData
  */
-function drawMap(ctx, canvas, mapData) {
+function drawMap(ctx, canvas, mapData, startPos, finishPos) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const h = canvas.height / mapData.length;
@@ -314,6 +301,23 @@ function drawMap(ctx, canvas, mapData) {
                 ctx.fillStyle = '#D3D3D3';
             } else {
                 ctx.fillStyle = '#808080';
+            }
+
+            if((row.length * y + x) === parseInt(startPos)) {
+                ctx.fillStyle = 'darkOrange';
+            } else if ((row.length * y + x) === parseInt(finishPos)) {
+                let squareSize = w/3;
+                ctx.rect(w * x, h * y, w - 0.2, h - 0.2);
+
+                let counter = 0;
+                for (let i = 0; i < 3; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        counter % 2 === 0 ? ctx.fillStyle = "#181818" : ctx.fillStyle = "#ffffff";
+                        ctx.fillRect(w * x + squareSize * j, h * y + squareSize * i, squareSize, squareSize);
+                        counter++;
+                    }
+                }
+                continue;
             }
 
             ctx.rect(w * x, h * y, w-0.2, h-0.2);
@@ -529,7 +533,7 @@ function showRobotModal(id) {
     switch (id) {
         case '1':
             title = robotNames[id];
-            extraInfo = "Geht immer der rechten Wand entlang";
+            extraInfo = "geht immer der rechten Wand entlang";
             inner = `<pre><code>
 1 Solange Ziel nicht erreicht
 2     Falls Weg rechts 
@@ -545,21 +549,23 @@ function showRobotModal(id) {
             break;
         case '2':
             title = robotNames[id];
-            extraInfo = "TBA";
+            extraInfo = "markiert besuchte Pfade. Pfade mit 2 Markierungen werden nicht mehr betreten";
             inner = `<pre><code>
-1 Solange Ziel nicht erreicht
-2     markiere momentanen Pfad
-3     folge Pfad bis Ende
-4         Falls Sackgasse
-5             kehre um
-6         sonst
-7             markiere momentanen pfad
-8             falls Kreuzung hat unbekannte Wege
-9                 Wähle einen unbekannten Weg
-10            falls Kreuzung hat Wege mit nur einer Markierung
-11               Wähle Weg mit nur einer Markierung
-12            Sonst
-13                Kehre um
+1 solange Ziel nicht erreicht
+2     folge Pfad bis Ende 
+3     falls Pfadende
+4         markiere Pfadende
+5         falls alle Pfade unbekannt
+6             betrete unbekannten Pfad & markiere Anfang
+7         falls einer der Pfade schon bekannt
+8             untersuche vorherigen Pfad
+9             falls vorheriger Pfad nur 1x markiert
+10                kehre um & markiere Anfang des Pfades
+11            sonst
+12                falls ein Pfad noch nicht markiert
+13                    betrete Pfad & markiere Anfang
+14                sonst
+15                    wähle Pfad mit einer Markierung & markiere Anfang
     </code></pre>`;
             break;
 
@@ -587,21 +593,24 @@ function showRobotModal(id) {
 4     Wiederhole bis Wand berührt wird
 5         Gehe gerade aus
 6     Drehung nach links
-7     Wiederhole bis Drehzähler auf 0 steht
-8         Folge der Wand
-9         Falls Drehung
-10            Adaptiere Drehzähler
+7     erhöhe Drehzähler
+8     Wiederhole bis Drehzähler auf 0 steht
+9         Folge der Wand
+10        Falls Drehung
+11            Adaptiere Drehzähler
     </code></pre>`;
             break;
 
         case '5':
             title = robotNames[id];
-            extraInfo = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.";
+            extraInfo = "wählt Pfad bei Kreuzungen zufällig";
             inner = `<pre><code>
 1 Wiederhole bis Ausgang erreicht
-2     in welche Richtung kann gegangen werden?
-3     wähle eine mögliche Richtung zufällig aus 
-4     gehe in diese Richtung
+2    folge Pfad bis Ende
+3    falls Kreuzung
+4        wähle einen Pfad zufällig
+5    sonst
+6        drehe um
     </code></pre>`;
             break;
     }
@@ -690,9 +699,7 @@ startButton.onclick = function() {
     url += "&start=" + sMap.startPos;
     url += "&finish=" + sMap.finishPos;
 
-    // -----------------------------------------------------------------
     // save experiment in local storage
-    // -----------------------------------------------------------------
 
     let expId = 0;
     // detect free id
@@ -706,7 +713,7 @@ startButton.onclick = function() {
 
     // -----------------------------------------------------------------
 
-    location.href = url;
+    document.location.href = url;
 }
 
 /**
@@ -722,6 +729,10 @@ function getIndexOf(id) {
         }
         index++;
     }
+}
+
+function goToPreviousPage() {
+    window.history.back();
 }
 
 
