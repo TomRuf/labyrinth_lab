@@ -12,7 +12,18 @@ let selectedExp = null;
 let experimentToDelete = null;
 
 function init() {
+
+    isMobile();
+
     loadExperiments();
+}
+
+// checks if the simulation runs on a mobile device
+function isMobile () {
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        alert("Labyrinth Lab is developed for desktop. For the best experience, consider using your laptop/pc!");
+    }
 }
 
 function startNewExperiment() {
@@ -45,13 +56,20 @@ function repeatExperiment() {
 
 function loadExperiments() {
 
-    // get experiments from local storage
+    let experiments = [];
+
     for (let i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i).startsWith("exp")) {
             let storageKey = localStorage.key(i);
             let exp = JSON.parse(localStorage.getItem(storageKey));
-            createExperimentItem(exp, false);
+            experiments[parseInt(exp.id)] = exp;
         }
+    }
+
+    for (let i = 0; i < experiments.length; i++) {
+       if (experiments[i] !== undefined) {
+           createExperimentItem(experiments[i], false);
+       }
     }
 
 }
@@ -119,7 +137,7 @@ function createExperimentItem(exp, defaultExperiment) {
 
     experimentGrid.insertBefore(expWrapper, experimentGrid.children[experiments.length]);
 
-    drawCanvas(exp.map.mapData, exp.id);
+    drawCanvas(exp.map.mapData, exp.id, exp.map.startPos, exp.map.finishPos);
 
     experiments.push(exp);
 }
@@ -239,17 +257,17 @@ function closeConfirmModal() {
 
 
 
-function drawCanvas(mapData, id) {
+function drawCanvas(mapData, id, startPos, finishPos) {
 
     let canvas = document.getElementById("canvas-" + id);
     let ctx = canvas.getContext("2d");
-    drawMap(ctx, canvas, mapData);
+    drawMap(ctx, canvas, mapData, startPos, finishPos);
 }
 
 /**
  * draws the map
  */
-function drawMap(ctx, canvas, mapData) {
+function drawMap(ctx, canvas, mapData, startPos, finishPos) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const h = canvas.height / mapData.length;
@@ -264,6 +282,23 @@ function drawMap(ctx, canvas, mapData) {
                 ctx.fillStyle = '#D3D3D3';
             } else {
                 ctx.fillStyle = '#808080';
+            }
+
+            if((row.length * y + x) === parseInt(startPos)) {
+                ctx.fillStyle = 'darkOrange';
+            } else if ((row.length * y + x) === parseInt(finishPos)) {
+                let squareSize = w/3;
+                ctx.rect(w * x, h * y, w - 0.2, h - 0.2);
+
+                let counter = 0;
+                for (let i = 0; i < 3; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        counter % 2 === 0 ? ctx.fillStyle = "#181818" : ctx.fillStyle = "#ffffff";
+                        ctx.fillRect(w * x + squareSize * j, h * y + squareSize * i, squareSize, squareSize);
+                        counter++;
+                    }
+                }
+                continue;
             }
 
             ctx.rect(w * x, h * y, w-0.2, h-0.2);

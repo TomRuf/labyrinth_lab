@@ -200,7 +200,43 @@ function saveMap() {
         addMap(tempMap, mapTitle, startPos, finishPos);
     }
 
+    // todo: delete this
+    //logMap(tempMap, startPos, finishPos);
+
     closeCreatorModal();
+}
+
+/**
+ * for manually creating default maps
+ * prints the 2d array to the console
+ */
+function logMap(map, startPos, finishPos) {
+
+    console.log("size: " + map[0].length);
+    console.log("startPos: " + startPos);
+    console.log("finishPos: " + finishPos);
+    console.log("------------------------");
+
+    for (let y = 0; y < map.length; y++) {
+        let output = "";
+        if (y === 0) {
+            output = "[[";
+        } else {
+            output = "[";
+        }
+        for (let x = 0; x < map[0].length; x++) {
+            if (x === map[0].length-1) {
+                output += map[y][x] + "]";
+            } else {
+                output += map[y][x] + ",";
+            }
+        }
+        if (y === map.length-1) {
+            output += "]";
+        }
+        console.log(output);
+    }
+
 }
 
 /**

@@ -39,19 +39,35 @@ const defaultMaps = [
             [0,0,0,1,0,0,1,0,1,0,0],
             [0,0,0,1,0,0,1,1,1,0,0],
             [0,1,1,1,0,1,1,0,1,1,0],
-            [0,1,0,0,0,0,0,0,0,0,0]], title: "default-1", startPos: 111, finishPos: 5},
+            [0,1,0,0,0,0,0,0,0,0,0]], title: "simple-map", startPos: 111, finishPos: 5},
 
-    {mapData: [[0,0,0,0,0,0,0,0,0,0,0],
-            [0,1,0,1,0,1,1,1,0,1,0],
-            [0,1,1,1,1,1,0,1,1,1,1],
-            [0,0,0,1,0,1,1,1,0,1,0],
-            [0,1,1,1,1,1,0,1,0,1,0],
-            [0,1,0,0,0,1,0,0,0,1,0],
-            [0,1,0,1,1,1,1,0,1,1,0],
-            [0,0,0,1,0,0,1,0,0,0,0],
-            [0,0,0,1,0,0,1,1,1,0,0],
-            [0,1,1,1,0,1,1,0,1,1,0],
-            [0,0,0,0,0,1,0,0,0,0,0]], title: "default-2", startPos: 115, finishPos: 32}];
+    {mapData: [[0,1,0,0,0,0,0,0,0],
+            [0,1,1,1,1,1,1,1,0],
+            [0,1,0,0,0,0,0,1,0],
+            [0,1,0,1,1,1,0,1,0],
+            [0,1,0,1,0,1,0,1,0],
+            [0,1,0,1,0,1,0,1,0],
+            [0,1,0,0,0,1,0,1,0],
+            [0,1,1,1,1,1,1,1,0],
+            [0,0,0,0,0,0,0,0,0]], title: "follower-trap", startPos: 70, finishPos: 40},
+
+    {mapData: [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                [0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0],
+                [0,1,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0],
+                [0,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,0],
+                [0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0],
+                [0,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,0],
+                [0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0],
+                [0,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,0],
+                [0,1,0,0,0,1,0,1,0,0,0,1,0,1,0,1,0],
+                [0,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0],
+                [0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,1,0],
+                [0,1,0,1,0,1,1,1,1,1,1,1,0,1,1,1,0],
+                [0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0],
+                [0,1,1,1,1,1,0,1,0,1,0,1,1,1,1,1,0],
+                [0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0],
+                [0,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,0],
+                [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]], title: "complex-map", startPos: 270, finishPos: 128}];
 
 const mapSize = 140;
 
@@ -80,6 +96,9 @@ function loadDefaultMaps() {
 }
 
 function loadSavedCustomMaps() {
+
+    // unsorted
+    /*
     for (let i=0; i < localStorage.length; i++) {
         let storageKey = localStorage.key(i);
 
@@ -88,6 +107,26 @@ function loadSavedCustomMaps() {
 
             createMapItem(mapObject.id, mapObject.mapData, mapObject.mapTitle, mapObject.startPos, mapObject.finishPos, false);
             idCounter++;
+        }
+    }
+     */
+
+    // sorted
+    let customMaps = [];
+
+    for (let i = 0; i < localStorage.length; i++) {
+        let storageKey = localStorage.key(i);
+
+        if(storageKey.startsWith("map")) {
+            let mapObject = JSON.parse(localStorage.getItem(storageKey));
+            customMaps[parseInt(mapObject.id)] = mapObject;
+            idCounter++;
+        }
+    }
+
+    for (let i = 0; i < customMaps.length; i++) {
+        if (customMaps[i] !== undefined) {
+            createMapItem(customMaps[i].id, customMaps[i].mapData, customMaps[i].mapTitle, customMaps[i].startPos, customMaps[i].finishPos, false);
         }
     }
 }
@@ -533,7 +572,7 @@ function showRobotModal(id) {
     switch (id) {
         case '1':
             title = robotNames[id];
-            extraInfo = "geht immer der rechten Wand entlang";
+            extraInfo = "Geht immer der rechten Wand entlang.";
             inner = `<pre><code>
 1 Solange Ziel nicht erreicht
 2     Falls Weg rechts 
@@ -549,7 +588,7 @@ function showRobotModal(id) {
             break;
         case '2':
             title = robotNames[id];
-            extraInfo = "markiert besuchte Pfade. Pfade mit 2 Markierungen werden nicht mehr betreten";
+            extraInfo = "Markiert Anfang und Ende von besuchten Pfaden. Pfade mit 2 Markierungen werden nicht mehr betreten.";
             inner = `<pre><code>
 1 solange Ziel nicht erreicht
 2     folge Pfad bis Ende 
@@ -571,21 +610,24 @@ function showRobotModal(id) {
 
         case '3':
             title = robotNames[id];
-            extraInfo = "TBA";
+            extraInfo = "Legt einen Faden entlang seines Weges und entscheidet anhand dessen welche Stellen des Labyrinths schon bekannt sind.";
             inner = `<pre><code>
 1 Solange Ziel nicht erreicht
 2     falls Sackgasse oder Ariadnefaden quert Kreuzung
-3         drehe dich um und gehe Gang zurück (und wickle auf)
+3         drehe um und gehe Gang zurück (und wickle auf)
 4     sonst
-5         gehe 1. Gang von links (falls Ariadnefaden im Gang, dann
-6         aufwickeln sonst abspulen)
+5         gehe 1. Gang von links 
+6         falls Ariadnefaden im Gang
+7             wickle auf 
+8         sonst
+9             lege Ariadnefaden
     </code></pre>`;
 
             break;
 
         case '4':
             title = robotNames[id];
-            extraInfo = "TBA";
+            extraInfo = "Folgt der Wand und zählt Drehungen (Rechtsdrehung -1 und Linksdrehung +1). Sobald der Drehzähler auf 0 steht, geht er so lange geradeaus bis er auf die nächste Wand trifft."; // Dabei soll der Roboter der Wand folgen und jeweils mitzählen wie oft er nach Links und Rechts abgebogen ist und sich nur von der Wand lösen wenn er in seine Startrichtung gehen kann und er sein Drehzähler auf 0 steht.
             inner = `<pre><code>
 1 Setze Drehzähler auf 0
 2 
@@ -603,7 +645,7 @@ function showRobotModal(id) {
 
         case '5':
             title = robotNames[id];
-            extraInfo = "wählt Pfad bei Kreuzungen zufällig";
+            extraInfo = "Wählt den nächsten Pfad bei Kreuzungen zufällig.";
             inner = `<pre><code>
 1 Wiederhole bis Ausgang erreicht
 2    folge Pfad bis Ende

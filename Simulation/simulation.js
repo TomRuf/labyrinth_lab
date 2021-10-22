@@ -44,8 +44,7 @@ const robotDirections = [Direction.right, Direction.up, Direction.left, Directio
 
 function init() {
 
-    //canvas = document.getElementById("simulation");
-    canvasSize = 700;
+    canvasSize = 600;
     canvas.width = canvasSize;
     canvas.height = canvasSize;
     ctx = canvas.getContext('2d');
@@ -757,7 +756,7 @@ function showRobotModal(id) {
     switch (id) {
         case '1':
             title = robotNames[id];
-            extraInfo = "geht immer der rechten Wand entlang";
+            extraInfo = "Geht immer der rechten Wand entlang.";
             inner = `<pre><code>
 1 Solange Ziel nicht erreicht
 2     Falls Weg rechts 
@@ -773,7 +772,7 @@ function showRobotModal(id) {
             break;
         case '2':
             title = robotNames[id];
-            extraInfo = "markiert besuchte Pfade. Pfade mit 2 Markierungen werden nicht mehr betreten";
+            extraInfo = "Markiert Anfang und Ende von besuchten Pfaden. Pfade mit 2 Markierungen werden nicht mehr betreten.";
             inner = `<pre><code>
 1 solange Ziel nicht erreicht
 2     folge Pfad bis Ende 
@@ -795,21 +794,26 @@ function showRobotModal(id) {
 
         case '3':
             title = robotNames[id];
-            extraInfo = "TBA";
+            extraInfo = "Legt einen Faden entlang seines Weges und entscheidet anhand dessen welche Stellen des Labyrinths schon bekannt sind.";
             inner = `<pre><code>
 1 Solange Ziel nicht erreicht
 2     falls Sackgasse oder Ariadnefaden quert Kreuzung
-3         drehe dich um und gehe Gang zurück (und wickle auf)
+3         drehe um und gehe Gang zurück (und wickle auf)
 4     sonst
-5         gehe 1. Gang von links (falls Ariadnefaden im Gang, dann
-6         aufwickeln sonst abspulen)
+5         gehe 1. Gang von links
+6         falls Ariadnefaden im Gang
+7             wickle auf 
+8         sonst
+9             lege Ariadnefaden
+
     </code></pre>`;
 
             break;
 
         case '4':
             title = robotNames[id];
-            extraInfo = "TBA";
+            extraInfo = "Folgt der Wand und zählt Drehungen (Rechtsdrehung -1 und Linksdrehung +1). " +
+                "Sobald der Drehzähler auf 0 steht, geht er so lange geradeaus bis er auf die nächste Wand trifft.";
             inner = `<pre><code>
 1 Setze Drehzähler auf 0
 2 
@@ -827,7 +831,7 @@ function showRobotModal(id) {
 
         case '5':
             title = robotNames[id];
-            extraInfo = "wählt Pfad bei Kreuzungen zufällig";
+            extraInfo = "Wählt den nächsten Pfad bei Kreuzungen zufällig.";
             inner = `<pre><code>
 1 Wiederhole bis Ausgang erreicht
 2    folge Pfad bis Ende
@@ -1202,7 +1206,9 @@ function tremaux(robot) {
 
             } else if (visits === 0) {
                 // herführender weg war kreuzung
-                // TODO: fix issue
+                pushToOutputWrapper(0, "ERROR: herführender Pfad kann nicht untersucht werden, weil es eine Kreuzung ist", robot.id, 3, true);
+                robot.finished = true;
+                return;
 
             } else { // 2.2 falls weg geschlossen (= 2 visits)
 
@@ -1393,6 +1399,7 @@ function tremauxBeforeBug(robot) {
         lastMarked++;
     }
 }
+
 
 function checkIfCrossing(posX, posY, currentDirection) {
     let direction = computeDirectionNumber(currentDirection);
@@ -1625,10 +1632,166 @@ function ariadne(robot) {
         pushToOutputWrapper(3, "folge Pfad", robot.id, 1, false);
 
         if (checkIfThread(newPos.posX, newPos.posY)) {
+            // only remove thread if newPos is not the start and its not an older thread at a crossing
+            if (!isStart(newAriadneThread, newPos.posX, newPos.posY) && !isMiddle(newAriadneThread, newPos.posX, newPos.posY, robot.posX, robot.posY)) {
+                removeAriadneThread(newAriadneThread, robot.posX, robot.posY); // remove ariadne thread
+                pushToOutputWrapper(7, "wickle auf", robot.id, 1, true);
+
+            } else if (checkIfThread(robot.posX, robot.posY) && ariadneThread.length <= 2) {    // correct behaviour for exception where robot moves back and forth in a straight line
+                removeAriadneThread(newAriadneThread, robot.posX, robot.posY); // remove ariadne thread
+                pushToOutputWrapper(7, "wickle auf", robot.id, 1, true);
+
+            } else {
+                newAriadneThread.push({x: newPos.posX, y: newPos.posY}); // put ariadne thread on position
+                pushToOutputWrapper(7, "lege Ariadne-Faden", robot.id, 1, true);
+            }
+
+        } else {
+            newAriadneThread.push({x: newPos.posX, y: newPos.posY}); // put ariadne thread on position
+            pushToOutputWrapper(7, "lege Ariadne-Faden", robot.id, 1, true);
+        }
+    } else {
+        // falls Sackgasse oder Ariadnefaden quert Kreuzung
+        if (possibleWays.length === 0 || checkIfThreadCrossing(newPos.posX, newPos.posY, possibleWays)) {
+
+            pushToOutputWrapper(0, "Sackgasse oder Ariadnefaden quert Kreuzung", robot.id, 1, false);
+
+            let direction = computeDirectionNumber(newPos.currentDirection);
+
+            // check if the robot is trapped in a 1x1 field
+            if (isPathBehind(robot)) {
+                newPos.posX += robotDecisions[(direction + 3) % 4].x;
+                newPos.posY += robotDecisions[(direction + 3) % 4].y;
+            }
+
+            // drehe um & wickle auf
+            //newPos.posX += robotDecisions[(direction + 3) % 4].x;
+            //newPos.posY += robotDecisions[(direction + 3) % 4].y;
+            newPos.currentDirection = robotDirections[(direction + 3) % 4];
+
+            pushToOutputWrapper(3, "drehe um", robot.id, 1, false);
+
+            // wickle auf
+            if (checkIfThread(newPos.posX, newPos.posY)) {
+                if (ariadneThread[ariadneThread.length-1].x === robot.posX && ariadneThread[ariadneThread.length-1].y === robot.posY) {
+                    //removeAriadneThread(newAriadneThread, robot.posX, robot.posY);
+                    newAriadneThread.pop();
+                }
+                pushToOutputWrapper(7, "wickle auf", robot.id, 1, true);
+            } else {
+                newAriadneThread.push({x: newPos.posX, y: newPos.posY}); // put ariadne thread on position
+                pushToOutputWrapper(7, "lege Ariadne-Faden", robot.id, 1, true);
+            }
+
+        } else {
+            pushToOutputWrapper(0, "Sackgasse oder Ariadnefaden quert Kreuzung", robot.id, 3, false);
+            // 1. gang von links
+            newPos.posX += possibleWays[possibleWays.length-1].x;
+            newPos.posY += possibleWays[possibleWays.length-1].y;
+            newPos.currentDirection = nextDirection;
+            pushToOutputWrapper(3, "gehe 1. Gang von links", robot.id, 1, false);
+
+            if (checkIfThread(newPos.posX, newPos.posY)) {
+
+                pushToOutputWrapper(3, "Ariadnefaden im Gang", robot.id, 1, false);
+
+                if (!isStart(newAriadneThread, newPos.posX, newPos.posY) && !isMiddle(newAriadneThread, newPos.posX, newPos.posY, robot.posX, robot.posY)) {
+                    removeAriadneThread(newAriadneThread, robot.posX, robot.posY); // remove ariadne thread
+                    pushToOutputWrapper(7, "wickle auf", robot.id, 1, true);
+
+                } else {
+                    newAriadneThread.push({x: newPos.posX, y: newPos.posY}); // put ariadne thread on position
+                    pushToOutputWrapper(7, "lege Ariadne-Faden", robot.id, 1, true);
+                }
+
+            } else {
+                pushToOutputWrapper(3, "Ariadnefaden im Gang", robot.id, 3, false);
+                newAriadneThread.push({x: newPos.posX, y: newPos.posY}); // put ariadne thread on position
+                pushToOutputWrapper(7, "lege Ariadnefaden", robot.id, 1, true);
+            }
+        }
+    }
+    pastAriadneThreads.push(newAriadneThread); // save ariadne thread for each step in order to show past positions
+}
+
+function isMiddle(thread, posX, posY, oldPosX, oldPosY) {
+
+    if (thread.length < 4) return false;
+
+    let index = 0;
+    for (let i = 0; i < thread.length; i++) {
+        if (posX === thread[i].x && posY === thread[i].y){
+            index = i;
+            break;
+        }
+    }
+
+    if (index > 1 && index < thread.length-2) {
+        return true;
+    } else if (index-1 === 0 && oldPosX !== thread[index-1].x && oldPosY !== thread[index-1].y) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isStart(ariadneThread, posX, posY) {
+    if (ariadneThread.length > 1) {
+        if (posX === ariadneThread[0].x && posY === ariadneThread[0].y) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function isPathBehind(robot) {
+    let trap = false;
+    let direction = computeDirectionNumber(robot.currentDirection);
+    if (checkIfOnMap(robot.posX, robot.posY, direction)) {
+        if (simulation.map[robot.posY + robotDecisions[(direction + 3) % 4].y][robot.posX + robotDecisions[(direction + 3) % 4].x] === 1) {
+            trap = true;
+        }
+    }
+    return trap;
+}
+
+// TODO: delete this if not used 
+function ariadneOld(robot) {
+
+    if (initialThreadPush) {
+        ariadneThread.push({x: robot.posX, y: robot.posY});
+        initialThreadPush = false;
+    }
+
+    // save old position & set newPos (needed for logic steps)
+    setNewPos(robot.posX, robot.posY, robot.currentDirection);
+
+    // clone old ariadne thread
+    newAriadneThread = cloneAriadneThread(ariadneThread);
+
+    if(finishCheck(robot)) return;
+
+    // 1. folge Pfad bis Ende + faden ablegen / aufsammeln
+    let possibleWays = getPossibleWays(robot);
+
+    if (possibleWays.length === 1) {
+        newPos.posX += possibleWays[0].x;
+        newPos.posY += possibleWays[0].y;
+        newPos.currentDirection = nextDirection;
+
+        pushToOutputWrapper(3, "folge Pfad", robot.id, 1, false);
+
+        if (checkIfThread(newPos.posX, newPos.posY)) {
+            /*
             if (ariadneThread[ariadneThread.length-2].x === newPos.posX && ariadneThread[ariadneThread.length-2].y === newPos.posY) { // prevent removing thread from a visited crossing
                 removeAriadneThread(newAriadneThread, robot.posX, robot.posY); // remove ariadne thread
                 pushToOutputWrapper(7, "wickle auf", robot.id, 1, true);
-            }
+            }*/
+            /*
+            removeAriadneThread(newAriadneThread, robot.posX, robot.posY); // remove ariadne thread
+             */
+            removeAriadneThread(newAriadneThread, newPos.posX, newPos.posY); // remove ariadne thread
+            pushToOutputWrapper(7, "wickle auf", robot.id, 1, true);
         } else {
             newAriadneThread.push({x: newPos.posX, y: newPos.posY}); // put ariadne thread on position
             pushToOutputWrapper(7, "lege Ariadne-Faden", robot.id, 1, true);
@@ -1649,7 +1812,8 @@ function ariadne(robot) {
             // wickle auf
             if (checkIfThread(newPos.posX, newPos.posY)) {
                 if (ariadneThread[ariadneThread.length-1].x === robot.posX && ariadneThread[ariadneThread.length-1].y === robot.posY) {
-                    removeAriadneThread(newAriadneThread, robot.posX, robot.posY);
+                    //removeAriadneThread(newAriadneThread, robot.posX, robot.posY);
+                    newAriadneThread.splice(newAriadneThread.length, 1);
                 }
             }
             pushToOutputWrapper(7, "wickle auf", robot.id, 1, true);
@@ -1670,7 +1834,7 @@ function ariadne(robot) {
             } else {
                 pushToOutputWrapper(3, "Ariadnefaden im Gang", robot.id, 3, false);
                 newAriadneThread.push({x: newPos.posX, y: newPos.posY}); // put ariadne thread on position
-                pushToOutputWrapper(7, "lege Ariadne-Faden", robot.id, 1, true);
+                pushToOutputWrapper(7, "lege Ariadnefaden", robot.id, 1, true);
             }
         }
     }

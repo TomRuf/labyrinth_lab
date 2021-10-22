@@ -7,12 +7,9 @@
       <change beforePath="$PROJECT_DIR$/Selection/selection.css" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Selection/test.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Selection/test.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulation/simulation.css" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulation/simulation.html" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulation/simulation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Start/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,7 +178,12 @@
       <workItem from="1634376013384" duration="8209000" />
       <workItem from="1634460900016" duration="18042000" />
       <workItem from="1634549281799" duration="746000" />
-      <workItem from="1634566563099" duration="1764000" />
+      <workItem from="1634566563099" duration="9271000" />
+      <workItem from="1634628100276" duration="8662000" />
+      <workItem from="1634649960294" duration="3864000" />
+      <workItem from="1634713532509" duration="20452000" />
+      <workItem from="1634800671859" duration="12928000" />
+      <workItem from="1634894586489" duration="5245000" />
     </task>
     <servers />
   </component>

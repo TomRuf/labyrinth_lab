@@ -268,6 +268,14 @@ body {
     backdrop-filter: blur(5px);
 }
 
+@media (min-height: 800px) { /* equal to or less than 800px */
+    .modal-content {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
 .modal-content {
     background-color: var(--greyLight-1);
     margin: 0 auto;
@@ -275,9 +283,9 @@ body {
     width: 720px;
     border-radius: 0.317rem;
     text-align: center;
-    position: relative;
+    /*position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%);*/
     background: var(--greyLight-1);
 }
 
@@ -437,13 +445,13 @@ body {
 }
 
 .robot-img-lg {
-    width: 180px;
-    height: 240px;
+    width: 150px;
+    height: 200px;
 }
 
 .modal-table {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 30% 70%;
 }
 
 .modal-table-item-left {
@@ -461,7 +469,7 @@ body {
 .robot-modal-content {
     margin: 0 auto;
     padding: 20px;
-    width: 450px;
+    width: 600px;
     border-radius: 0.317rem;
     text-align: center;
     position: relative;
@@ -488,6 +496,14 @@ body {
     margin-bottom: 10px;
 }
 
+.extra-information-title {
+    margin-bottom: 5px;
+}
+
+.extra-information-text {
+    font-size: small;
+}
+
 .robot-algorithm {
     text-align: left;
 }
@@ -498,6 +514,7 @@ pre {
 
 code {
     font-family: monospace;
+    font-size: medium;
 }
 
 .slider-container {

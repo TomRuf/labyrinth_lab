@@ -46,7 +46,7 @@ body {
 .output-screen {
     width: 290px;
     /*height: 790px;*/
-    height: 510px;
+    height: 410px;
     background: black;
     margin: 0 auto;
     overflow: auto;
@@ -140,7 +140,7 @@ body {
     grid-template-columns: auto auto;
     text-align: center;
     /*margin-top: 590px;*/
-    margin-top: 290px;
+    margin-top: 190px;
 }
 
 .button-grid-item {
@@ -180,7 +180,7 @@ body {
 .robot-modal-content {
     margin: 0 auto;
     padding: 20px;
-    width: 450px;
+    width: 600px;
     border-radius: 0.317rem;
     text-align: center;
     position: relative;
@@ -205,7 +205,7 @@ body {
 
 .modal-table {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 30% 70%;
 }
 
 .modal-table-item-left {
@@ -228,8 +228,8 @@ body {
 }
 
 .robot-img-lg {
-    width: 180px;
-    height: 240px;
+    width: 150px;
+    height: 200px;
 }
 
 .robot-extra-information {
@@ -237,6 +237,23 @@ body {
     font-size: 17px;
     border-radius: 0.317rem;
     margin-bottom: 10px;
+}
+
+.extra-information-title {
+    margin-bottom: 5px;
+}
+
+pre {
+    margin: 0;
+}
+
+code {
+    font-family: monospace;
+    font-size: medium;
+}
+
+.extra-information-text {
+    font-size: small;
 }
 
 .robot-algorithm {
