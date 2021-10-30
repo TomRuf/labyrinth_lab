@@ -197,6 +197,33 @@ body {
     left: 5%;
 }
 
+/*-----------------------------------------------*/
+
+/* NEW STYLE */
+
+.lab-button {
+    background-color: var(--darkGrey);
+    border: 1px solid rgba(175,175,175,0.2);
+    cursor: pointer;
+    vertical-align: middle;
+    padding: 2px;
+}
+
+.lab-button:hover {
+    opacity: 0.85;
+}
+
+.lab-button-deactivated {
+    background-color: rgb(120, 120, 120);
+    border: 1px solid rgba(175,175,175,0.2);
+    cursor: unset;
+    vertical-align: middle;
+    padding: 2px;
+}
+
+
+/* OLD STYLE */
+/*
 .lab-button {
     background-color: var(--darkGrey);
     border: 1px solid rgba(255,255,255,0.2);
@@ -209,6 +236,20 @@ body {
 .lab-button:hover {
     opacity: 0.85;
 }
+
+.lab-button-deactivated {
+    background-color: var(--darkGrey);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 3%;
+    cursor: unset;
+    vertical-align: middle;
+    padding: 2px;
+}
+
+ */
+
+
+/*-----------------------------------------------*/
 
 .navigation-button {
     width: 100px;

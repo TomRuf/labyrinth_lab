@@ -142,14 +142,23 @@ function createMap(size) {
     const buttonSize = 100/size;
     let amount = size * size;
 
+    let black = false;
+
     for (let i = 0; i < amount; i++) {
+
+        if (i % size === 0) black = !black;
 
         let newButton = document.createElement("button");
         newButton.setAttribute("id", "" + i);
-        newButton.setAttribute("class", "lab-button");
-        newButton.setAttribute("ondrop", "drop(event)");
         newButton.setAttribute("style", "width:" + buttonSize + "%; height:" + buttonSize + "%;");
-        newButton.setAttribute("data-button", "data-button");
+
+        if (black && i % 2 === 0) {
+            newButton.setAttribute("class", "lab-button-deactivated");
+        } else {
+            newButton.setAttribute("data-button", "data-button");
+            newButton.setAttribute("class", "lab-button");
+            newButton.setAttribute("ondrop", "drop(event)");
+        }
 
         selectionMap.appendChild(newButton);
     }
@@ -265,10 +274,7 @@ function createRandomMap() {
     }
 
     // PRIM'S ALGORITHM          --> source: https://codepen.io/PChambino/pen/gqjtD
-    let cell = {
-        x: 1,
-        y: 1
-    };
+    let cell = {x: 1, y: 1};
 
     mapData[cell.y][cell.x] = "#";
 
@@ -309,6 +315,7 @@ function createRandomMap() {
             walls.push({x: wall.x - 1, y: wall.y - 1});
             walls.push({x: wall.x - 1, y: wall.y + 1});
             walls.push({x: wall.x - 2, y: wall.y});
+
         }
     }
 
@@ -318,10 +325,16 @@ function createRandomMap() {
 
             let newButton = document.createElement("button");
             newButton.setAttribute("id", "" + id);
-            newButton.setAttribute("class", "lab-button");
-            newButton.setAttribute("ondrop", "drop(event)");
             newButton.setAttribute("style", "width:" + buttonSize + "%; height:" + buttonSize + "%;");
-            newButton.setAttribute("data-button", "data-button");
+
+            if (y % 2 === 0 && x % 2 === 0) {
+                newButton.setAttribute("class", "lab-button-deactivated");
+
+            } else {
+                newButton.setAttribute("class", "lab-button");
+                newButton.setAttribute("data-button", "data-button");
+                newButton.setAttribute("ondrop", "drop(event)");
+            }
 
             selectionMap.appendChild(newButton);
 

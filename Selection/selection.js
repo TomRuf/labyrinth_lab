@@ -49,7 +49,7 @@ const defaultMaps = [
             [0,1,0,1,0,1,0,1,0],
             [0,1,0,0,0,1,0,1,0],
             [0,1,1,1,1,1,1,1,0],
-            [0,0,0,0,0,0,0,0,0]], title: "follower-trap", startPos: 70, finishPos: 40},
+            [0,0,0,0,0,0,0,0,0]], title: "follower-trap", startPos: 59, finishPos: 1},
 
     {mapData: [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
                 [0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1,0],
@@ -328,6 +328,9 @@ function createAddBtn() {
 function drawMap(ctx, canvas, mapData, startPos, finishPos) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgb(175,175,175)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     const h = canvas.height / mapData.length;
     for (let y = 0; y < mapData.length; y++) {
         let row = mapData[y];

@@ -174,6 +174,8 @@ function initRobots(robotIds) {
 function draw(showPosition, reset, moved) {
 
     ctx.clearRect(0, 0, canvasSize, canvasSize);
+    ctx.fillStyle = "rgb(175,175,175)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     drawMap(showPosition, reset);
 
@@ -1755,7 +1757,7 @@ function isPathBehind(robot) {
     return trap;
 }
 
-// TODO: delete this if not used 
+// TODO: delete this if not used
 function ariadneOld(robot) {
 
     if (initialThreadPush) {

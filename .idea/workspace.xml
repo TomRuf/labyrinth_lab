@@ -7,8 +7,6 @@
       <change beforePath="$PROJECT_DIR$/Selection/selection.css" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulation/simulation.css" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Simulation/simulation.html" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulation/simulation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.js" afterDir="false" />
     </list>
@@ -183,7 +181,8 @@
       <workItem from="1634649960294" duration="3864000" />
       <workItem from="1634713532509" duration="20452000" />
       <workItem from="1634800671859" duration="12928000" />
-      <workItem from="1634894586489" duration="5245000" />
+      <workItem from="1634894586489" duration="5919000" />
+      <workItem from="1635146958107" duration="9026000" />
     </task>
     <servers />
   </component>
