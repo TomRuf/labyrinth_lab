@@ -2000,6 +2000,7 @@ canvas.onmousemove = function (event) {
             let robotIndex = getIndexOfRobot(selectedRobotId);
             let outputIndex = getIndexOfOutput(robots[robotIndex], posX, posY); // check if there's a path
 
+
             if (outputIndex !== null) {
                 positionToShowIndex = outputIndex;
                 if (selectedOutput !== null) selectedOutput.setAttribute("class", "output-wrapper"); // reset old output
@@ -2032,8 +2033,7 @@ canvas.onmouseleave = function () {
 
 function getIndexOfOutput(robot, posX, posY) {
 
-    for (let i = 0; i < robot.path.length - 1; i++) {
-
+    for (let i = robot.path.length-2; i >= 0; i--) {
         let pathX = Math.floor(robot.path[i].x / step);
         let pathY = Math.floor(robot.path[i].y / step);
 
