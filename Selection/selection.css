@@ -42,17 +42,19 @@ body {
     font-size: xx-large;
 }
 
-.delete-warning {
-    font-size: 40px;
-    color: var(--red);
-    position: relative;
-    margin-top: 20px;
-}
-
 .delete-warning-circle {
     font-size: 80px;
     color: var(--red);
-    margin: -70px auto 0;
+    position: relative;
+}
+
+.delete-warning-x {
+    font-size: 40px;
+    color: var(--red);
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .content {

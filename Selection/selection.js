@@ -616,14 +616,15 @@ function showRobotModal(id) {
             extraInfo = "Legt einen Faden entlang seines Weges und entscheidet anhand dessen welche Stellen des Labyrinths schon bekannt sind.";
             inner = `<pre><code>
 1 Solange Ziel nicht erreicht
-2     falls Sackgasse oder Ariadnefaden quert Kreuzung
-3         drehe um und gehe Gang zurück (und wickle auf)
-4     sonst
-5         gehe 1. Gang von links 
-6         falls Ariadnefaden im Gang
-7             wickle auf 
-8         sonst
-9             lege Ariadnefaden
+2     folge Pfad bis Ende
+3     falls Sackgasse oder Ariadnefaden quert Kreuzung
+4         drehe um und gehe Gang zurück (und wickle auf)
+5     sonst
+6         gehe 1. Gang von links 
+7         falls Ariadnefaden im Gang
+8             wickle auf 
+9         sonst
+10            lege Ariadnefaden
     </code></pre>`;
 
             break;
@@ -648,7 +649,7 @@ function showRobotModal(id) {
 
         case '5':
             title = robotNames[id];
-            extraInfo = "Wählt den nächsten Pfad bei Kreuzungen zufällig.";
+            extraInfo = "Wählt den Pfad bei Kreuzungen zufällig.";
             inner = `<pre><code>
 1 Wiederhole bis Ausgang erreicht
 2    folge Pfad bis Ende

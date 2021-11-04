@@ -409,7 +409,8 @@ String.prototype.convertToRGB = function () {
 }
 
 
-const directionArrows = ['\u2B9D', '\u2B9C', '\u2B9F', '\u2B9E']; // [up, left, down, right]
+// const directionArrows = ['⮝', '⮜', '⮟', '⮞']; // do not work for safari
+const directionArrows = ['ᐱ', 'ᐸ', 'ᐯ', 'ᐳ']; // [up, left, down, right]
 /**
  * draws the robot
  */
@@ -444,6 +445,7 @@ function drawRobot(robot, showPosition, reset) {
     // draw direction-arrow
     let direction = computeDirectionNumber(robot.currentDirection);
     ctx.fillText(directionArrows[direction], posX, posY + radius / 3);
+    // todo: alternative arrows for safari
 }
 
 function drawPastPosition(robot) {
@@ -799,15 +801,15 @@ function showRobotModal(id) {
             extraInfo = "Legt einen Faden entlang seines Weges und entscheidet anhand dessen welche Stellen des Labyrinths schon bekannt sind.";
             inner = `<pre><code>
 1 Solange Ziel nicht erreicht
-2     falls Sackgasse oder Ariadnefaden quert Kreuzung
-3         drehe um und gehe Gang zurück (und wickle auf)
-4     sonst
-5         gehe 1. Gang von links
-6         falls Ariadnefaden im Gang
-7             wickle auf 
-8         sonst
-9             lege Ariadnefaden
-
+2     folge Pfad bis Ende
+3     falls Sackgasse oder Ariadnefaden quert Kreuzung
+4         drehe um und gehe Gang zurück (und wickle auf)
+5     sonst
+6         gehe 1. Gang von links 
+7         falls Ariadnefaden im Gang
+8             wickle auf 
+9         sonst
+10            lege Ariadnefaden
     </code></pre>`;
 
             break;
@@ -833,7 +835,7 @@ function showRobotModal(id) {
 
         case '5':
             title = robotNames[id];
-            extraInfo = "Wählt den nächsten Pfad bei Kreuzungen zufällig.";
+            extraInfo = "Wählt den Pfad bei Kreuzungen zufällig.";
             inner = `<pre><code>
 1 Wiederhole bis Ausgang erreicht
 2    folge Pfad bis Ende
@@ -1653,6 +1655,7 @@ function ariadne(robot) {
             pushToOutputWrapper(7, "lege Ariadne-Faden", robot.id, 1, true);
         }
     } else {
+        pushToOutputWrapper(0, "folge Pfad", robot.id, 3, false);
         // falls Sackgasse oder Ariadnefaden quert Kreuzung
         if (possibleWays.length === 0 || checkIfThreadCrossing(newPos.posX, newPos.posY, possibleWays)) {
 
