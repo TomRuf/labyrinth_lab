@@ -378,9 +378,9 @@ function drawPath(robot, showPosition, reset) {
 }
 
 /**
- * draws an path from the past up to a certain index
+ * draws an path from the past up to a certain Index
  * @param robot
- * @param index the index of the past position
+ * @param index the Index of the past position
  */
 function drawPastPath(robot, index) {
 

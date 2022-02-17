@@ -2,32 +2,43 @@
     --text: #181818;
     --primary: #00467f;
     --secondary: #1F9AFF;
-    --white: #ffffff;
-    --greyLight-1: #e4ebf5;
-    --greyLight-2: #c8d0e7;
-    --darkGrey: #808080;
-    --lightGrey: #D3D3D3;
     --red: #f15e5e;
-    --shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2),
-    -0.2rem -0.2rem 0.5rem var(--white);
-    --inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
-    inset -0.2rem -0.2rem 0.5rem var(--white);
-    --light-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    --shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+
+    /*style 1*/
+    /*--background: rgb(247, 247, 247);*/
+    /*--foreground: white;*/
+
+    /*style 2*/
+    /*--background: #e4ebf5;*/
+    /*--foreground: #e4ebf5;*/
+
+    /*style 3*/
+    --background: #e4ebf5;
+    --foreground: #EBF2FC;
 }
 
 body {
     font-family: "Helvetica Neue", Arial, sans-serif;
-    background: var(--greyLight-1);
+    background: var(--background);
+}
+
+.logo {
+    height: 200px;
+    margin: 0 auto;
 }
 
 .title {
-    font-size: xxx-large;
+    font-size: xx-large;
     color: var(--text);
+    margin-top: 10px;
+    /*font-style: italic;*/
 }
 
 .title2 {
     color: var(--text);
     font-size: large;
+    font-style: italic;
 }
 
 .confirm-modal-text {
@@ -80,13 +91,13 @@ body {
 }
 
 .grid-item {
-    margin: 10px;
+    margin: 12px;
     height: 190px;
     width: 190px;
     padding: 5px;
     border-radius: 0.317rem;
-    background: var(--greyLight-1);
-    box-shadow: var(--inner-shadow);
+    background: var(--foreground);
+    box-shadow: var(--shadow);
     position: relative;
     user-select: None;
 }
@@ -128,7 +139,7 @@ canvas.game {
     border: 0;
     border-radius: 0.317rem;
     background-color: var(--primary);
-    color: var(--white);
+    color: white;
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
@@ -155,7 +166,7 @@ canvas.game {
     height: 30px;
     border-radius: 1rem;
     background: var(--red);
-    color: var(--white);
+    color: white;
     border: 0;
     position: absolute;
     top: -10px;
@@ -204,7 +215,7 @@ canvas.game {
 }
 
 .confirm-modal-content {
-    background-color: var(--greyLight-1);
+    background-color: var(--background);
     margin: 0 auto;
     padding: 30px;
     width: 400px;

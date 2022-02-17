@@ -1,0 +1,71 @@
+:root {
+    --text: #181818;
+    --primary: #00467f;
+    --secondary: #1F9AFF;
+    --shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+
+    /*style 1*/
+    /*--background: rgb(247, 247, 247);*/
+    /*--foreground: white;*/
+
+    /*style 2*/
+    /*--background: #e4ebf5;*/
+    /*--foreground: #e4ebf5;*/
+
+    /*style 3*/
+    --background: #e4ebf5;
+    --foreground: #EBF2FC;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: var(--background);
+    margin: 0;
+}
+
+.logo {
+    height: 200px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: xx-large;
+    color: var(--text);
+    margin-top: 10px;
+}
+
+.content {
+    margin-top: 100px;
+    text-align: center;
+    padding: 50px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: center;
+}
+
+.mode-element {
+    background: var(--foreground);
+    width: 300px;
+    height: 200px;
+    margin: 20px;
+    border-radius: 0.317rem;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+    padding: 20px;
+}
+
+.mode-element:hover {
+    opacity: 0.85;
+}
+
+.icon {
+    margin: 40px;
+}
+
+.mode-description {
+    font-size: medium;
+    color: grey;
+}

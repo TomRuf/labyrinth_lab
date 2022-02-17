@@ -429,7 +429,7 @@ function confirmDeleteMap(id) {
     mapToDelete = id;
 
     let title = maps[getIndexOf(id)].mapTitle;
-    document.getElementById("confirm-modal-text").innerHTML = "Do you really want to delete map: <b>" + title + "</b>? This process cannot be undone.";
+    document.getElementById("confirm-modal-text").innerHTML = `Bist du dir sicher dass du <b>"${title}"</b> löschen willst? Dieser Vorgang kann nicht rückgängig gemacht werden.`;
 }
 
 /**
@@ -470,7 +470,7 @@ function selectMap(id) {
     // change old one
     if(selectedMap !== null) {
         item = document.getElementById("map-" + selectedMap);
-        item.style.boxShadow = "inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem #ffffff";
+        item.style.boxShadow = "rgba(0, 0, 0, 0.1) 0px 0px 10px";
 
         let editButton = document.getElementById("edit-button-" + selectedMap);
         let deleteButton = document.getElementById("delete-button-" + selectedMap);
@@ -525,8 +525,9 @@ function selectRobot(id) {
         if (index > -1) {
             selectedRobots.splice(index, 1);
         }
-        item.style.boxShadow = "inset 0.2rem 0.2rem 0.5rem #c8d0e7, inset -0.2rem -0.2rem 0.5rem #ffffff";
+
         item.style.opacity = "0.4";
+        item.style.boxShadow = "rgba(0, 0, 0, 0.1) 0px 0px 10px";
 
         // if no robot selected: make all visible
         if (selectedRobots.length === 0) {
@@ -550,7 +551,7 @@ function selectRobot(id) {
         item.style.boxShadow = "0.8rem 0.8rem 0.8rem #c8d0e7, -0.4rem -0.4rem 0.9rem #ffffff";
 
         const elements = document.getElementsByClassName("robot-item");
-        for (let i = 1; i < elements.length+1; i++) {
+        for (let i = 1; i < elements.length + 1; i++) {
             if(selectedRobots.includes(""+i)){
                 continue;
             }
@@ -763,7 +764,7 @@ startButton.onclick = function() {
 }
 
 /**
- * returns the index of a map-object by its id
+ * returns the Index of a map-object by its id
  * @param id
  * @returns {number}
  */

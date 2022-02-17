@@ -320,4 +320,8 @@ function getIndexOf(id) {
     }
 }
 
+function goToPreviousPage() {
+    window.history.back();
+}
+
 init();

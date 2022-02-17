@@ -2,13 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3673f53d-4749-45a7-888f-8414755c5d3f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Index/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Index/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Index/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Selection/creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/creator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.css" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.html" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Selection/selection.js" beforeDir="false" afterPath="$PROJECT_DIR$/Selection/selection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulation/simulation.css" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Simulation/simulation.html" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Simulation/simulation.js" beforeDir="false" afterPath="$PROJECT_DIR$/Simulation/simulation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start/start.css" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Start/start.html" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Start/start.js" beforeDir="false" afterPath="$PROJECT_DIR$/Start/start.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -38,7 +46,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../face_detector_V2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
@@ -46,6 +54,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab" />
+      <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\index" />
       <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\img" />
       <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\views" />
     </key>
@@ -53,8 +63,8 @@
       <recent name="C:\Users\Tom\Desktop\Labyrinth Lab\labyrinth_lab\img" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.start.html">
-    <configuration name="labyrinth.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/labyrinth.html" useBuiltInWebServerPort="true">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/index/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <configuration name="selection.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Selection/selection.html" useBuiltInWebServerPort="true">
@@ -63,19 +73,19 @@
     <configuration name="simulation.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Simulation/simulation.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
-    <configuration name="start.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Start/start.html" useBuiltInWebServerPort="true">
+    <configuration name="start.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Start2.0/start.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
-    <configuration name="test.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Selection/test.html" useBuiltInWebServerPort="true">
+    <configuration name="start.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/labyrinth_lab/Start/start.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="JavaScript Debug.start.html" />
-        <item itemvalue="JavaScript Debug.selection.html" />
         <item itemvalue="JavaScript Debug.simulation.html" />
-        <item itemvalue="JavaScript Debug.labyrinth.html (1)" />
-        <item itemvalue="JavaScript Debug.test.html" />
+        <item itemvalue="JavaScript Debug.selection.html" />
+        <item itemvalue="JavaScript Debug.start.html (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -188,7 +198,14 @@
       <workItem from="1635923405188" duration="1271000" />
       <workItem from="1636012864828" duration="1689000" />
       <workItem from="1636029053078" duration="4681000" />
-      <workItem from="1636037966017" duration="7541000" />
+      <workItem from="1636037966017" duration="8471000" />
+      <workItem from="1639666869668" duration="626000" />
+      <workItem from="1640081089275" duration="21000" />
+      <workItem from="1643731640981" duration="3248000" />
+      <workItem from="1643888329956" duration="18000" />
+      <workItem from="1644961175644" duration="4635000" />
+      <workItem from="1644999459274" duration="1533000" />
+      <workItem from="1645109729225" duration="13485000" />
     </task>
     <servers />
   </component>

@@ -1,22 +1,43 @@
+/*:root {*/
+/*    --text: #181818;*/
+/*    --primary: #00467f;*/
+/*    --secondary: #1F9AFF;*/
+/*    --white: #ffffff;*/
+/*    --greyLight-1: #e4ebf5;*/
+/*    --greyLight-2: #c8d0e7;*/
+/*    --shadow: 0.8rem 0.8rem 0.8rem var(--greyLight-2),*/
+/*    -0.8rem -0.8rem 0.8rem var(--white);*/
+/*    --inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),*/
+/*    inset -0.2rem -0.2rem 0.5rem var(--white);*/
+/*    --light-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;*/
+/*    --darkGrey: #808080;*/
+/*    --lightGrey: #D3D3D3;*/
+/*}*/
+
 :root {
     --text: #181818;
     --primary: #00467f;
     --secondary: #1F9AFF;
-    --white: #ffffff;
-    --greyLight-1: #e4ebf5;
-    --greyLight-2: #c8d0e7;
-    --shadow: 0.8rem 0.8rem 0.8rem var(--greyLight-2),
-    -0.8rem -0.8rem 0.8rem var(--white);
-    --inner-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2),
-    inset -0.2rem -0.2rem 0.5rem var(--white);
-    --light-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-    --darkGrey: #808080;
     --lightGrey: #D3D3D3;
+    --darkGrey: #808080;
+    --shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+
+    /*style 1*/
+    /*--background: rgb(247, 247, 247);*/
+    /*--foreground: white;*/
+
+    /*style 2*/
+    /*--background: #e4ebf5;*/
+    /*--foreground: #e4ebf5;*/
+
+    /*style 3*/
+    --background: #e4ebf5;
+    --foreground: #EBF2FC;
 }
 
 body {
     font-family: "Helvetica Neue", Arial, sans-serif;
-    background: var(--greyLight-1);
+    background: var(--background);
 }
 
 .canvas-wrapper {
@@ -36,18 +57,19 @@ body {
 }
 
 .screen-wrapper {
-    padding: 20px;
+    padding: 10px;
     background: var(--darkGrey);
     border-radius: 0.317rem;
-    margin-top: -250px;
+    margin-top: -260px;
     position: absolute;
+    /*box-shadow: var(--shadow);*/
 }
 
 .output-screen {
-    width: 290px;
+    width: 310px;
     /*height: 790px;*/
-    height: 410px;
-    background: black;
+    height: 440px;
+    background: var(--text);
     margin: 0 auto;
     overflow: auto;
     border-radius: 0.317rem;
@@ -80,7 +102,7 @@ body {
     border: 0;
     border-radius: 0.317rem;
     background-color: var(--primary);
-    color: var(--white);
+    color: white;
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
@@ -214,7 +236,7 @@ body {
 
 .modal-table-item-right {
     min-width: 400px;
-    background: var(--greyLight-1);
+    background: var(--background);
     margin: auto auto auto 20px;
     border-radius: 0.317rem;
     padding: 20px;
@@ -263,11 +285,11 @@ code {
 .algorithm {
     margin-top: 10px;
     background: var(--text);
-    color: var(--white);
+    color: white;
     text-align: left;
     font-size: 17px;
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 0.317rem;
-    box-shadow: var(--light-shadow);
+    box-shadow: var(--shadow);
 }

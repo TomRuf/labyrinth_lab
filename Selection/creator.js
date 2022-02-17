@@ -19,7 +19,7 @@ const darkGrey = "#808080",
     lightGrey = "#D3D3D3";
 
 // important data
-let mapTitle = "New Labyrinth";
+let mapTitle = "Neues Labyrinth";
 let startPos = null;
 let finishPos = null;
 let editMapId = null;
@@ -122,9 +122,9 @@ function resetCreator() {
 
     document.getElementById("map-name").value = "";
     document.getElementById("size-slider").value = 11;
-    mapName.setAttribute("placeholder", "New Labyrinth");
+    mapName.setAttribute("placeholder", "Neues Labyrinth");
 
-    mapTitle = "New Labyrinth";
+    mapTitle = "Neues Labyrinth";
 
     resetDragButtons();
     createMap(size);
