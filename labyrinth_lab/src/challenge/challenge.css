@@ -1,0 +1,257 @@
+:root {
+    --text: #181818;
+    --primary: #00467f;
+    --secondary: #1F9AFF;
+    --red: #f15e5e;
+    --shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px;
+
+    /*style 1*/
+    /*--background: rgb(247, 247, 247);*/
+    /*--foreground: white;*/
+
+    /*style 2*/
+    /*--background: #e4ebf5;*/
+    /*--foreground: #e4ebf5;*/
+
+    /*style 3*/
+    --background: #e4ebf5;
+    --foreground: #EBF2FC;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: var(--background);
+    margin: 0;
+}
+
+.logo {
+    height: 200px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: xx-large;
+    color: var(--text);
+    margin-top: 10px;
+    /*font-style: italic;*/
+}
+
+.title2 {
+    color: var(--text);
+    font-size: large;
+    font-style: italic;
+}
+
+.confirm-modal-text {
+    color: var(--text);
+    font-size: xx-large;
+}
+
+/*.delete-warning-circle {*/
+/*    font-size: 80px;*/
+/*    color: var(--red);*/
+/*    position: relative;*/
+/*}*/
+
+/*.delete-warning-x {*/
+/*    font-size: 40px;*/
+/*    color: var(--red);*/
+/*    position: absolute;*/
+/*    top: 45%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -50%);*/
+/*}*/
+
+.title-sm {
+    color: var(--text);
+    margin: 10px 5px 5px;
+}
+
+.content {
+    text-align: center;
+    padding: 100px 50px 50px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    justify-content: center;
+}
+
+.grid-item-unlocked {
+    margin: 12px;
+    height: 190px;
+    width: 190px;
+    padding: 5px;
+    border-radius: 0.317rem;
+    background: var(--foreground);
+    box-shadow: var(--shadow);
+    position: relative;
+    user-select: None;
+}
+
+.grid-item-unlocked:hover {
+    opacity: 0.85 !important;
+    cursor: pointer;
+}
+
+.grid-item-locked {
+    margin: 12px;
+    height: 190px;
+    width: 190px;
+    padding: 5px;
+    border-radius: 0.317rem;
+    background: var(--foreground);
+    box-shadow: var(--shadow);
+    position: relative;
+    user-select: None;
+    opacity: 0.5;
+}
+
+canvas.game {
+    border: 5px solid rgba(0,0,0,0.1);
+}
+
+.robot-img {
+    height: 70px;
+    width: 50px;
+    position: absolute;
+    bottom: 10px;
+}
+
+.right-0 {
+    right: 10px;
+}
+
+.right-1 {
+    right: 20px;
+}
+
+.right-2 {
+    right: 30px;
+}
+
+/*------------------------------------------------*/
+/*                   BUTTONS                      */
+/*------------------------------------------------*/
+
+.button {
+    padding: 0.75rem 1rem;
+    border: 0;
+    border-radius: 0.317rem;
+    background-color: var(--primary);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.button:hover {
+    opacity: 0.85;
+}
+
+.button:active {
+    box-shadow: inset 0 3px 4px hsla(0, 0%, 0%, 0.2);
+}
+
+.button:focus {
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.delete-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 1rem;
+    background: var(--red);
+    color: white;
+    border: 0;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: none;
+    font-weight: 100;
+    padding: 0;
+}
+
+.add-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+
+    font-weight: 500;
+    font-size: x-large;
+    box-shadow: none;
+    margin: auto auto;
+}
+
+.button-div {
+    margin: 10px;
+    height: 210px;
+    width: 210px;
+    display: flex;
+    align-items: center;
+}
+
+.repeat-button {
+    display: none;
+    margin: 20px auto;
+}
+
+.confirm-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.5);
+}
+
+.confirm-modal-content {
+    background-color: var(--background);
+    margin: 0 auto;
+    padding: 30px;
+    width: 400px;
+    border-radius: 0.317rem;
+    text-align: center;
+    position: relative;
+    top: 30%;
+    transform: translateY(-50%);
+}
+
+.confirm-buttons {
+    margin-top: 20px;
+    text-align: unset;
+    height: 50px;
+}
+
+.back-button {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.icon {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    width: 40px;
+}
+
+.description {
+    font-size: small;
+    color: grey;
+}
+
+.completed-mark {
+    position: absolute;
+    top: 160px;
+    right: 10px;
+}

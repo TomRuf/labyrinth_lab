@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="labor.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Labyrinth Lab</title>
+</head>
+<body>
+<button class="button back-button" onclick="goToPreviousPage()">&#8592; back</button>
+    <div class="content">
+        <h1 class="title">- LABOR -</h1>
+        <h2 class="title2">vergangene Experimente:</h2>
+        <div id="grid-container" class="grid-container">
+            <div class="button-div">
+                <button id="createNewExperiment" class="grid-item button add-button" onclick="startNewExperiment()">
+                    &#43;
+                </button>
+            </div>
+        </div>
+        <button id="repeat-button" class="button repeat-button" onclick="repeatExperiment()">repeat experiment</button>
+    </div>
+
+<div id="confirm-modal" class="confirm-modal">
+    <div id="confirm-modal-content" class="confirm-modal-content">
+        <img src="../../img/cross.png" class="modal-img">
+        <p class="confirm-modal-text">Experiment löschen?</p>
+        <p id="confirm-modal-text" class="text"></p>
+        <div class="confirm-buttons">
+            <button class="button cancel" onclick="closeConfirmModal()">abbrechen</button>
+            <button class="button delete" onclick="deleteExp()">löschen</button>
+        </div>
+    </div>
+</div>
+
+<script src="labor.js" type="text/javascript"></script>
+
+</body>
+</html>
+
+
+
+

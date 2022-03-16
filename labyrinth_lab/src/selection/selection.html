@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="selection.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Labyrinth Lab</title>
+</head>
+<body>
+
+<button class="button back-button" onclick="goToPreviousPage()">&#8592; back</button>
+
+<div class="content">
+
+    <input class="input" type="text" id="experiment-name" maxlength="12" placeholder="EXPERIMENT XY"/>
+
+    <div id="table" class="table">
+        <div class="table-item">
+            <h2 class="text">- LABYRINTH -</h2>
+            <div id="map-grid" class="grid-container"></div>
+        </div>
+        <div class="table-item">
+            <h2 class="text">- ROBOTER -</h2>
+            <div id="robot-grid" class="robot-grid"></div>
+        </div>
+    </div>
+    <button id="start-button" class="button start-button">Start</button>
+</div>
+
+<div id="robot-modal" class="modal">
+    <span id="close-robot-modal" class="close">&#10006;</span>
+    <div class="robot-modal-content">
+
+        <p id="modalTitle" class="modal-title"></p>
+
+        <div id="modal-table" class="modal-table">
+            <div id="modal-table-item-left" class="modal-table-item-left">
+                <img id="modal-robot-img" class="robot-img-lg">
+            </div>
+            <div class="modal-table-item-right">
+                <div class="robot-extra-information">
+                    <div class="text extra-information-title"><b>Beschreibung:</b></div>
+                    <div id="extra-information-text" class="extra-information-text"></div>
+                </div>
+                <div class="robot-algorithm">
+                    <div class="text"><b>Algorithmus:</b></div>
+                    <div id="algorithm-text" class="algorithm"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="creator-modal" class="modal">
+    <span id="close-creator-modal" class="close">&#10006;</span>
+    <div class="modal-content">
+
+            <input class="input creator-input" type="text" id="map-name" maxlength="16" placeholder="Labyrinth title"/>
+            <div id="drag-buttons-box" class="drag-buttons-box">
+                <div class="draggable-start left" id="draggable-start" draggable="true" ondragstart="drag(event)" ondragend="finishedDrag()">S</div>
+                <div class="draggable-finish left" id="draggable-finish" draggable="true" ondragstart="drag(event)" ondragend="finishedDrag()"></div>
+                <button class="button randomize-button right" onclick="createRandomMap()">zufällig</button>
+                <div class="slider-container right">
+                    <input id="size-slider" class="slider" type="range" min="9" step="2" max="25" value="11">
+                </div>
+            </div>
+            <div class="selection-map" id="selection-map"></div>
+
+            <div class="navigation-button-box">
+                <button class="button navigation-button right" onclick="saveMap()">speichern</button>
+            </div>
+
+        <script src="creator.js" type="text/javascript"></script>
+    </div>
+</div>
+
+<div id="confirm-modal" class="confirm-modal">
+    <div id="confirm-modal-content" class="confirm-modal-content">
+        <img src="../../img/cross.png" class="modal-img">
+        <p class="confirm-modal-text">Labyrinth löschen?</p>
+        <p id="confirm-modal-text" class="text"></p>
+        <div class="confirm-buttons">
+            <button class="button cancel" onclick="closeConfirmModal()">abbrechen</button>
+            <button class="button delete" onclick="deleteMap()">löschen</button>
+        </div>
+    </div>
+</div>
+
+<script src="./selection.js" type="text/javascript"></script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="challenge-1.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Labyrinth Lab</title>
+</head>
+<body>
+
+<button class="button back-button" onclick="goToPreviousPage()">&#8592; back</button>
+
+<div class="content">
+    <h1 class="title">- CHALLENGE 1 -</h1>
+
+<div id="challenge-description" class="challenge-description">
+
+    <div id="toggle-description" class="toggle-description">
+        <p class="description-text toggle-description">Beschreibung</p>
+        <button id="toggle-description-button" class="toggle-button">▲</button>
+    </div>
+
+
+    <div class="description-grid-container">
+        <div class="grid-item">
+            <p class="description-text">Der Roboter "Wall" ist so programmiert, dass er stets der rechten Wand folgt. Sein Algorithmus ist wie folgt aufgebaut:</p>
+        </div>
+        <div class="grid-item">
+            <div class="robot-algorithm">
+                <div id="algorithm-text" class="algorithm"><pre><code>
+1 Solange Ziel nicht erreicht
+2     Falls Weg rechts
+3         gehe rechts
+4     Falls Weg geradeaus
+5         gehe geradeaus
+6     Falls Weg links
+7         gehe links
+8     Sonst
+9         drehe dich um
+    </code></pre></div>
+            </div>
+
+        </div>
+    </div>
+    <hr class="partitioning-line">
+    <p class="description-text">Wall startet im Labyrinth unten links. Glaubst du dass er das Ziel erreicht?</p>
+
+    <label class="container">Ja
+        <input id="yes-button" type="radio" name="answer">
+        <span class="checkmark"></span>
+    </label>
+    <label class="container">Nein
+        <input id="no-button" type="radio" name="answer">
+        <span class="checkmark"></span>
+    </label>
+
+    <div class="start-button-wrapper">
+        <button id="start-button" class="button start-button" disabled>Simulation starten</button>
+    </div>
+</div>
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <div class="canvas-wrapper">
+                <canvas id="simulation"></canvas>
+            </div>
+        </div>
+        <div id="grid-item-info" class="grid-item">
+            <div id="robot-grid" class="robot-grid"></div>
+            <div class="screen-wrapper">
+                <div id="output-screen" class="output-screen"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="confirm-modal" class="confirm-modal">
+    <span id="close-confirm-modal" class="close">&#10006;</span>
+    <div id="confirm-modal-content" class="confirm-modal-content">
+        <img id="modal-img" class="modal-img">
+        <p id="confirm-modal-title" class="confirm-modal-text"></p>
+        <p id="confirm-modal-text" class="text"></p>
+        <div class="confirm-buttons">
+            <button id="modal-button-restart" class="button left" onclick="restartChallenge()">neu starten</button>
+            <button id="modal-button-back" class="button right" onclick="goToPreviousPage()">zur Übersicht</button>
+        </div>
+    </div>
+</div>
+
+<script src="../../wall-follower.js" type="text/javascript"></script>
+<script src="../../pledge.js" type="text/javascript"></script>
+<script src="../../map.js" type="text/javascript"></script>
+<script src="challenge-1.js" type="text/javascript"></script>
+</body>
+</html>
